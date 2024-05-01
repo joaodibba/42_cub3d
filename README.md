@@ -23,7 +23,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Authors
 - [**Rajh Phuyal**]() - [**Github**]("https://github.com/rajh-phuyal")
-- [**Joao Miranda**]() - [**Github**]("https://github.com/joaodibba")
+- [**João Miranda**]() - [**Github**]("https://github.com/joaodibba")
 
 ## Acknowledgments
 - [**42**](https://42lisboa.com/)
