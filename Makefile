@@ -1,9 +1,8 @@
 CC			= 	cc
 CFLAGS		=  	-pthread #-Wall -Wextra -Werror 
 RM			= 	rm -f
-NAME		= 	miniRT
-INCLUDES	= 	-I include/ -I Libft/
-SRCS		=   
+NAME		= 	cub3D
+SRC			=   ./2D
 OBJS		= 	$(SRCS:.c=.o)
 
 UNAME := $(shell uname)
@@ -120,12 +119,6 @@ fclean: clean
 	@printf "[$(PUR)$(NAME)$(RESET)] Removing Everything\n"
 	@$(RM) $(NAME)
 	@make fclean -C ./Libft/utils --no-print
-
-upload: $(msg)
-	@read -p "Enter commit message: " msg; \
-	git add .; \
-	git commit -m "$$msg"; \
-	git push --force;
 
 v:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) mini.rt
