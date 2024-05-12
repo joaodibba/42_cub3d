@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:15:19 by rphuyal           #+#    #+#             */
-/*   Updated: 2023/07/25 22:20:28 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/05/12 20:23:09 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,8 @@ char	*get_next_line(int fd);
 void	clear_buffer(char *buffer);
 int		manage_buffer(char *buffer);
 int		create_line(char **line_ptr, char *buffer, size_t size);
+
+void	ft_free_array(char **array);
+size_t	ft_array_len(char **array);
 
 #endif

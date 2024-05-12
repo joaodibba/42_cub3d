@@ -22,7 +22,18 @@ CFLAGS	= #-Wall -Wextra -Werror
 LFT = libft
 MLX = mlx_linux
 
-DIRS = 2D 3D core/controller core/cub core/model core/view entities parsing raycasting textures $(LFT) $(MLX)
+DIRS =	2D \
+		3D \
+		raycasting \
+		core/controller \
+		core/cub \
+		core/model \
+		core/view \
+		core/parsing \
+		entities \
+		$(LFT) \
+		$(MLX)
+
 SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/src/*.c))
 OBJ  = $(SRC:.c=.o)
 

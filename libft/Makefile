@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+         #
+#    By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/02 16:15:26 by rphuyal           #+#    #+#              #
-#    Updated: 2023/07/25 22:00:24 by rphuyal          ###   ########.fr        #
+#    Updated: 2024/05/12 20:22:28 by jalves-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,8 @@ SRC    = strings/ft_atoi.c \
 		t_list/ft_lstmap.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
+		helpers/ft_free_array.c \
+		array/ft_array_len.c
 
 OBJ = $(SRC:.c=.o)
 
