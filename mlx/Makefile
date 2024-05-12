@@ -1,20 +1,29 @@
-#
-#
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gicamerl <gicamerl@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/04/19 19:11:39 by gicamerl          #+#    #+#              #
+#    Updated: 2018/04/27 13:22:16 by gicamerl         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-NOM=libmlx.a
-SRC= mlx_shaders.c mlx_new_window.m mlx_init_loop.m mlx_new_image.m mlx_xpm.c mlx_int_str_to_wordtab.c
-OBJ1=$(SRC:.c=.o)
-OBJ=$(OBJ1:.m=.o)
-CFLAGS=-O2
+# Please use configure script
 
-all: $(NOM)
+all: do_configure
 
-$(NOM):	$(OBJ)
-	ar -r $(NOM) $(OBJ)
-	ranlib $(NOM)
+do_configure:
+	./configure
 
-clean:
-	rm -f $(NOM) $(OBJ) *~
-	rm -f mlx_app
+norme:
+	./configure norme
 
-re: clean all
+clean:	
+	./configure clean
+
+fclean:
+	./configure fclean && rm Makefile.gen
+
+re: fclean all

@@ -29,7 +29,7 @@ OBJ  = $(SRC:.c=.o)
 # MLX Library Configuration
 MLX_FLAGS = -L./$(MLX) -lmlx_Linux -L/usr/lib  -I$(MLX) -lXext -lX11 -lm -lz
 ifeq ($(OS), Darwin)
-	MLX = mlx-mac
+	MLX = mlx
 	MLX_FLAGS = -L./$(MLX) -l$(MLX) -framework OpenGL -framework AppKit
 endif
 
