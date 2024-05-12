@@ -1,3 +1,1 @@
-#include "../inc/raycasting.c"
-
-
+#include "../inc/raycast.h"

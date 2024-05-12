@@ -16,7 +16,7 @@ CUB = cub3D
 
 # Compiler and Flags
 CC      = cc
-CFLAGS	= -pthread # -Wall -Wextra -Werror
+CFLAGS	= #-Wall -Wextra -Werror
 
 # Source directories and files
 LFT = libft
@@ -30,9 +30,9 @@ SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/src/*.c))
 OBJ  = $(SRC:.c=.o)
 
 # MLX Library Configuration
-MLX_FLAGS = -L$(MLX) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+MLX_FLAGS = -L./$(MLX) -l$(MLX) -lXext -lX11 -lm -lz
 ifeq ($(OS), Darwin)
-	MLX_FLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
+	MLX_FLAGS = -L$(MLX) -l$(MLX) -framework OpenGL -framework AppKit
 endif
 
 # Include directories
@@ -48,7 +48,7 @@ logs:
 $(CUB): $(OBJ)
 	@echo "$(GR)Compiling $(LFT)$(RC)"
 	@make -sC $(LFT) > logs/cub3D.log
-	@echo "$(GR)Compiling $(MLX)$(RC)" 
+	@echo "$(GR)Compiling $(MLX)$(RC)"
 #@make -sC $(MLX) 2>&1 > /logs/mlx.log
 	@echo "$(GR)Compiling $(CUB)$(RC)"
 	@$(CC) $(CFLAGS) $(INC) $^ -o $@ $(LFT)/libft.a $(MLX_FLAGS) > logs/cub3D.log

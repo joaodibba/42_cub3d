@@ -50,10 +50,10 @@ int	main(int argc, char **argv)
     if (!initialization())
         return (printf("ERROR: Failed to initialize program!\n"));
 
-    // mlx_hook(win.win, CROSS, 0, &exit_fractal, NULL);
-    // mlx_key_hook(win.win, &key_hooks, NULL);
-    // mlx_mouse_hook(win.win, &mouse_hooks, NULL);
+    mlx_hook(win.win, CROSS, 0, &exit_fractal, NULL);
+    mlx_key_hook(win.win, &key_hooks, NULL);
+    mlx_mouse_hook(win.win, &mouse_hooks, NULL);
     print_menu();
-    // mlx_loop(win.mlx);
+    mlx_loop(win.mlx);
 	return (0);
 }
