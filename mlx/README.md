@@ -1,140 +1,55 @@
-# **MinilibX**
+[![Build](https://github.com/42Paris/minilibx-linux/actions/workflows/ci.yml/badge.svg)](https://github.com/42Paris/minilibx-linux/actions/workflows/ci.yml)
 
-42 (Paris)
+This is the MinilibX, a simple X-Window (X11R6) programming API
+in C, designed for students, suitable for X-beginners.
 
-### **Description**
 
-Simplified **X-Window** (X11R6) programming **API**
-written in **C**, suitable for X-beginners.
+Contents
 
-### **Requirements**
+ - source code in C to create the mlx library
+ - man pages (in man/ directory)
+ - a test program (in test/ directory) is built
+   with the library
+ - a public include file mlx.h
+ - a tiny configure script to generate an appropriate Makefile.gen
 
-+ **gcc**
-+ **X11** library
-+ **XShm** extension
+Requirements for Linux
 
-**MinilibX** only supports **TrueColor visual type**
-(8,15,16,24 or 32 bits depth).
-
-### **Setup**
-
-To compile **MinilibX**, execute:
+ - MinilibX only support TrueColor visual type (8,15,16,24 or 32 bits depth)
+ - gcc
+ - make
+ - X11 include files (package xorg)
+ - XShm extension must be present (package libxext-dev)
+ - Utility functions from BSD systems - development files (package libbsd-dev)
+ - **e.g. _sudo apt-get install gcc make xorg libxext-dev libbsd-dev_ (Debian/Ubuntu)**
+ 
+Requirements for MacOS
+ - [Xquartz](https://www.xquartz.org/)
 
 ```bash
-$ make
+➜  ~ Brew install Xquartz
+➜  ~ reboot
+➜  ~ xeyes # run an hello world X11 app
 ```
 
-The compilation produce `libmlx.a` and `libmlx_$(HOSTTYPE).a` files.
+MlX Color Opacity / Transparency / Alpha (32 bits depth)
+ - 0xFF (fully transparent) or 0x00 (fully opaque)
 
-Alternatively, you can also run the **configure** script to generate the appropriate `Makefile.gen` and the .a files.
+Compile MinilibX
 
-### **Usage**
+ - run ./configure or make
+   both will make a few tests, create Makefile.gen
+   and then automatically run make on this generated Makefile.gen .
+   libmlx.a and libmlx_$(HOSTTYPE).a are created.
+   test/mlx-test binary is also created.
 
-To add the **MinilibX** to your system you can copy:
 
-+ `libmlx.a` in `/usr/local/lib`
-+ `mlx.h` in `/usr/local/include`
-+ `man/man3/mlx*.1` in `/usr/local/man/man3`
+Install MinilibX
 
-### **Notes**
+ - no installation script is provided. You may want to install
+     - libmlx.a and/or libmlx_$(HOSTTYPE).a in /usr/X11/lib or /usr/local/lib
+     - mlx.h in /usr/X11/include or /usr/local/include
+     - man/man3/mlx*.1 in /usr/X11/man/man3 or /usr/local/man/man3
 
-This version detects which operating system you are using to properly compile the library. You can use it under **FreeBSD** and **Linux** distros.
 
-Personal additions to the original version are:
-
-+ Customization of the `Makefile` and the `configure` script
-+ .c and .h files cleaned according to the **42 Norme**
-
-The following `src` files present errors related to the way they were coded. You can ignore them all:
-
-+ **mlx_hook.c**
-
-```text
-Error (line 15): mlx_hook have 5 parameters
-```
-
-+ **mlx_int_param_event.c**
-
-```text
-Error: 8 functions in the file
-Error (line 20, col 0): mlx_int_param_KeyPress not unixcase
-Error (line 27, col 0): mlx_int_param_KeyRelease not unixcase
-Error (line 34, col 0): mlx_int_param_ButtonPress not unixcase
-Error (line 40, col 0): mlx_int_param_ButtonRelease not unixcase
-Error (line 47, col 0): mlx_int_param_MotionNotify not unixcase
-Error (line 53, col 0): mlx_int_param_Expose not unixcase
-Error (line 64, col 7): global named mlx_int_param_event is not well prefixed
-```
-
-+ **mlx_int_str_to_wordtab.c**
-
-```text
-Error (line 68): function mlx_int_str_to_wordtab has 38 lines
-```
-
-+ **mlx_lib_xpm.c**
-
-```text
-Error (line 15): mlx_int_xpm_f_image have 5 parameters
-Error (line 15): function mlx_int_xpm_f_image has 45 lines
-```
-
-+ **mlx_new_window.c**
-
-```text
-Error (line 27): function mlx_new_window has 27 lines
-```
-
-+ **mlx_put_image_to_window.c**
-
-```text
-Error (line 15): mlx_put_image_to_window have 5 parameters
-```
-
-+ **mlx_loop.c**
-
-```text
-Error (line 15, col 14): global named mlx_int_param_event is not well prefixed
-```
-
-+ **mlx_string_put.c**
-
-```text
-Error (line 15): mlx_string_put have 6 parameters
-```
-
-+ **mlx_new_image.c**
-
-```text
-Error (line 21, col 5): mlx_X_error not unixcase
-Error (line 21, col 5): global named mlx_X_error is not well prefixed
-Error (line 34): function mlx_int_new_xshm_image has 67 lines
-Error (line 105): function mlx_int_new_image has 26 lines
-```
-
-+ **mlx_pixel_put.c**
-
-```text
-Error (line 15): mlx_pixel_put have 5 parameters
-```
-
-+ **mlx_xpm.c**
-
-```text
-Error: 9 functions in the file
-Error (line 18): preprocessor block must be followed by one empty line
-Error (line 18): multiline define
-Error (line 98): mlx_int_xpm_set_pixel have 5 parameters
-Error (line 113): function mlx_int_parse_xpm has 135 lines
-Error (line 113, col 0): mlx_int_parse_xpm has 23 variables
-```
-
-### **Credits**
-
-This is a simple optimization based on the remarkable work made
-by **Olivier Crouzet (Ol)**, Head of pedagogy at **42**.
-
-### **BSD License**
-
-This work is licensed under the terms of
-[BSD License](https://opensource.org/licenses/BSD-2-Clause).
+ Olivier CROUZET - 2014-01-06 -
