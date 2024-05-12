@@ -32,7 +32,7 @@ OBJ  = $(SRC:.c=.o)
 # MLX Library Configuration
 MLX_FLAGS = -L./$(MLX) -l$(MLX) -lXext -lX11 -lm -lz
 ifeq ($(OS), Darwin)
-	MLX_FLAGS = -L$(MLX) -l$(MLX) -framework OpenGL -framework AppKit
+	MLX_FLAGS = -L./$(MLX) -l$(MLX) -framework OpenGL -framework AppKit
 endif
 
 # Include directories
