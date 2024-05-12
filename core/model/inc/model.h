@@ -1,7 +1,11 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
 
-#include "../../../mlx/mlx.h"
+#if defined(__APPLE__)
+	#include "../../mlx_macos/mlx.h"
+#else
+	#include "../../mlx_linux/mlx.h"
+#endif
 
 typedef struct s_img {
 	void	*img;

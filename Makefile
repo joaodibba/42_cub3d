@@ -20,7 +20,7 @@ CFLAGS	= #-Wall -Wextra -Werror
 
 # Source directories and files
 LFT = libft
-MLX = mlx
+MLX = mlx_linux
 
 DIRS = 2D 3D core/controller core/cub core/model core/view entities parsing raycasting textures $(LFT) $(MLX)
 SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/src/*.c))
@@ -41,27 +41,30 @@ INC = $(addprefix -I, $(INCLUDES))
 all: $(CUB)
 
 $(CUB): $(OBJ)
-	@echo "$(GR)Compiling $(LFT)$(RC)"
-	@make -sC $(LFT)
-	@echo "$(GR)Compiling $(MLX)$(RC)"
-	@make -sC $(MLX)
-	@echo "$(GR)Compiling $(CUB)$(RC)"
-	@$(CC) $(CFLAGS) $(INC) $^ -o $@ $(LFT)/libft.a $(MLX_FLAGS)
+	@printf "$(BL)Compiling $(LFT)$(RC)\n"
+	@make -sC $(LFT) > /dev/null
+	@printf "$(BL)Compiling $(MLX)$(RC)\n"
+	@make -sC $(MLX) > /dev/null
+	@printf "$(BL)Compiling $(CUB)$(RC)\n"
+	@$(CC) $(CFLAGS) -I$(MLX) $(INC) $^ -o $@ $(LFT)/libft.a $(MLX_FLAGS)
+	@printf  "$(GR)$(CUB) Compiled!$(RC)\n"
 
 %.o: %.c
-	@echo "$(GR)Compiling $< into $@$(RC)"
+	@printf "$(BL)Compiling $< into $@$(RC)\n"
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
 clean:
+	@printf "$(BL)Cleaning .o files$(RC)\n"
 	@rm -f $(OBJ)
-	@make clean -sC $(LFT)
-	@make clean -sC $(MLX)
+	@printf "$(BL)Cleaning $(LFT)$(RC)\n"
+	@make clean -sC $(LFT) > /dev/null
+	@printf "$(BL)Cleaning $(MLX)$(RC)\n"
+	@make clean -sC $(MLX) > /dev/null
 
 fclean: clean
-	@echo "$(BL)Deleting $(CUB) and cleaning libft$(RC)"
+	@printf "$(BL)Cleaning $(CUB)$(RC)\n"
 	@rm -f $(CUB)
-	@make fclean -sC $(LFT)
-	@make clean -sC $(MLX)
+	@make fclean -sC $(LFT) > /dev/null
 
 re: fclean all
 
