@@ -3,6 +3,11 @@
 ** the XFree86 distribution.
 */
 
+struct	s_col_name
+{
+	char	*name;
+	int		color;
+};
 
 struct s_col_name mlx_col_name[] =
 {
