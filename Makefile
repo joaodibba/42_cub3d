@@ -20,18 +20,16 @@ CFLAGS	= #-Wall -Wextra -Werror
 
 # Source directories and files
 LFT = libft
-MLX = mlx-linux
-ifeq ($(OS), Darwin)
-	MLX = mlx-mac
-endif
+MLX = mlx_linux
 
 DIRS = 2D 3D core/controller core/cub core/model core/view entities parsing raycasting textures $(LFT) $(MLX)
 SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/src/*.c))
 OBJ  = $(SRC:.c=.o)
 
 # MLX Library Configuration
-MLX_FLAGS = -L./$(MLX) -l$(MLX) -lXext -lX11 -lm -lz
+MLX_FLAGS = -L./$(MLX) -lmlx_Linux -L/usr/lib  -I$(MLX) -lXext -lX11 -lm -lz
 ifeq ($(OS), Darwin)
+	MLX = mlx-mac
 	MLX_FLAGS = -L./$(MLX) -l$(MLX) -framework OpenGL -framework AppKit
 endif
 

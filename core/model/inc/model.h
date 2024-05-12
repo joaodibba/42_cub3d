@@ -1,7 +1,7 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
 
-#include "../../../mlx-linux/mlx.h"
+#include "../../../mlx_linux/mlx.h"
 
 typedef struct s_img {
 	void	*img;
