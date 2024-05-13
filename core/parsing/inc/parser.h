@@ -9,6 +9,7 @@
 
 #include "../../cub/inc/cub.h"
 #include "../../../libft/libft.h"
+#include "core/model/inc/model.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -26,6 +27,8 @@ bool	parser(char *path, t_window *win, t_map *map);
 // @param map_fd The file descriptor of the map file
 // @param map The map structure to store the parsed map
 bool	parse_configs(int map_fd, t_window *win ,t_map *map);
+
+bool select_color(char key, char *value, t_map *map);
 
 // @brief Parse the map from the file descriptor
 // @param map_fd The file descriptor of the map file

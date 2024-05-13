@@ -1,22 +1,48 @@
 #include "../inc/parser.h"
 
-// @brief Checks if the key is a texture
-// @param key The key to check
-// @return true if the key is a texture, false otherwise
-static bool	is_texture(char *key)
-{
-	return (!ft_strcmp(key, "NO") || !ft_strcmp(key, "SO")
-		|| !ft_strcmp(key, "WE") || !ft_strcmp(key, "EA"));
-}
-
 // @brief Assigns the value to the texture structure
 // @param value The string that value to assign to the texture
 // @param texture The texture structure to assign the value to
 // @return true if the value was assigned successfully, false otherwise
-static bool assign_texture(char *value, t_image *texture)
+
+t_image	assign_texture(void *mlx, char *path)
 {
-	texture->path = ft_strdup(value);
-	if (!texture->path)
+	t_image	img;
+
+	img.img = mlx_xpm_file_to_image(mlx, path, &img.width, &img.height);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
+	img.path = path;
+	return (img);
+}
+
+static bool can_read_file(char *path)
+{
+	int fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (false);
+	close(fd);
+	return (true);
+}
+
+bool select_texture(char *key, char *value, t_window *win, t_map *map)
+{
+	if (!can_read_file(value))
+	{
+		ft_putstr_fd("Error: Failed to read texture file", STDERR_FILENO);
+		ft_putendl_fd(value, STDERR_FILENO);
+		return (false);
+	}
+	if (key == 'NO')
+		map->no = assign_texture(win->mlx, value);
+	else if (key == 'SO')
+		map->so = assign_texture(win->mlx, value);
+	else if (key == 'WE')
+		map->we = assign_texture(win->mlx, value);
+	else if (key == 'EA')
+		map->ea = assign_texture(win->mlx, value);
+	else
 		return (false);
 	return (true);
 }

@@ -43,10 +43,10 @@ typedef struct s_map
 	char	**map;
 	t_color	floor;
 	t_color	ceiling;
-	t_image	*no;
-	t_image	*so;
-	t_image	*we;
-	t_image	*ea;
+	t_image	no;
+	t_image	so;
+	t_image	we;
+	t_image	ea;
 }	t_map;
 
 
