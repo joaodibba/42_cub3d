@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:15:19 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/12 20:23:09 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/05/16 23:50:29 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,16 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 /* prototypes for printf */
 int		ft_putstr(char *str);
-char	*ft_strrev(char *str);
 char	*ft_getintstr(long n);
 int		ft_putcharprintf(char c);
 int		ft_printf(const char *str, ...);
 int		get_hex_len(unsigned long long n);
 char	*ft_gethexstr(unsigned long long num, char *base);
+
+/* prototypes for fprintf */
+int		ft_fprintf(int fd, const char *str, ...);
+int		ft_fputstr(int fd, char *str);
+int		ft_fputcharprintf(int fd, char c);
 
 /* function prototypes for getnextline*/
 size_t	getuntilnl(char *str);
