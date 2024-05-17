@@ -14,6 +14,7 @@
 
 
 int main(void) {
+    t_info   info;
     t_player player;
     t_pixel_col pixel_col;
 
@@ -40,8 +41,12 @@ int main(void) {
     player.plane.x = 0;
     player.plane.y = 0.66;
 
+    // init info
+    info.width = WINDOW_W;
+    info.height = WINDOW_H;
+    info.map = map;
     int pixel_count = -1;
     while (++pixel_count < WINDOW_W) {
-        raycast(map, &player, pixel_count, NULL);
+        raycast(&info, &player, pixel_count);
     }
 }

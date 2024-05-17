@@ -67,7 +67,7 @@ static void	__deltas(t_computes *computes) {
 	computes->delta.y = (guard_y * fabs(1 / computes->ray.y)) + (!guard_y * 1e30);
 }
 
-static void	__pos_and_dir(t_computes *computes, t_player *player, double camera) {
+static void	__pos_dir(t_computes *computes, t_player *player, double camera) {
 
 	// ray starts at the player's position, not the camera
 	// so we need to get the player's position in the map, which is a square
@@ -79,28 +79,16 @@ static void	__pos_and_dir(t_computes *computes, t_player *player, double camera)
 	computes->ray.y = player->dir.y + (player->plane.y * camera);
 }
 
-t_computes *raycast(char **map, t_player *player, int column, t_computes *computes) {
+void	raycast(t_info *info, t_player *player, int column) {
 
 	double		camera;
-	t_computes	*_computes;
+	t_computes	computes;
 
-	_computes = computes;
-	// allocate a compute var if not provided
-	if (!_computes) {
-		_computes = malloc(sizeof(t_computes));
-		if (!_computes) {
-			// TODO: later change it to :
-			// ft_putendl_fd("Memory allocation failure! Aborting.", 2);
-			printf("Memory allocation failure! Aborting.");
-			return (NULL);
-		}
-	}
 	// get where the in the x-cordinate the camera plane is
-	camera = (2 * (column / (double)WINDOW_W)) - 1;
-	__pos_and_dir(_computes, player, camera);
-	__deltas(computes);
-	__sides(computes, player);
-	__dda(_computes, map);
-
-	return _computes;
+	camera = (2 * (column / (double)info->width)) - 1;
+	__pos_dir(&computes, player, camera);
+	__deltas(&computes);
+	__sides(&computes, player);
+	__dda(&computes, info->map);
+	return ;
 }

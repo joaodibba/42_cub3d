@@ -38,6 +38,13 @@ typedef struct s_vec_double
     double	y;
 } t_vec_double;
 
+typedef struct s_info
+{
+    int     width;
+    int     height;
+    char    **map;
+} t_info;
+
 typedef struct s_player
 {
     t_vec_double	pos;
@@ -67,7 +74,7 @@ typedef struct s_pixel_col
 
 // function defination
 // TODO: change char **map to a t_map that contains char **map and int width and int height
-t_computes *raycast(char **map, t_player *player, int column, t_computes *computes);
+void    raycast(t_info *info, t_player *player, int column);
 
 
 #endif
