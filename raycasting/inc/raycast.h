@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:37:39 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/17 11:26:44 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/05/17 11:30:15 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ typedef struct s_player
 typedef struct s_computes {
     int             side;
     bool            hit;
+    double          wall;
 	t_vec_double	ray;
 	t_cordinates    map;
     t_cordinates    step;
 	t_vec_double	delta;
-    t_
 	t_vec_double	side_dist;
 } t_computes;
 
