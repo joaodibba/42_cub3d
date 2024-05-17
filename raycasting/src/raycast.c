@@ -6,13 +6,13 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/17 01:01:15 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/05/17 11:09:32 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/raycast.h"
 
-static void __dda(t_computes *computes, char **map) {
+static void __dda(t_computes *computes, int **map) {
 
 	computes->hit = false;
 	while (true) {
@@ -79,7 +79,7 @@ static void	__pos_dir(t_computes *computes, t_player *player, double camera) {
 	computes->ray.y = player->dir.y + (player->plane.y * camera);
 }
 
-void	raycast(t_info *info, t_player *player, int column) {
+void	raycast(int column, t_info *info, t_player *player) {
 
 	double		camera;
 	t_computes	computes;
@@ -89,6 +89,8 @@ void	raycast(t_info *info, t_player *player, int column) {
 	__pos_dir(&computes, player, camera);
 	__deltas(&computes);
 	__sides(&computes, player);
+	__log_computes(&computes);
 	__dda(&computes, info->map);
+	__log_results(&computes);
 	return ;
 }

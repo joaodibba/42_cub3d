@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:37:39 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/17 01:02:36 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/05/17 11:26:44 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_info
 {
     int     width;
     int     height;
-    char    **map;
+    int     **map;
 } t_info;
 
 typedef struct s_player
@@ -59,6 +59,7 @@ typedef struct s_computes {
 	t_cordinates    map;
     t_cordinates    step;
 	t_vec_double	delta;
+    t_
 	t_vec_double	side_dist;
 } t_computes;
 
@@ -73,8 +74,11 @@ typedef struct s_pixel_col
 
 
 // function defination
-// TODO: change char **map to a t_map that contains char **map and int width and int height
-void    raycast(t_info *info, t_player *player, int column);
+void    raycast(int column, t_info *info, t_player *player);
+
+// loggers
+void __log_computes(t_computes *computes);
+void __log_results(t_computes *computes);
 
 
 #endif
