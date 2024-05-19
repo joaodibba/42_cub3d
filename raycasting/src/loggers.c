@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:07:50 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/17 11:25:56 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/05/20 00:16:30 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void __log_computes(t_computes *computes) {
 	printf("step.y: %d\n", computes->step.y);
 	printf("side_dist.x: %f\n", computes->side_dist.x);
 	printf("side_dist.y: %f\n", computes->side_dist.y);
+	printf("-------------------------\n\n");
 }
 
 void __log_results(t_computes *computes) {
@@ -29,5 +30,10 @@ void __log_results(t_computes *computes) {
 	printf("side: %d\n", computes->side);
 	printf("map.x: %d\n", computes->map.x);
 	printf("map.y: %d\n", computes->map.y);
+	printf("hit: %d\n", computes->hit);
+	printf("dist_to_wall: %f\n", computes->dist_to_wall);
+	printf("start_wall: %d\n", computes->start_wall);
+	printf("end_wall: %d\n", computes->end_wall);
+	printf("wall_height: %d\n", computes->wall_height);
 	printf("-------------------------\n\n");
 }

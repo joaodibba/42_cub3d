@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:37:39 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/17 11:30:15 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/05/20 00:41:49 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,14 @@ typedef struct s_player
     t_vec_double	plane;
 } t_player;
 
+// this is what the raycaster will modify
 typedef struct s_computes {
-    int             side;
     bool            hit;
-    double          wall;
+    int             side;
+    int             end_wall;
+    int             start_wall;
+    int             wall_height;
+    double          dist_to_wall;
 	t_vec_double	ray;
 	t_cordinates    map;
     t_cordinates    step;
@@ -63,18 +67,10 @@ typedef struct s_computes {
 	t_vec_double	side_dist;
 } t_computes;
 
-// this is what the raycaster will modify
-typedef struct s_pixel_col
-{
-    int				side;
-    int				line_height;
-    int				draw_start;
-    int				draw_end;
-} t_pixel_col;
-
 
 // function defination
 void    raycast(int column, t_info *info, t_player *player);
+void    __render_computes(t_computes *computes, int height);
 
 // loggers
 void __log_computes(t_computes *computes);

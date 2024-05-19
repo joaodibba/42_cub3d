@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:37:36 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/17 11:10:53 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/05/20 00:42:44 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static void __print_map(int **map, int width, int height) {
 
 int main(void) {
 
-    int width = S_MAP_W;
-    int height = S_MAP_H;
+    int width = L_MAP_W;
+    int height = L_MAP_H;
 
     int **map = (int **)malloc(width * sizeof(int *));
     for (int i = 0; i < height; i++) {
         map[i] = (int *)malloc(width * sizeof(int));
         for (int j = 0; j < width; j++) {
-            map[i][j] = smallMap[i][j];
+            map[i][j] = largeMap[i][j];
         }
     }
     __print_map(map, width, height);
