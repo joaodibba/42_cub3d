@@ -7,6 +7,9 @@
 	#include "../../mlx_linux/mlx.h"
 #endif
 
+# define TEXTURE_WIDTH 800
+# define TEXTURE_HEIGHT 800
+
 // @brief The image structure
 typedef struct s_img {
 	void	*img; // image identifier
@@ -41,12 +44,12 @@ typedef struct s_color
 typedef struct s_map
 {
 	char	**map;
-	t_color	floor;
-	t_color	ceiling;
-	t_image	no;
-	t_image	so;
-	t_image	we;
-	t_image	ea;
+	t_color	*floor;
+	t_color	*ceiling;
+	t_image	*no;
+	t_image	*so;
+	t_image	*we;
+	t_image	*ea;
 }	t_map;
 
 

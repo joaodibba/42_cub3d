@@ -16,8 +16,8 @@ static bool	guard(int ac, char **av)
 {
     if (ac == 2 && av[0] && av[1])
     	return (true);
-	ft_putendl_fd("Error: Invalid use.", STDERR_FILENO);
-	ft_putendl_fd("Uses: ./cub3D [path/to/map.ber]", STDERR_FILENO);
+	ft_fprintf(STDERR_FILENO, "Error: Invalid use.\n");
+	ft_fprintf(STDERR_FILENO, "Uses: ./cub3D [path/to/map.ber]\n");
 	return (false);
 }
 
@@ -27,13 +27,13 @@ static bool initialization(t_window *win)
 	win->mlx = mlx_init();
 	if (!win->mlx)
 	{
-		ft_putendl_fd("Error: Failed to initialize mlx.", STDERR_FILENO);
+		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize mlx.\n");
 		return (false);
 	}
 	win->win = mlx_new_window(win->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
 	if (!win->win)
 	{
-		ft_putendl_fd("Error: Failed to create window.", STDERR_FILENO);
+		ft_fprintf(STDERR_FILENO, "Error: Failed to create window.\n");
 		return (false);
 	}
     return (true);
