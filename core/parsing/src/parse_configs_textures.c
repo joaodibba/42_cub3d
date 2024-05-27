@@ -28,24 +28,6 @@ t_image	*assign_texture(void *mlx, char *path)
 	return (img);
 }
 
-
-/*
-	@brief Tries to open the file to check if it can be read
-	@param path The path to the file
-	@return true if the file can be read, false otherwise
-*/
-static bool can_read_file(char *path)
-{
-	int fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (false);
-	close(fd);
-	return (true);
-}
-
-
 /*
 	@brief Selects the texture based on the key
 	@param key The key to select the texture

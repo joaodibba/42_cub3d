@@ -100,5 +100,10 @@ bool select_color(char key, char *value, t_map *map)
 			return (false);
 		}
 	}
+	else
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Invalid color key\n");
+		return (false);
+	}
 	return (true);
 }
