@@ -16,7 +16,7 @@ CUB = cub3D
 
 # Compiler and Flags
 CC      = cc
-CFLAGS	= #-Wall -Wextra -Werror
+CFLAGS	= -g #-Wall -Wextra -Werror
 
 # Source directories and files
 LFT = libft

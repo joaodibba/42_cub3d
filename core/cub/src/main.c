@@ -25,15 +25,10 @@ static bool	guard(int ac, char **av)
 static bool initialization(t_window *win) 
 {
 	win->mlx = mlx_init();
-	if (!win->mlx)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize mlx.\n");
-		return (false);
-	}
 	win->win = mlx_new_window(win->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
 	if (!win->win)
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to create window.\n");
+		ft_fprintf(STDERR_FILENO, "Error: mlx initialization failed.\n");
 		return (false);
 	}
     return (true);
@@ -55,7 +50,7 @@ void *exit_cub(void *obj) {
 
 int	main(int argc, char **argv)
 {
-    t_window	win;
+	static t_window	win;
 	t_map		map;
 
     if (!guard(argc, argv) || \
