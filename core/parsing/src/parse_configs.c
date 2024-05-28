@@ -29,7 +29,7 @@ static bool is_color(char *key)
 static bool all_configs_set(t_map *map)
 {
 	if (!map->floor || !map->ceiling || \
-		!map->no || !map->so || \ 
+		!map->no || !map->so || \
 		!map->ea || !map->we)
 		return (false);
 	return (true);
@@ -68,7 +68,7 @@ static bool	parse_line(char *line, t_window *win, t_map *map)
 	key_value = ft_split(line, ' ');
 	if (!key_value)
 		return (false);
-	if (!check_line_format(&key_value))
+	if (!check_line_format(key_value))
 	{
 		ft_free_array(key_value);
 		return (false);
@@ -97,7 +97,7 @@ static bool	parse_line(char *line, t_window *win, t_map *map)
 	return (true);
 }
 
-static bool get_line(int fd, char *line)
+bool get_line(int fd, char *line)
 {
 	line = get_next_line(fd);
 	if (!line)
@@ -112,7 +112,6 @@ bool	parse_configs(int map_fd, t_window *win, t_map *map)
 	// assigns the value to the key in the map structure
 	// if the key is a color, it will convert the value to an integer
 	// if the key is a texture, it will assign the value to the texture path in the map structure
-	int		value_count;
 	char	*line;
 
 	while (get_line(map_fd, &line) == true)
@@ -122,7 +121,6 @@ bool	parse_configs(int map_fd, t_window *win, t_map *map)
 			free(line);
 			return (false);
 		}
-		value_count++;
 		free(line);
 	}
 	if (all_configs_set(&map) != true)

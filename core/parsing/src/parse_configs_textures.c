@@ -19,7 +19,7 @@ t_image	*assign_texture(void *mlx, char *path)
 	img->img = mlx_xpm_file_to_image(mlx, path, &img->width, &img->height);
 	if (img->width > TEXTURE_WIDTH || img->height > TEXTURE_HEIGHT)
 	{
-		ft_fprintf(STDERR_FILENO, "Error: '%s' image Width and Height should be %s and %s respectively.\n", path, atoi(TEXTURE_WIDTH), atoi(TEXTURE_HEIGHT));
+		ft_fprintf(STDERR_FILENO, "Error: '%s' image Width and Height should be %d and %d respectively.\n", path, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 		free(img);
 		return (NULL);
 	}

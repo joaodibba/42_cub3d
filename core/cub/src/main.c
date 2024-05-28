@@ -55,9 +55,8 @@ void *exit_cub(void *obj) {
 
 int	main(int argc, char **argv)
 {
-	char		**map;
     t_window	win;
-	t_map		game_map;
+	t_map		map;
 
     if (!guard(argc, argv) || \
 		!initialization(&win) || \

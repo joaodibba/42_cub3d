@@ -32,7 +32,6 @@ bool parser(char *path, t_window *win, t_map *map)
 		close(map_fd);
 		return (false);
 	}
-	
 	if (!parse_map(map_fd, &(map->map)))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
