@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:37:39 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/01 18:08:02 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/02 15:58:06 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 
 # define SIDE_X 0
 # define SIDE_Y 1
+
+typedef enum e_move_dir
+{
+    TOLEFT,
+    TORIGHT,       
+    FORWARD,
+    BACKWARD
+} t_move_dir;
 
 typedef struct s_cordinates
 {
