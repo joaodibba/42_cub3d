@@ -7,14 +7,13 @@
 #else
 	#include "../../mlx_linux/mlx.h"
 #endif
+
 #include "../../../libft/libft.h"
 
 
 #include "../../model/inc/model.h"
 #include "../../view/inc/view.h"
 #include "../../controller/inc/controller.h"
-
-#include "../../parsing/inc/parser.h"
 
 // Standard libraries
 #include <errno.h>

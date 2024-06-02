@@ -1,9 +1,0 @@
-Parsing flow
-
-Look for all of the six configs:					| Error management:									| 
-- count how many configs were set					| If config is color:								| If config is texture:
-- assign each one of them							| - Check if color has not been assigned before		| - Check if texture file is .xpm
-													|													| - Check if texture has not been assigned before
-													| - Check if color has the three needed values		| - Check if file exists and can be read
-__________________________________________________________________________________________________________________________________________________________
-Read the map:

@@ -5,6 +5,7 @@
 	#include "../../mlx_macos/mlx.h"
 #else
 	#include "../../mlx_linux/mlx.h"
+	#include "stdint.h"
 #endif
 
 # define TEXTURE_WIDTH 800
@@ -35,9 +36,9 @@ typedef struct s_window
 // @brief The color structure
 typedef struct s_color
 {
-	u_int8_t	red;
-	u_int8_t	green;
-	u_int8_t	blue;
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
 }	t_color;
 
 // @brief The map structure

@@ -33,25 +33,53 @@ static bool initialization(t_window *win)
     return (true);
 }
 
-void *key_hooks(int key_pressed, void *obj) 
+int	key_press(int key, t_controller *ctrl) 
 {
-    return (NULL);
+	if (key == ESC)
+		ctrl->game_over = true;
+	if (key == UP || key == W)
+		ctrl->mv_fw = true;
+	if (key == DOWN || key == S)
+		ctrl->mv_bw = true;
+	if (key == LEFT || key == A)
+		ctrl->mv_lf = true;
+	if (key == RIGHT || key == D)
+		ctrl->mv_rt = true;
+    return (0);
 }
 
-void *mouse_hooks(int x, int y, void *obj) 
+int	key_release(int key, t_controller *ctrl) 
 {
-    return (NULL);
+	if (key == ESC)
+		ctrl->game_over = false;
+	if (key == UP || key == W)
+		ctrl->mv_fw = false;
+	if (key == DOWN || key == S)
+		ctrl->mv_bw = false;
+	if (key == LEFT || key == A)
+		ctrl->mv_lf = false;
+	if (key == RIGHT || key == D)
+		ctrl->mv_rt = false;
+    return (0);
 }
 
-void *exit_cub(void *obj) 
+int	mouse_move(int x, int y, void *obj) 
 {
-    return (NULL);
+    return (0);
+}
+
+int	exit_cub(t_window *win) 
+{
+	ft_fprintf(STDOUT_FILENO, "You exited Cub3D\n");
+	mlx_destroy_window(win->mlx, win->win);
+	exit(0);
 }
 
 int	main(int argc, char **argv)
 {
     t_window	*win;
 	t_map		*map;
+	t_controller *ctrl;
 
 	win = (t_window *)malloc(sizeof(t_window));
 	map = (t_map *)malloc(sizeof(t_map));
@@ -64,12 +92,12 @@ int	main(int argc, char **argv)
 	map->ea = NULL;
 	map->map = NULL;
     if (!guard(argc, argv) || \
-		!initialization(win) || \
-		!parser(argv[1], win, map))
+		!initialization(win))
 		return (2);
-    mlx_hook(win->win, CROSS, 0, &exit_cub, NULL); // mlx hook to exit the program using the red cross button on the window
-    mlx_key_hook(win->win, &key_hooks, NULL); // mlx hook to handle key press events
-    mlx_mouse_hook(win->win, &mouse_hooks, NULL); // mlx hook to handle mouse events
+    mlx_hook(win->win, 17, 0, &exit_cub, win);
+    mlx_hook(win->win, 2, (1L << 0), &key_press, ctrl);
+	mlx_hook(win->win, 3, (1L << 1), &key_release, ctrl);
+	mlx_hook(win->win, 6, (1L << 6), &mouse_move, ctrl);
     print_menu();
     mlx_loop(win->mlx);
 	return (0);
