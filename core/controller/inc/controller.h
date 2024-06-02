@@ -1,6 +1,18 @@
 #ifndef __CONTROLLER_H__
 # define __CONTROLLER_H__
 
+#include <stdbool.h>
+#include "../../../libft/libft.h"
+
+#ifndef WIN_WIDTH
+	# define WIN_WIDTH 800
+#endif
+
+#ifndef WIN_HEIGHT
+	# define WIN_HEIGHT 600
+#endif
+
+
 # ifdef __APPLE__
 	# define ESC 53
 	# define W 13
@@ -35,5 +47,9 @@ typedef struct s_controller
 	bool    rt_rt;
 	bool    game_over;
 }           t_controller;
+
+int	mouse_move(int x, int y, t_controller *ctrl);
+int	key_release(int key, t_controller *ctrl);
+int	key_press(int key, t_controller *ctrl);
 
 #endif
