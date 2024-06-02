@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "../../../libft/libft.h"
+#include "../../model/inc/model.h"
 
 #ifndef WIN_WIDTH
 	# define WIN_WIDTH 800
@@ -48,8 +49,6 @@ typedef struct s_controller
 	bool    game_over;
 }           t_controller;
 
-int	mouse_move(int x, int y, t_controller *ctrl);
-int	key_release(int key, t_controller *ctrl);
-int	key_press(int key, t_controller *ctrl);
+t_controller init_controller(t_window **win);
 
 #endif

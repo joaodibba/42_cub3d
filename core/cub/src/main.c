@@ -21,9 +21,8 @@ static bool	guard(int ac, char **av)
 	return (false);
 }
 
-static bool initialization(t_window **win, t_map **map, t_controller *ctrl)
+static bool initialization(t_window **win, t_map **map)
 {
-	*ctrl = (t_controller){ .mv_fw = false, .mv_bw = false, .mv_lf = false, .mv_rt = false, .rt_lf = false, .rt_rt = false, .game_over = false };
 	*win = (t_window *)malloc(sizeof(t_window));
 	if (!*win)
 	{
@@ -42,13 +41,6 @@ static bool initialization(t_window **win, t_map **map, t_controller *ctrl)
     return (true);
 }
 
-int	exit_cub(t_window *win) 
-{
-	ft_fprintf(STDOUT_FILENO, "You exited Cub3D\n");
-	mlx_destroy_window(win->mlx, win->win);
-	exit(0);
-}
-
 int	main(int argc, char **argv)
 {
     t_window		*win = NULL;
@@ -56,12 +48,9 @@ int	main(int argc, char **argv)
 	t_controller	ctrl;
 
     if (!guard(argc, argv) || \
-		!initialization(&win, &map, &ctrl))
+		!initialization(&win, &map))
 		return (2);
-    mlx_hook(win->win, 17, 0, &exit_cub, win);
-    mlx_hook(win->win, 2, (1L << 0), &key_press, &ctrl);
-	mlx_hook(win->win, 3, (1L << 1), &key_release, &ctrl);
-	mlx_hook(win->win, 6, (1L << 6), &mouse_move, &ctrl);
+	ctrl = init_controller(&win);
     print_menu();
 	// mlx_loop_hook(win->mlx, &render, win);
     mlx_loop(win->mlx);
