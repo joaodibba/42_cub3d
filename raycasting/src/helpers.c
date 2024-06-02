@@ -6,13 +6,22 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 01:50:46 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/20 00:42:16 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/01 18:07:56 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/raycast.h"
 
-void    __wall_distance(t_computes *computes) {
+void    __rotate_vector(t_vec_double *vec, double angle) {
+
+    double  old_x;
+
+    old_x = vec->x;
+    vec->x = vec->x * cos(angle) - vec->y * sin(angle);
+    vec->y = old_x * sin(angle) + vec->y * cos(angle);
+}
+
+static void    __wall_distance(t_computes *computes) {
 
     if (computes->side == SIDE_X)
         computes->dist_to_wall = computes->side_dist.x - computes->delta.x;

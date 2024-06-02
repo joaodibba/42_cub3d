@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/20 00:17:18 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/05/26 14:41:52 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void	__pos_dir(t_computes *computes, t_player *player, double camera) {
 }
 
 void	raycast(int column, t_info *info, t_player *player) {
-
 	double		camera;
 	t_computes	computes;
 
