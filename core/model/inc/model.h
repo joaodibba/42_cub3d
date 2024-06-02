@@ -35,9 +35,9 @@ typedef struct s_window
 // @brief The color structure
 typedef struct s_color
 {
-	uint8_t	red;
-	uint8_t	green;
-	uint8_t	blue;
+	u_int8_t	red;
+	u_int8_t	green;
+	u_int8_t	blue;
 }	t_color;
 
 // @brief The map structure
