@@ -26,7 +26,7 @@ bool parser(char *path, t_window *win, t_map *map)
 		return (false);
 	}
 	map_fd = open(path, O_RDONLY);
-	if (!parse_configs(map_fd, &win, &map))
+	if (!parse_configs(map_fd, win, map))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse configs. Please check the map file.\n");
 		close(map_fd);

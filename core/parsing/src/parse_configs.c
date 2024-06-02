@@ -35,23 +35,6 @@ static bool all_configs_set(t_map *map)
 	return (true);
 }
 
-
-/*
-	@brief Checks if the line format is correct
-	@param key_value The key value pair
-	@return true if the line format is correct, false otherwise
-*/
-static bool check_line_format(char **key_value)
-{
-	if (ft_array_len(key_value) != 2)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Invalid line format.\n");
-		return (false);
-	}
-	return (true);
-}
-
-
 /*
 	@brief Parses the line and assigns the value to the key in the map structure
 	@param line The line to parse
@@ -59,32 +42,34 @@ static bool check_line_format(char **key_value)
 	@param map The map structure
 	@return true if the line was parsed successfully, false otherwise
 */
+
+
 static bool	parse_line(char *line, t_window *win, t_map *map)
 {
 	char	**key_value;
 	char	*key;
 	char	*value;
 
-	key_value = ft_split(line, ' ');
+	key_value = ft_split(line, '\n');
+	key_value = ft_split(*key_value, ' ');
 	if (!key_value)
 		return (false);
-	if (!check_line_format(key_value))
+	if (ft_array_len(key_value) != 2)
 	{
 		ft_free_array(key_value);
 		return (false);
 	}
 	key = *key_value;
 	value = *(key_value + 1);
-	if (is_texture(key) && !assign_texture(win->mlx, value))
+	if (is_texture(key) && !select_texture(key, value, win, map))
 	{
 		ft_free_array(key_value);
 		return (false);
 	}
-	else if (is_color(key) && !select_color(key[0], value, &map))
+	else if (is_color(key) && !select_color(key[0], value, map))
 	{
 		ft_free_array(key_value);
 		return (false);
-
 	}
 	else if (!is_texture(key) && !is_color(key))
 	{
@@ -97,35 +82,47 @@ static bool	parse_line(char *line, t_window *win, t_map *map)
 	return (true);
 }
 
-bool get_line(int fd, char *line)
+static void remove_nl(char **line)
 {
-	line = get_next_line(fd);
+	int i = 0;
+	while ((*line)[i])
+	{
+		if ((*line)[i] == '\n')
+		{
+			(*line)[i] = '\0';
+			break;
+		}
+		i++;
+	}
+}
+
+bool get_line(int fd, char **line)
+{
+	*line = get_next_line(fd);
 	if (!line)
 		return (false);
+	remove_nl(line);
 	return (true);
-
 }
 
 bool	parse_configs(int map_fd, t_window *win, t_map *map)
 {
-	// Read the file line by line
-	// assigns the value to the key in the map structure
-	// if the key is a color, it will convert the value to an integer
-	// if the key is a texture, it will assign the value to the texture path in the map structure
 	char	*line;
 
 	while (get_line(map_fd, &line) == true)
 	{
 		if (!parse_line(line, win, map))
 		{
+			ft_printf("Error: Failed to parse line: %s\n", line);
 			free(line);
 			return (false);
 		}
 		free(line);
 	}
-	if (all_configs_set(&map) != true)
+	if (all_configs_set(map) != true)
 	{
 		// free allocated stuff
+		ft_fprintf(STDERR_FILENO, "Error: Missing configurations\n");
 		return (false);
 	}
 	return (true);

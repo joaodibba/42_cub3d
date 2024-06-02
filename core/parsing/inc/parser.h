@@ -23,7 +23,7 @@ bool	can_read_file(char *path);
 
 bool	parse_configs(int map_fd, t_window *win ,t_map *map);
 
-t_image	*assign_texture(void *mlx, char *path);
+bool select_texture(char *key, char *value, t_window *win, t_map *map);
 
 bool	select_color(char key, char *value, t_map *map);
 
@@ -35,6 +35,6 @@ bool	is_valid_map_char(char c);
 bool	is_space(char c);
 bool	is_line_empty(char *line);
 
-bool get_line(int fd, char *line);
+bool get_line(int fd, char **line);
 
 #endif
