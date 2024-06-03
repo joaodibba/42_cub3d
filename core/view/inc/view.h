@@ -1,5 +1,5 @@
-#ifndef __VIEW_H__
-# define __VIEW_H__
+#ifndef VIEW_H
+# define VIEW_H
 
 #ifndef WIN_WIDTH
 # define WIN_WIDTH 800

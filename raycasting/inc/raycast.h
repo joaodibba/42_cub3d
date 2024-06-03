@@ -1,5 +1,5 @@
-#ifndef __RAYCASTER_H__
-# define __RAYCASTER_H__
+#ifndef RAYCASTER_H
+# define RAYCASTER_H
 
 # include <math.h>
 

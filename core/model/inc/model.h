@@ -1,7 +1,7 @@
-#ifndef __MODEL_H__
-#define __MODEL_H__
+#ifndef MODEL_H
+#define MODEL_H
 
-#if defined(__APPLE__)
+#ifdef __APPLE__
 	#include "../../mlx_macos/mlx.h"
 #else
 	#include "../../mlx_linux/mlx.h"
@@ -18,7 +18,7 @@
 #endif
 
 // @brief The image structure
-typedef struct s_img {
+typedef struct s_image {
 	void	*img; // image identifier
 	char	*addr; // address where the image is stored in memory
 	char	*path; // path to the image file
@@ -51,6 +51,8 @@ typedef struct s_color
 typedef struct s_map
 {
 	char	**map;
+	size_t	width;
+	size_t	height;
 	t_color	*floor;
 	t_color	*ceiling;
 	t_image	*no;

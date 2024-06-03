@@ -22,7 +22,7 @@ CFLAGS	= -g -fsanitize=address  #-Wall -Wextra -Werror
 LFT = libft
 MLX = mlx_linux
 
-DIRS =	2D \
+DIRS =	minimap \
 		3D \
 		raycasting \
 		core/controller \

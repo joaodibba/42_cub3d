@@ -1,5 +1,5 @@
-#ifndef __CONTROLLER_H__
-# define __CONTROLLER_H__
+#ifndef CONTROLLER_H
+# define CONTROLLER_H
 
 #include <stdbool.h>
 #include "../../../libft/libft.h"
@@ -49,6 +49,6 @@ typedef struct s_controller
 	bool    game_over;
 }           t_controller;
 
-t_controller init_controller(t_window **win);
+t_controller init_controller(t_window *win);
 
 #endif
