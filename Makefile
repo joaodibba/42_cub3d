@@ -55,7 +55,8 @@ $(CUB): $(OBJ)
 	@printf "$(BL)Compiling $(LFT)$(RC)\n"
 	@make -sC $(LFT) > /dev/null
 	@printf "$(BL)Compiling $(MLX)$(RC)\n"
-	@make -sC $(MLX) > /dev/null
+#	> /dev/null
+	@make -sC $(MLX) 2> /dev/null
 	@printf "$(BL)Compiling $(CUB)$(RC)\n"
 	@$(CC) $(CFLAGS) -I$(MLX) $(INC) $^ -o $@ $(LFT)/libft.a $(MLX_FLAGS)
 	@printf  "$(GR)$(CUB) Compiled!$(RC)\n"

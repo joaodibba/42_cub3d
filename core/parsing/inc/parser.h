@@ -17,6 +17,15 @@
 #include <errno.h>
 
 
+#ifndef TEXTURE_WIDTH
+	#define TEXTURE_WIDTH 64
+#endif
+
+#ifndef TEXTURE_HEIGHT
+	#define TEXTURE_HEIGHT 64
+#endif
+
+
 bool	parser(char *path, t_window *win, t_map *map);
 bool	can_read_file(char *path);
 

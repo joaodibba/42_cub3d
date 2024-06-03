@@ -12,6 +12,9 @@
 #include "../../core/view/inc/view.h"
 #include "../../core/controller/inc/controller.h"
 
+# ifndef SQUARE_SIZE
+	#define SQUARE_SIZE 20
+# endif
+
 void	render_2d_map(t_map *map, t_window *window);
-void	draw_square(t_image *img, int x, int y, int size, int color);
 #endif
