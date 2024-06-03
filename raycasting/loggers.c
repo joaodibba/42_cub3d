@@ -6,11 +6,11 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:07:50 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/20 00:16:30 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/03 23:49:36 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/raycast.h"
+#include "../includes/main.h"
 
 void __log_computes(t_computes *computes) {
 	printf("-------COMPUTES-------\n");

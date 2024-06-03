@@ -1,6 +1,6 @@
-#include "../inc/controller.h"
+#include "../../includes/main.h"
 
-static int key_press(int key, t_controller *ctrl) 
+static int key_press(int key, t_controller *ctrl)
 {
     if (key == UP || key == W)
     {
@@ -25,7 +25,7 @@ static int key_press(int key, t_controller *ctrl)
     return (0);
 }
 
-static int key_release(int key, t_controller *ctrl) 
+static int key_release(int key, t_controller *ctrl)
 {
     if (key == UP || key == W)
     {
@@ -50,7 +50,7 @@ static int key_release(int key, t_controller *ctrl)
     return (0);
 }
 
-static int mouse_move(int x, int y, t_controller *ctrl) 
+static int mouse_move(int x, int y, t_controller *ctrl)
 {
     (void)y;  // Unused parameter rotation is only on the x axis
     if (x > 2 * (WIN_WIDTH / 3))
@@ -71,7 +71,7 @@ static int mouse_move(int x, int y, t_controller *ctrl)
     return (0);
 }
 
-int exit_cub(t_window *win) 
+int exit_cub(t_window *win)
 {
     ft_fprintf(STDOUT_FILENO, "You exited Cub3D\n");
     mlx_destroy_window(win->mlx, win->win);

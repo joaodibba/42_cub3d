@@ -2,13 +2,9 @@
 # define RAYCASTER_H
 
 # include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdbool.h>
-# include <unistd.h>
 
 // include stuffs from the model
-# include "../../core/model/inc/model.h"
+# include "model.h"
 
 # define SIDE_X 0
 # define SIDE_Y 1

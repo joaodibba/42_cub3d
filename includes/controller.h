@@ -1,9 +1,8 @@
 #ifndef CONTROLLER_H
 # define CONTROLLER_H
 
-#include <stdbool.h>
-#include "../../../libft/libft.h"
-#include "../../model/inc/model.h"
+# include <stdbool.h>
+# include "./model.h"
 
 #ifndef WIN_WIDTH
 	# define WIN_WIDTH 800

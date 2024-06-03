@@ -6,12 +6,11 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 01:50:46 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/03 20:08:16 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/03 23:49:42 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/raycast.h"
-# include <math.h>
+#include "../includes/main.h"
 
 void    __rotate_vector(t_vec_double *vec, double angle) {
     vec->y = vec->x * sin(angle) + vec->y * cos(angle);

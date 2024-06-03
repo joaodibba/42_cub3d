@@ -22,19 +22,21 @@ CFLAGS	= -g -fsanitize=address  #-Wall -Wextra -Werror
 LFT = libft
 MLX = mlx_linux
 
-DIRS =	minimap \
-		3D \
+INC_DIR = ./includes
+
+DIRS =  core \
+		dimension-2d \
+		dimension-3d \
 		raycasting \
 		core/controller \
-		core/cub \
+		core/main \
 		core/model \
 		core/view \
-		core/parsing \
 		entities \
 		$(LFT) \
 		$(MLX)
 
-SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/src/*.c))
+SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
 OBJ  = $(SRC:.c=.o)
 
 # MLX Library Configuration
@@ -45,7 +47,8 @@ ifeq ($(OS), Darwin)
 endif
 
 # Include directories
-INCLUDES = $(foreach dir, $(DIRS), $(wildcard $(dir)/inc))
+INCLUDES = $(wildcard $(INC_DIR)/inc)
+INCLUDES = $
 INC = $(addprefix -I, $(INCLUDES))
 
 # Main Build Rule
@@ -62,7 +65,7 @@ $(CUB): $(OBJ)
 
 %.o: %.c
 	@printf "$(BL)Compiling $< into $@$(RC)\n"
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
 	@printf "$(BL)Cleaning .o files$(RC)\n"

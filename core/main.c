@@ -1,4 +1,4 @@
-#include "../inc/cub.h"
+#include "../includes/main.h"
 #include <errno.h>
 
 // TODO: later change all printf to ft_printf

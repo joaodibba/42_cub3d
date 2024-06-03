@@ -6,11 +6,11 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/03 20:16:56 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/03 23:49:26 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/raycast.h"
+#include "../includes/main.h"
 
 static void __dda(t_computes *computes, char **map) {
 

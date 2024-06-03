@@ -6,11 +6,11 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 22:09:55 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/02 16:04:53 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/03 23:49:33 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/raycast.h"
+#include "../includes/main.h"
 
 void    move_forward(t_player *player, int **map) {
     int     _x;

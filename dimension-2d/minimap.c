@@ -1,4 +1,4 @@
-#include "../inc/minimap.h"
+#include "../includes/main.h"
 
 #define SQUARE_SIZE 50
 
