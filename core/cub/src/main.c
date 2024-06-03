@@ -1,59 +1,155 @@
 #include "../inc/cub.h"
-
+#include <errno.h>
 
 // TODO: later change all printf to ft_printf
+// ! No need to change printf to ft_printf because printf is allowed in the project
+
 void	print_menu(void)
 {
 	printf("Move Player  : [UP (W) | DOWN (S) | LEFT (A) | RIGHT (D)]\n");
 	printf("Rotate View  : [ARROW LEFT | ARROW RIGHT]\n");
-    printf("Dimension ±  : [R]\n");
+	printf("Dimension ±  : [R]\n");
 	printf("Exit         : [ESC]\n");
 }
 
-bool _valid_map(char *path) {
-    return (true);
-}
-
-bool	guard(int ac, char **av)
+static bool	guard(int ac, char **av)
 {
-    if (ac == 2 && _valid_map(av[1]))
-        return (true);
-
-    printf("Invalid number of arguments!!\n");
-    printf("Uses: ./cub3D [PATH TO MAP]\n");
-    return (false);
+	if (ac == 2 && av[0] && av[1])
+		return (true);
+	ft_fprintf(STDERR_FILENO, "Error: Invalid use.\n");
+	ft_fprintf(STDERR_FILENO, "Usage: ./cub3D [path/to/map.ber]\n");
+	return (false);
 }
 
-bool initialization() {
-    return (true);
-}
-
-void *key_hooks(int key_pressed, void *obj) {
-    return (NULL);
-}
-
-void *mouse_hooks(int x, int y, void *obj) {
-    return (NULL);
-}
-
-void *exit_fractal(void *obj) {
-    return (NULL);
-}
-
-int	main(int argc, char **argv)
+static bool initialization(t_window **win, t_map **map)
 {
-    t_window win;
+	*win = (t_window *)malloc(sizeof(t_window));
+	if (!*win)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for window.\n");
+		return (false);
+	}
+	(*win)->mlx = mlx_init();
+	if (!(*win)->mlx)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize mlx.\n");
+		free(*win);
+		return (false);
+	}
+	(*win)->win = mlx_new_window((*win)->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
+	if (!(*win)->win)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to create window.\n");
+		free(*win);
+		return (false);
+	}
 
-    if (!guard(argc, argv))
-        return (1);
+	*map = (t_map *)malloc(sizeof(t_map));
+	if (!*map)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for map.\n");
+		free(*win);
+		return (false);
+	}
+	**map = (t_map){ .map = NULL, .floor = NULL, .ceiling = NULL, .no = NULL, .so = NULL, .we = NULL, .ea = NULL };
+	(*win)->img = (t_image *)malloc(sizeof(t_image));
+	if (!(*win)->img)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for image.\n");
+		free(*win);
+		free(*map);
+		return (false);
+	}
+	(*win)->img->img = mlx_new_image((*win)->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!(*win)->img->img)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to create image.\n");
+		free(*win);
+		free(*map);
+		free((*win)->img);
+		return (false);
+	}
+	(*win)->img->addr = mlx_get_data_addr((*win)->img->img, &(*win)->img->bpp, &(*win)->img->line_len, &(*win)->img->endian);
+	printf("bpp: %d\n", (*win)->img->bpp);
+	printf("line_len: %d\n", (*win)->img->line_len);
+	printf("endian: %d\n", (*win)->img->endian);
+	if (!(*win)->img->addr)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to get image address.\n");
+		free(*win);
+		free(*map);
+		free((*win)->img);
+		return (false);
+	}
+	(*win)->img->width = WIN_WIDTH;
+	(*win)->img->height = WIN_HEIGHT;
+	return (true);
+}
 
-    if (!initialization())
-        return (printf("ERROR: Failed to initialize program!\n"));
+int render(t_cub *cub)
+{
+	render_2d_map(cub->map, cub->win);
+	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
+	return (0);
+}
 
-    // mlx_hook(win.win, CROSS, 0, &exit_fractal, NULL);
-    // mlx_key_hook(win.win, &key_hooks, NULL);
-    // mlx_mouse_hook(win.win, &mouse_hooks, NULL);
-    print_menu();
-    // mlx_loop(win.mlx);
+#define MAP_WIDTH  16
+#define MAP_HEIGHT 7
+#include <string.h>
+void	init_temp_map(t_map *map)
+{
+    // Allocate memory for the map
+    map->map = (char **)malloc(MAP_HEIGHT * sizeof(char *));
+    if (!map->map)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for map.\n");
+        return;
+    }
+    for (int i = 0; i < MAP_HEIGHT; i++)
+    {
+        map->map[i] = (char *)malloc((MAP_WIDTH + 1) * sizeof(char));
+        if (!map->map[i])
+        {
+            ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for map row %d.\n", i);
+            ft_free_array(map->map);
+            return;
+        }
+    }
+    char _map[MAP_HEIGHT][MAP_WIDTH + 1] = {
+        "111111111",
+        "100000001",
+        "10N111001",
+        "100101001",
+        "100111001",
+        "100000001",
+        "111111111"
+    };
+    for (int i = 0; i < MAP_HEIGHT; i++) {
+       strcpy(map->map[i], _map[i]); }
+    map->width = MAP_WIDTH;
+    map->height = MAP_HEIGHT;
+}
+
+
+int main(int argc, char **argv)
+{
+	t_window		*win = NULL;
+	t_map			*map = NULL;
+	t_controller	ctrl;
+	t_cub			cub;
+
+	if (!guard(argc, argv) || !initialization(&win, &map))
+		return (2);
+	ctrl = init_controller(win);
+	init_temp_map(map);
+	print_menu();
+	cub = (t_cub){ .win = win, .map = map, .ctrl = ctrl };
+
+	mlx_loop_hook(win->mlx, &render, &cub);
+	mlx_loop(win->mlx);
+
+	ft_free_array(map->map);
+	free(map);
+	free(win);
 	return (0);
 }

@@ -6,12 +6,12 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:37:39 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/02 15:58:06 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:36:25 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __RAYCASTER_H__
-# define __RAYCASTER_H__
+#ifndef RAYCASTER_H
+# define RAYCASTER_H
 
 # include <math.h>
 # include <stdio.h>
@@ -29,7 +29,7 @@
 typedef enum e_move_dir
 {
     TOLEFT,
-    TORIGHT,       
+    TORIGHT,
     FORWARD,
     BACKWARD
 } t_move_dir;

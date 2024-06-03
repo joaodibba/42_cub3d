@@ -16,13 +16,24 @@ CUB = cub3D
 
 # Compiler and Flags
 CC      = cc
-CFLAGS	= #-Wall -Wextra -Werror
+CFLAGS	= -g -fsanitize=address  #-Wall -Wextra -Werror
 
 # Source directories and files
 LFT = libft
 MLX = mlx_linux
 
-DIRS = 2D 3D core/controller core/cub core/model core/view entities parsing raycasting textures $(LFT) $(MLX)
+DIRS =	minimap \
+		3D \
+		raycasting \
+		core/controller \
+		core/cub \
+		core/model \
+		core/view \
+		core/parsing \
+		entities \
+		$(LFT) \
+		$(MLX)
+
 SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/src/*.c))
 OBJ  = $(SRC:.c=.o)
 
