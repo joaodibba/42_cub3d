@@ -1,5 +1,8 @@
-#ifndef __MAPS_H__
-# define __MAPS_H__
+#ifndef MAPS_H
+# define MAPS_H
+
+# define WINDOW_W 6
+# define WINDOW_H 6
 
 # define S_MAP_W 10
 # define S_MAP_H 10

@@ -1,6 +1,6 @@
 #include "../inc/minimap.h"
 
-#define SQUARE_SIZE 20
+#define SQUARE_SIZE 50
 
 void	put_pixel(t_image *img, int x, int y, int color)
 {

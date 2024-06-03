@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:37:36 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/20 00:42:44 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:44:06 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void __print_map(int **map, int width, int height) {
     }
 }
 
-int main(void) {
+int test_raycast(void) {
 
     int width = L_MAP_W;
     int height = L_MAP_H;

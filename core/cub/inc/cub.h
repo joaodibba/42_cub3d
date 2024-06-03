@@ -15,6 +15,7 @@
 #include "../../view/inc/view.h"
 #include "../../controller/inc/controller.h"
 #include "../../../minimap/inc/minimap.h"
+# include "../../../raycasting/inc/raycast.h"
 
 // Standard libraries
 #include <errno.h>
@@ -28,6 +29,7 @@ typedef struct s_cub
 	t_window        *win;
 	t_map           *map;
 	t_controller    ctrl;
+	t_computes	  	cols[WIN_WIDTH];
 }   t_cub;
 
 

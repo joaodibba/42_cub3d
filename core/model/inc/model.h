@@ -8,7 +8,6 @@
 	#include "stdint.h"
 #endif
 
-
 #ifndef WIN_WIDTH
 	# define WIN_WIDTH 800
 #endif
@@ -24,7 +23,7 @@ typedef struct s_image {
 	char	*path; // path to the image file
 	int		bpp; // bits per pixel
 	int		line_len; // size of a line in bytes
-	int		width; 
+	int		width;
 	int		height;
 	int		endian;
 }	t_image;

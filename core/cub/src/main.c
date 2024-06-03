@@ -86,9 +86,21 @@ static bool initialization(t_window **win, t_map **map)
 	return (true);
 }
 
+static void	render_player(t_map *map, t_window *win, t_controller ctrl)
+{
+	t_vec_double	pos = (t_vec_double){ .x = 2, .y = 2 };
+	t_vec_double	dir = (t_vec_double){ .x = 1, .y = 0 };
+	t_vec_double	plane = (t_vec_double){ .x = 0, .y = 0.66 };
+	t_player		player = (t_player){ .pos = pos, .dir = dir, .plane = plane };
+	t_computes		computes;
+
+	mlx_put_image_to_window(win->mlx, win->win, win->img->img, 0, 0);
+}
+
 int render(t_cub *cub)
 {
 	render_2d_map(cub->map, cub->win);
+	render_player(cub->map, cub->win, cub->ctrl);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
 }
@@ -125,7 +137,8 @@ void	init_temp_map(t_map *map)
         "111111111"
     };
     for (int i = 0; i < MAP_HEIGHT; i++) {
-       strcpy(map->map[i], _map[i]); }
+       strcpy(map->map[i], _map[i]);
+	}
     map->width = MAP_WIDTH;
     map->height = MAP_HEIGHT;
 }

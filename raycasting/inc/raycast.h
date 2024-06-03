@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   raycast.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 00:37:39 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/03 19:36:25 by rphuyal          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef RAYCASTER_H
 # define RAYCASTER_H
 
@@ -19,9 +7,8 @@
 # include <stdbool.h>
 # include <unistd.h>
 
-// constants
-# define WINDOW_W 6
-# define WINDOW_H 6
+// include stuffs from the model
+# include "../../core/model/inc/model.h"
 
 # define SIDE_X 0
 # define SIDE_Y 1
@@ -45,13 +32,6 @@ typedef struct s_vec_double
     double	x;
     double	y;
 } t_vec_double;
-
-typedef struct s_info
-{
-    int     width;
-    int     height;
-    int     **map;
-} t_info;
 
 typedef struct s_player
 {
@@ -77,9 +57,9 @@ typedef struct s_computes {
 } t_computes;
 
 
-// function defination
-void    raycast(int column, t_info *info, t_player *player);
-void    __render_computes(t_computes *computes, int height);
+// function definations
+void	raycast(int column, t_map *map, t_player *player, t_computes *computes);
+void    __render_computes(t_computes *computes, size_t height);
 
 // helper functions
 void    __rotate_vector(t_vec_double *vec, double angle);

@@ -6,13 +6,13 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/26 14:41:52 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/03 20:16:56 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/raycast.h"
 
-static void __dda(t_computes *computes, int **map) {
+static void __dda(t_computes *computes, char **map) {
 
 	computes->hit = false;
 	while (true) {
@@ -79,18 +79,17 @@ static void	__pos_dir(t_computes *computes, t_player *player, double camera) {
 	computes->ray.y = player->dir.y + (player->plane.y * camera);
 }
 
-void	raycast(int column, t_info *info, t_player *player) {
+void	raycast(int column, t_map *map, t_player *player, t_computes *computes) {
 	double		camera;
-	t_computes	computes;
 
 	// get where the in the x-cordinate the camera plane is
-	camera = (2 * (column / (double)info->width)) - 1;
-	__pos_dir(&computes, player, camera);
-	__deltas(&computes);
-	__sides(&computes, player);
-	__log_computes(&computes);
-	__dda(&computes, info->map);
-	__render_computes(&computes, info->height);
-	__log_results(&computes);
+	camera = (2 * (column / (double)map->width)) - 1;
+	__pos_dir(computes, player, camera);
+	__deltas(computes);
+	__sides(computes, player);
+	__log_computes(computes);
+	__dda(computes, map->map);
+	__render_computes(computes, map->height);
+	__log_results(computes);
 	return ;
 }

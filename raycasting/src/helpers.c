@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 01:50:46 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/02 15:48:45 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/03 20:08:16 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static void    __wall_distance(t_computes *computes) {
         computes->dist_to_wall = computes->side_dist.y - computes->delta.y;
 }
 
-void    __render_computes(t_computes *computes, int height) {
+void    __render_computes(t_computes *computes, size_t height) {
     // find the distance to the wall
     __wall_distance(computes);
 
     // calculate height of line to draw on screen
-    computes->wall_height = (int)(height / computes->dist_to_wall);
+    computes->wall_height = (int)((double)height / computes->dist_to_wall);
 
     // calculate lowest and highest pixel to fill in current stripe
     computes->start_wall = -((computes->wall_height / 2) + (height / 2));
