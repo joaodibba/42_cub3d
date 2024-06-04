@@ -2,7 +2,7 @@
 
 /*
 	@brief Checks if the string is a valid color
-	@param color The string to check 
+	@param color The string to check
 	@return true if the string is a valid color (between 0 and 255), false otherwise
 */
 static bool	is_valid_color(char *color)
@@ -30,7 +30,7 @@ static bool ft_isdigit_str(char *str)
 	return (true);
 }
 
-/*	
+/*
 	@brief Assigns the value to the color structure
 	@param value The string that value to assign to the color
 	@param The string should be in the format "r,g,b"  where r, g, b are integers between 0 and 255
@@ -58,7 +58,9 @@ static bool assign_color(char *value, t_color *color)
 		ft_free_array(rgb);
 		return (false);
 	}
-	color->red = (u_int8_t)ft_atoi(*rgb);	
+	if (!color)
+		color = (t_color *)malloc(sizeof(t_color));
+	color->red = (u_int8_t)ft_atoi(*rgb);
 	color->green = (u_int8_t)ft_atoi(*(rgb + 1));
 	color->blue = (u_int8_t)ft_atoi(*(rgb + 2));
 	ft_free_array(rgb);
@@ -85,7 +87,7 @@ bool select_color(char key, char *value, t_map **map)
 		{
 			ft_fprintf(STDERR_FILENO, "Error: Failed to assign color\n");
 			return (false);
-		}	
+		}
 	}
 	else if (key == 'C')
 	{
