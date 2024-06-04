@@ -29,9 +29,6 @@ void	render_2d_map(t_map *map, t_window *win)
 	int	color;
 
 	y = 0;
-	while (map->map[y])
-		printf("%s\n", map->map[y++]);
-	y = 0;
 	return ;
 	while (map->map[y])
 	{

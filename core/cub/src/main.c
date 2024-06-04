@@ -85,10 +85,6 @@ static bool initialization(t_window **win, t_map **map)
 
 int render(t_cub *cub)
 {
-    int y = 0;
-
-    while (cub->map->map[y])
-        printf("%s\n", cub->map->map[y++]);
     render_2d_map(cub->map, cub->win);
     mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
     return (0);
@@ -112,12 +108,6 @@ int main(int argc, char **argv)
         ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
         return (2);
     }
-
-	int y = 0;
-
-	while (map->map[y])
-		printf("%s\n", map->map[y++]);
-	
     cub->win = win;
     cub->map = map;
     cub->ctrl = ctrl;

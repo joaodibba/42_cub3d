@@ -39,7 +39,7 @@ bool parser(char *path, t_window **win, t_map **map)
 	printf("map EA: %p\n", (*map)->ea);
 	printf("map floor: %p\n", (*map)->floor);
 	printf("map ceiling: %p\n", (*map)->ceiling);
-	if (!parse_map(map_fd, (*map)->map))
+	if (!parse_map(map_fd, &((*map)->map)))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
 		close(map_fd);

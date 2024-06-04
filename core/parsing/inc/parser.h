@@ -36,7 +36,7 @@ bool select_texture(char *key, char *value, t_window **win, t_map **map);
 
 bool select_color(char key, char *value, t_map **map);
 
-bool parse_map(int map_fd, char **map);
+bool parse_map(int map_fd, char ***map);
 
 bool	check_borders(char **map, int i, int j);
 bool	is_valid_player_char(char c);

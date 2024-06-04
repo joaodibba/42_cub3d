@@ -49,12 +49,12 @@ static bool	handle_map(char **map)
 	return (true);
 }
 
-bool validate_player(char *str) 
+bool validate_player(char *str)
 {
 	bool found;
-	
+
 	found = false;
-	while (*str) 
+	while (*str)
 	{
 		if (is_valid_player_char(*str))
 		{
@@ -82,7 +82,7 @@ static char	*read_map(int fd)
 	char	*temp;
 
 	text = ft_strdup("");
-	while (get_linha(fd, &line) == true)
+	while (get_linha(fd, &line))
 	{
 		temp = ft_strjoin(text, line);
 		free(text);
@@ -92,7 +92,7 @@ static char	*read_map(int fd)
 	return (text);
 }
 
-bool parse_map(int map_fd, char **map)
+bool parse_map(int map_fd, char ***map)
 {
 	char *map_line;
 
@@ -104,16 +104,13 @@ bool parse_map(int map_fd, char **map)
 		free(map_line);
 		return (false);
 	}
-	map = ft_split(map_line, '\31');
-	printf("map: \n");
-	for (int i = 0; map[i]; i++)
-		printf("%s\n", map[i]);
+	*map = ft_split(map_line, '\n');
 	free(map_line);
-	if (!map)
+	if (!*map)
 		return (false);
-	if (!handle_map(map))
+	if (!handle_map(*map))
 	{
-		ft_free_array(map);
+		ft_free_array(*map);
 		return (false);
 	}
 	return (true);

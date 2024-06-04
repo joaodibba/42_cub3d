@@ -37,7 +37,7 @@ static bool ft_isdigit_str(char *str)
 	color The color structure to assign the value to
 	@return true if the value was assigned successfully, false otherwise
 */
-static bool assign_color(char *value, t_color *color)
+static bool assign_color(char *value, t_color **color)
 {
 	char	**rgb;
 
@@ -58,11 +58,11 @@ static bool assign_color(char *value, t_color *color)
 		ft_free_array(rgb);
 		return (false);
 	}
-	if (!color)
-		color = (t_color *)malloc(sizeof(t_color));
-	color->red = (u_int8_t)ft_atoi(*rgb);
-	color->green = (u_int8_t)ft_atoi(*(rgb + 1));
-	color->blue = (u_int8_t)ft_atoi(*(rgb + 2));
+	if (!*color)
+		*color = (t_color *)malloc(sizeof(t_color));
+	(*color)->red = (u_int8_t)ft_atoi(*rgb);
+	(*color)->green = (u_int8_t)ft_atoi(*(rgb + 1));
+	(*color)->blue = (u_int8_t)ft_atoi(*(rgb + 2));
 	ft_free_array(rgb);
 	return (true);
 }
@@ -83,7 +83,7 @@ bool select_color(char key, char *value, t_map **map)
 			ft_fprintf(STDERR_FILENO, "Error: Floor color code specified more than once.\n");
 			return (false);
 		}
-		else if (!assign_color(value, (*map)->floor))
+		else if (!assign_color(value, &((*map)->floor)))
 		{
 			ft_fprintf(STDERR_FILENO, "Error: Failed to assign color\n");
 			return (false);
@@ -96,7 +96,7 @@ bool select_color(char key, char *value, t_map **map)
 			ft_fprintf(STDERR_FILENO, "Error: Ceiling color code specified more than once.\n");
 			return (false);
 		}
-		if (!assign_color(value, (*map)->ceiling))
+		if (!assign_color(value, &((*map)->ceiling)))
 		{
 			ft_fprintf(STDERR_FILENO, "Error: Failed to assign color");
 			return (false);
