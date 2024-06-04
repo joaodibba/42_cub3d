@@ -22,19 +22,14 @@ CFLAGS	= -g -fsanitize=address  #-Wall -Wextra -Werror
 LFT = libft
 MLX = mlx_linux
 
-INC_DIR = ./includes
-
-DIRS =  core \
-		dimension-2d \
-		dimension-3d \
-		raycasting \
-		core/controller \
-		core/main \
+DIRS =	core \
 		core/model \
 		core/view \
+		core/controller \
+		dimension-2d \
+		dimension-3d \
 		entities \
-		$(LFT) \
-		$(MLX)
+		raycasting
 
 SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
 OBJ  = $(SRC:.c=.o)
@@ -47,8 +42,7 @@ ifeq ($(OS), Darwin)
 endif
 
 # Include directories
-INCLUDES = $(wildcard $(INC_DIR)/inc)
-INCLUDES = $
+INCLUDES = $(foreach dir, $(DIRS), $(wildcard $(dir)/inc))
 INC = $(addprefix -I, $(INCLUDES))
 
 # Main Build Rule
@@ -58,14 +52,15 @@ $(CUB): $(OBJ)
 	@printf "$(BL)Compiling $(LFT)$(RC)\n"
 	@make -sC $(LFT) > /dev/null
 	@printf "$(BL)Compiling $(MLX)$(RC)\n"
-	@make -sC $(MLX) > /dev/null
+#	> /dev/null
+	@make -sC $(MLX) 2> /dev/null
 	@printf "$(BL)Compiling $(CUB)$(RC)\n"
 	@$(CC) $(CFLAGS) -I$(MLX) $(INC) $^ -o $@ $(LFT)/libft.a $(MLX_FLAGS)
 	@printf  "$(GR)$(CUB) Compiled!$(RC)\n"
 
 %.o: %.c
 	@printf "$(BL)Compiling $< into $@$(RC)\n"
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
 clean:
 	@printf "$(BL)Cleaning .o files$(RC)\n"
