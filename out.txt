@@ -1,0 +1,14 @@
+line: NO textures/no.xpm
+line: WE textures/we.xpm
+line: EA textures/ea.xpm
+line: SO textures/so.xpm
+line: F 220,100,0
+line: C 225,30,0
+line: 
+line: 1111111111111111
+line: 1000000000000001
+line: 10N0000111000001
+line: 1000000101000001
+line: 1000000111000001
+line: 1000000000000001
+line: 1111111111111111

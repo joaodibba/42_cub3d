@@ -16,7 +16,7 @@ static char	*skip_empty_lines(int map_fd)
 {
 	char	*line;
 
-	while (get_line(map_fd, line) == true)
+	while (get_line(map_fd, &line) == true)
 	{
 		if (!is_line_empty(line))
 			break ;
@@ -35,10 +35,14 @@ static bool	handle_map(char **map)
 	while (map[++i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (map[i][j] && map[i][j] != '\n')
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ' && !check_borders(map, i, j))
+			{
+				printf("Error: Invalid map.\n");
+				printf("i: %d, j: %d\n", i, j);
 				return (false);
+			}
 			j++;
 		}
 	}
@@ -63,28 +67,32 @@ bool validate_player(char *str)
 	return (found);
 }
 
-static char *read_map(int map_fd)
+bool get_linha(int fd, char **line)
 {
-	char *long_line;
-	char *line;
-	char *tmp;
-	char *text;
+	*line = get_next_line(fd);
+	if (!*line)
+		return (false);
+	return (true);
+}
 
-	long_line = skip_empty_lines(map_fd);
-	if (!long_line)
-		return (NULL);
-	text = long_line;
-	while (get_line(map_fd, line) == true)
+static char	*read_map(int fd)
+{
+	char	*line;
+	char	*text;
+	char	*temp;
+
+	text = ft_strdup("");
+	while (get_linha(fd, &line) == true)
 	{
-		tmp = ft_strjoin(text, line);
+		temp = ft_strjoin(text, line);
 		free(text);
 		free(line);
-		text = tmp;
+		text = temp;
 	}
 	return (text);
 }
 
-bool parse_map(char ***map, int map_fd)
+bool parse_map(int map_fd, char **map)
 {
 	char *map_line;
 
@@ -96,14 +104,16 @@ bool parse_map(char ***map, int map_fd)
 		free(map_line);
 		return (false);
 	}
-	*map = ft_split(map_line, '\31');
+	map = ft_split(map_line, '\31');
+	printf("map: \n");
+	for (int i = 0; map[i]; i++)
+		printf("%s\n", map[i]);
 	free(map_line);
 	if (!map)
 		return (false);
-	if (!handle_map(*map))
+	if (!handle_map(map))
 	{
-		ft_free_array(*map);
-		free(map);
+		ft_free_array(map);
 		return (false);
 	}
 	return (true);

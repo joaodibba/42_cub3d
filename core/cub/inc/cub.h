@@ -15,6 +15,7 @@
 #include "../../view/inc/view.h"
 #include "../../controller/inc/controller.h"
 #include "../../../minimap/inc/minimap.h"
+#include "../../parsing/inc/parser.h"
 
 // Standard libraries
 #include <errno.h>

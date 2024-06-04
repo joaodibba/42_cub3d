@@ -51,8 +51,6 @@ typedef struct s_color
 typedef struct s_map
 {
 	char	**map;
-	size_t	width;
-	size_t	height;
 	t_color	*floor;
 	t_color	*ceiling;
 	t_image	*no;

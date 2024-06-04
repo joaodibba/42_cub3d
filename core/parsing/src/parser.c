@@ -16,7 +16,7 @@ bool can_read_file(char *path)
 	return (true);
 }
 
-bool parser(char *path, t_window *win, t_map *map)
+bool parser(char *path, t_window **win, t_map **map)
 {
 	int map_fd;
 
@@ -32,12 +32,25 @@ bool parser(char *path, t_window *win, t_map *map)
 		close(map_fd);
 		return (false);
 	}
-	if (!parse_map(map_fd, &(map->map)))
+	printf("map path: %s\n", path);
+	printf("map SO: %p\n", (*map)->so);
+	printf("map NO: %p\n", (*map)->no);
+	printf("map WE: %p\n", (*map)->we);
+	printf("map EA: %p\n", (*map)->ea);
+	printf("map floor: %p\n", (*map)->floor);
+	printf("map ceiling: %p\n", (*map)->ceiling);
+	if (!parse_map(map_fd, (*map)->map))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
 		close(map_fd);
 		return (false);
 	}
+	int i = 0;
+	while ((*map)->map[i] != NULL)
+	{
+		printf("%s\n", (*map)->map[i++]);
+	}
+
 	close(map_fd);
 	return (true);
 }
