@@ -29,7 +29,6 @@ void	render_2d_map(t_map *map, t_window *win)
 	int	color;
 
 	y = 0;
-	return ;
 	while (map->map[y])
 	{
 		x = 0;

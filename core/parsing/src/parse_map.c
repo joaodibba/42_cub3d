@@ -12,20 +12,6 @@ void	replace_spaces(char *line)
 		line[size] = '\31';
 }
 
-static char	*skip_empty_lines(int map_fd)
-{
-	char	*line;
-
-	while (get_line(map_fd, &line) == true)
-	{
-		if (!is_line_empty(line))
-			break ;
-		free(line);
-	}
-	replace_spaces(line);
-	return (line);
-}
-
 static bool	handle_map(char **map)
 {
 	int	i;
@@ -39,8 +25,9 @@ static bool	handle_map(char **map)
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ' && !check_borders(map, i, j))
 			{
+				i = 0;
 				printf("Error: Invalid map.\n");
-				printf("i: %d, j: %d\n", i, j);
+				printf("i: %d, j: %d char: %c\n", i, j, map[i][j]);
 				return (false);
 			}
 			j++;
@@ -75,6 +62,20 @@ bool get_linha(int fd, char **line)
 	return (true);
 }
 
+// static char	*skip_empty_lines(int map_fd)
+// {
+// 	char	*line;
+
+// 	while (get_linha(map_fd, &line) == true)
+// 	{
+// 		if (!is_line_empty(line))
+// 			break ;
+// 		free(line);
+// 	}
+// 	replace_spaces(line);
+// 	return (line);
+// }
+
 static char	*read_map(int fd)
 {
 	char	*line;
@@ -82,14 +83,34 @@ static char	*read_map(int fd)
 	char	*temp;
 
 	text = ft_strdup("");
-	while (get_linha(fd, &line))
+	line = get_next_line(fd);
+	while (line)
 	{
 		temp = ft_strjoin(text, line);
 		free(text);
 		free(line);
 		text = temp;
+		line = get_next_line(fd);
 	}
 	return (text);
+}
+
+void remove_empty_lines_in_array(char ***array)
+{
+    int i = 0;
+
+    while ((*array)[i])
+    {
+        if (!is_line_empty((*array)[i]))
+            break;
+        free((*array)[i]);
+        int j = i;
+        while ((*array)[j])
+        {
+            (*array)[j] = (*array)[j + 1];
+            j++;
+        }
+    }
 }
 
 bool parse_map(int map_fd, char ***map)
@@ -99,6 +120,7 @@ bool parse_map(int map_fd, char ***map)
 	map_line = read_map(map_fd);
 	if (!map_line)
 		return (false);
+	
 	if (!validate_player(map_line))
 	{
 		free(map_line);

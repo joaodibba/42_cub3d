@@ -120,7 +120,7 @@ bool	parse_configs(int map_fd, t_window **win, t_map **map)
 {
 	char	*line;
 
-	while (get_line(map_fd, &line) == true && !all_configs_set(*map))
+	while (!all_configs_set(*map) && get_line(map_fd, &line) == true)
 	{
 		if (!line)
 			break;
