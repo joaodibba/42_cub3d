@@ -93,6 +93,7 @@ static void	render_player(t_map *map, t_window *win)
 	t_vec_double	plane = (t_vec_double){ .x = 0, .y = 0.66 };
 	t_player		player = (t_player){ .pos = pos, .dir = dir, .plane = plane };
 
+	find_player_start(map, &pos);
 	build_player_2d_image(map, win);
 }
 

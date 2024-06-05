@@ -43,6 +43,10 @@ void	draw_square(t_image *img, int x, int y, int size, int color);
 
 
 // entities functions
-void build_player_2d_image(t_map *map, t_window *win);
+void 	build_player_2d_image(t_map *map, t_window *win);
+
+// players function
+void	find_player_start(t_map *map, t_vec_double *cord);
+
 
 #endif
