@@ -86,21 +86,20 @@ static bool initialization(t_window **win, t_map **map)
 	return (true);
 }
 
-static void	render_player(t_map *map, t_window *win, t_controller ctrl)
+static void	render_player(t_map *map, t_window *win)
 {
 	t_vec_double	pos = (t_vec_double){ .x = 2, .y = 2 };
 	t_vec_double	dir = (t_vec_double){ .x = 1, .y = 0 };
 	t_vec_double	plane = (t_vec_double){ .x = 0, .y = 0.66 };
 	t_player		player = (t_player){ .pos = pos, .dir = dir, .plane = plane };
-	t_computes		computes;
 
-	mlx_put_image_to_window(win->mlx, win->win, win->img->img, 0, 0);
+	build_player_2d_image(map, win);
 }
 
 int render(t_cub *cub)
 {
 	render_2d_map(cub->map, cub->win);
-	render_player(cub->map, cub->win, cub->ctrl);
+	render_player(cub->map, cub->win);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
 }

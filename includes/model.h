@@ -1,6 +1,8 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <stdint.h>
+
 // @brief The image structure
 typedef struct s_image {
 	void	*img; // image identifier
