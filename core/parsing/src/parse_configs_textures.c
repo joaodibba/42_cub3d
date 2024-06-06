@@ -12,30 +12,34 @@ t_image	*assign_texture(void *mlx, char *path)
 
 	if (!can_read_file(path))
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file:'%s'\n", path);
+		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file:'%s'\n",
+				path);
 		return (NULL);
 	}
 	img = (t_image *)malloc(sizeof(t_image));
 	if (!img)
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for texture.\n");
+		ft_fprintf(STDERR_FILENO,
+				"Error: Failed to allocate memory for texture.\n");
 		return (NULL);
 	}
 	img->img = mlx_xpm_file_to_image(mlx, path, &(img->width), &(img->height));
 	if (img->width > TEXTURE_WIDTH || img->height > TEXTURE_HEIGHT)
 	{
-		ft_fprintf(STDERR_FILENO, "Error: '%s' image width and height should be ", path);
+		ft_fprintf(STDERR_FILENO,
+				"Error: '%s' image width and height should be ", path);
 		ft_fprintf(STDERR_FILENO, "%d and ", TEXTURE_WIDTH);
 		ft_fprintf(STDERR_FILENO, "%d respectively.\n", TEXTURE_HEIGHT);
 		free(img);
 		return (NULL);
 	}
-	img->addr = mlx_get_data_addr(img->img, &(img->bpp), &(img->line_len), &(img->endian));
+	img->addr = mlx_get_data_addr(img->img, &(img->bpp), &(img->line_len),
+			&(img->endian));
 	img->path = ft_strdup(path);
 	return (img);
 }
 
-bool select_texture(char *key, char *value, t_window **win, t_map **map)
+bool	select_texture(char *key, char *value, t_window **win, t_map **map)
 {
 	if (!map || !win)
 	{
@@ -44,7 +48,8 @@ bool select_texture(char *key, char *value, t_window **win, t_map **map)
 	}
 	if (!can_read_file(value))
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file: %s\n", value);
+		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file: %s\n",
+				value);
 		return (false);
 	}
 	if (!ft_strncmp(key, "NO", 3) && !(*map)->no)

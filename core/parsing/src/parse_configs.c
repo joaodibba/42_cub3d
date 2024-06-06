@@ -16,7 +16,7 @@ static bool	is_texture(char *key)
 	@param key The key to check
 	@return true if the key is a color, false otherwise
 */
-static bool is_color(char *key)
+static bool	is_color(char *key)
 {
 	return (!ft_strncmp(key, "F", 2) || !ft_strncmp(key, "C", 2));
 }
@@ -26,10 +26,10 @@ static bool is_color(char *key)
 	@param map The map structure
 	@return true if all the configurations are set, false otherwise
 */
-static bool all_configs_set(t_map *map)
+static bool	all_configs_set(t_map *map)
 {
-	if (!map->floor || !map->ceiling || \
-		!map->no || !map->so || \
+	if (!map->floor || !map->ceiling ||
+		!map->no || !map->so ||
 		!map->ea || !map->we)
 		return (false);
 	return (true);
@@ -72,7 +72,9 @@ static bool	parse_line(char *line, t_window **win, t_map **map)
 	else if (!is_texture(key) && !is_color(key))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Found unexpected line: %s\n", line);
-		ft_fprintf(STDERR_FILENO, "Hint: The cause of this might be a configuration missing, please check the map file\n");
+		ft_fprintf(STDERR_FILENO,
+				"Hint: The cause of this might be a configuration missing,
+				please check the map file\n");
 		ft_free_array(key_value);
 		return (false);
 	}
@@ -80,23 +82,25 @@ static bool	parse_line(char *line, t_window **win, t_map **map)
 	return (true);
 }
 
-static void remove_nl(char **line)
+static void	remove_nl(char **line)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (!*line)
-		return;
+		return ;
 	while ((*line)[i])
 	{
 		if ((*line)[i] == '\n')
 		{
 			(*line)[i] = '\0';
-			break;
+			break ;
 		}
 		i++;
 	}
 }
 
-bool get_line(int fd, char **line)
+bool	get_line(int fd, char **line)
 {
 	*line = get_next_line(fd);
 	if (!*line)
@@ -123,13 +127,14 @@ bool	parse_configs(int map_fd, t_window **win, t_map **map)
 	while (!all_configs_set(*map) && get_line(map_fd, &line) == true)
 	{
 		if (!line)
-			break;
+			break ;
 		printf("line: %s\n", line);
 		if (is_line_empty(line))
-			continue;
+			continue ;
 		if (!parse_line(line, win, map))
 		{
-			ft_fprintf(STDERR_FILENO, "Error: Failed to parse line: %s\n", line);
+			ft_fprintf(STDERR_FILENO, "Error: Failed to parse line: %s\n",
+					line);
 			ft_fprintf(STDERR_FILENO, "Error: Missing configurations\n");
 			free(line);
 			return (false);

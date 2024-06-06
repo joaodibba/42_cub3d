@@ -38,7 +38,8 @@ void	render_2d_map(t_map *map, t_window *win)
 				color = 0x00FFFFFF; // white
 			else
 				color = 0x00000000; // black
-			draw_square(win->img, x * SQUARE_SIZE, y * SQUARE_SIZE, SQUARE_SIZE, color);
+			draw_square(win->img, x * SQUARE_SIZE, y * SQUARE_SIZE, SQUARE_SIZE,
+					color);
 			x++;
 		}
 		y++;

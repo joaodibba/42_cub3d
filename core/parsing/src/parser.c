@@ -5,9 +5,9 @@
 	@param path The path to the file
 	@return true if the file can be read, false otherwise
 */
-bool can_read_file(char *path)
+bool	can_read_file(char *path)
 {
-	int fd;
+	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -16,9 +16,10 @@ bool can_read_file(char *path)
 	return (true);
 }
 
-bool parser(char *path, t_window **win, t_map **map)
+bool	parser(char *path, t_window **win, t_map **map)
 {
-	int map_fd;
+	int	map_fd;
+	int	i;
 
 	if (!can_read_file(path))
 	{
@@ -28,7 +29,8 @@ bool parser(char *path, t_window **win, t_map **map)
 	map_fd = open(path, O_RDONLY);
 	if (!parse_configs(map_fd, win, map))
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to parse configs. Please check the map file.\n");
+		ft_fprintf(STDERR_FILENO,
+				"Error: Failed to parse configs. Please check the map file.\n");
 		close(map_fd);
 		return (false);
 	}
@@ -45,12 +47,11 @@ bool parser(char *path, t_window **win, t_map **map)
 		close(map_fd);
 		return (false);
 	}
-	int i = 0;
+	i = 0;
 	while ((*map)->map[i] != NULL)
 	{
 		printf("%s\n", (*map)->map[i++]);
 	}
-
 	close(map_fd);
 	return (true);
 }

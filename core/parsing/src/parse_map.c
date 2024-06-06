@@ -23,7 +23,8 @@ static bool	handle_map(char **map)
 		j = 0;
 		while (map[i][j] && map[i][j] != '\n')
 		{
-			if (map[i][j] != '1' && map[i][j] != ' ' && !check_borders(map, i, j))
+			if (map[i][j] != '1' && map[i][j] != ' ' && !check_borders(map, i,
+					j))
 			{
 				i = 0;
 				printf("Error: Invalid map.\n");
@@ -36,9 +37,9 @@ static bool	handle_map(char **map)
 	return (true);
 }
 
-bool validate_player(char *str)
+bool	validate_player(char *str)
 {
-	bool found;
+	bool	found;
 
 	found = false;
 	while (*str)
@@ -54,7 +55,7 @@ bool validate_player(char *str)
 	return (found);
 }
 
-bool get_linha(int fd, char **line)
+bool	get_linha(int fd, char **line)
 {
 	*line = get_next_line(fd);
 	if (!*line)
@@ -95,32 +96,33 @@ static char	*read_map(int fd)
 	return (text);
 }
 
-void remove_empty_lines_in_array(char ***array)
+void	remove_empty_lines_in_array(char ***array)
 {
-    int i = 0;
+	int	i;
+	int	j;
 
-    while ((*array)[i])
-    {
-        if (!is_line_empty((*array)[i]))
-            break;
-        free((*array)[i]);
-        int j = i;
-        while ((*array)[j])
-        {
-            (*array)[j] = (*array)[j + 1];
-            j++;
-        }
-    }
+	i = 0;
+	while ((*array)[i])
+	{
+		if (!is_line_empty((*array)[i]))
+			break ;
+		free((*array)[i]);
+		j = i;
+		while ((*array)[j])
+		{
+			(*array)[j] = (*array)[j + 1];
+			j++;
+		}
+	}
 }
 
-bool parse_map(int map_fd, char ***map)
+bool	parse_map(int map_fd, char ***map)
 {
-	char *map_line;
+	char	*map_line;
 
 	map_line = read_map(map_fd);
 	if (!map_line)
 		return (false);
-	
 	if (!validate_player(map_line))
 	{
 		free(map_line);
