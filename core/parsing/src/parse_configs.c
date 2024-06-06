@@ -1,39 +1,12 @@
 #include "../inc/parser.h"
 
-/*
-	@brief Checks if the key is a texture
-	@param key The key to check
-	@return true if the key is a texture, false otherwise
-*/
-static bool	is_texture(char *key)
-{
-	return (!ft_strncmp(key, "NO", 3) || !ft_strncmp(key, "SO", 3)
-		|| !ft_strncmp(key, "WE", 3) || !ft_strncmp(key, "EA", 3));
-}
-
-/*
-	@brief Checks if the key is a color
-	@param key The key to check
-	@return true if the key is a color, false otherwise
-*/
-static bool	is_color(char *key)
-{
-	return (!ft_strncmp(key, "F", 2) || !ft_strncmp(key, "C", 2));
-}
-
-/*
-	@brief Checks if all the configurations are set
-	@param map The map structure
-	@return true if all the configurations are set, false otherwise
-*/
-static bool	all_configs_set(t_map *map)
-{
-	if (!map->floor || !map->ceiling ||
-		!map->no || !map->so ||
-		!map->ea || !map->we)
-		return (false);
-	return (true);
-}
+bool	is_texture(char *key);
+bool	is_color(char *key);
+bool	is_line_empty(char *line);
+bool	all_configs_set(t_map *map);
+bool	gnl(int fd, char **line);
+bool	select_texture(char *key, char *value, t_window **win, t_map **map);
+bool	select_color(char key, char *value, t_map **map);
 
 /*
 	@brief Parses the line and assigns the value to the key in the map structure
@@ -72,9 +45,7 @@ static bool	parse_line(char *line, t_window **win, t_map **map)
 	else if (!is_texture(key) && !is_color(key))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Found unexpected line: %s\n", line);
-		ft_fprintf(STDERR_FILENO,
-				"Hint: The cause of this might be a configuration missing,
-				please check the map file\n");
+		ft_fprintf(STDERR_FILENO, "Hint: The cause of this might be a configuration missing, please check the map file\n");
 		ft_free_array(key_value);
 		return (false);
 	}
@@ -82,53 +53,21 @@ static bool	parse_line(char *line, t_window **win, t_map **map)
 	return (true);
 }
 
-static void	remove_nl(char **line)
-{
-	int	i;
-
-	i = 0;
-	if (!*line)
-		return ;
-	while ((*line)[i])
-	{
-		if ((*line)[i] == '\n')
-		{
-			(*line)[i] = '\0';
-			break ;
-		}
-		i++;
-	}
-}
-
-bool	get_line(int fd, char **line)
-{
-	*line = get_next_line(fd);
-	if (!*line)
-		return (false);
-	remove_nl(line);
-	return (true);
-}
-
-bool	is_line_empty(char *line)
-{
-	while (line && *line)
-	{
-		if (!is_space((unsigned char)*line))
-			return (false);
-		line++;
-	}
-	return (true);
-}
-
+/*
+	@brief Parses the configurations from the map file
+	@param map_fd The file descriptor of the map file
+	@param win The window structure
+	@param map The map structure
+	@return true if the configurations were parsed successfully, false otherwise
+*/
 bool	parse_configs(int map_fd, t_window **win, t_map **map)
 {
 	char	*line;
 
-	while (!all_configs_set(*map) && get_line(map_fd, &line) == true)
+	while (!all_configs_set(*map) && gnl(map_fd, &line) == true)
 	{
 		if (!line)
 			break ;
-		printf("line: %s\n", line);
 		if (is_line_empty(line))
 			continue ;
 		if (!parse_line(line, win, map))

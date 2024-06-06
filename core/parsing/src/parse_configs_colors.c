@@ -48,8 +48,7 @@ static bool	assign_color(char *value, t_color **color)
 		return (false);
 	if (ft_array_len(rgb) != 3)
 	{
-		ft_fprintf(STDERR_FILENO,
-				"Error: Color must be in the format {RRR,GGG,BBB}\n");
+		ft_fprintf(STDERR_FILENO,"Error: Color must be in the format {RRR,GGG,BBB}\n");
 		ft_free_array(rgb);
 		return (false);
 	}

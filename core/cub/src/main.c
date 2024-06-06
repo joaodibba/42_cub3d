@@ -83,9 +83,38 @@ static bool initialization(t_window **win, t_map **map)
 	return (true);
 }
 
+void paint_window(t_window *win, int color)
+{
+    int x;
+    int y;
+
+    // Paint the top half with the given color
+	y = 0;
+    while (y < WIN_HEIGHT / 2)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+            put_pixel(win->img, x++, y, 0x00FF0000);  // Red color in hex
+        y++;
+    }
+    y = WIN_HEIGHT / 2;
+    while (y < WIN_HEIGHT)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+            put_pixel(win->img, x++, y, color);
+        y++;
+    }
+
+    // Paint the bottom half with red
+}
+
+
 int render(t_cub *cub)
 {
+	paint_window(cub->win, 0x0000ff00); //red
     render_2d_map(cub->map, cub->win);
+	render_player(cub->map, cub->win);
     mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
     return (0);
 }

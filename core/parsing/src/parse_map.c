@@ -1,17 +1,15 @@
 
 #include "../inc/parser.h"
 
-void	replace_spaces(char *line)
-{
-	int	size;
+bool	is_line_empty(char *line);
+bool	check_borders(char **map, int i, int j);
+bool	is_valid_map_char(char c);
 
-	if (!line)
-		return ;
-	size = ft_strlen(line);
-	while (--size >= 0 && is_space(line[size]))
-		line[size] = '\31';
-}
-
+/*
+	@brief Checks if the character is a valid player character
+	@param c The character to check
+	@return true if the character is a valid player character, false otherwise
+*/
 static bool	handle_map(char **map)
 {
 	int	i;
@@ -23,12 +21,16 @@ static bool	handle_map(char **map)
 		j = 0;
 		while (map[i][j] && map[i][j] != '\n')
 		{
-			if (map[i][j] != '1' && map[i][j] != ' ' && !check_borders(map, i,
-					j))
+			if (!is_valid_map_char(map[i][j]))
 			{
-				i = 0;
-				printf("Error: Invalid map.\n");
-				printf("i: %d, j: %d char: %c\n", i, j, map[i][j]);
+				printf("Invalid map char: %c\n", map[i][j]);
+				ft_fprintf(STDERR_FILENO, "Error: Invalid map.\n");
+				return (false);
+			}
+			if (map[i][j] != '1' && map[i][j] != ' ' &&
+				!check_borders(map, i, j))
+			{
+				ft_fprintf(STDERR_FILENO, "Error: Invalid map.\n");
 				return (false);
 			}
 			j++;
@@ -37,7 +39,12 @@ static bool	handle_map(char **map)
 	return (true);
 }
 
-bool	validate_player(char *str)
+/*
+	@brief Validates the player in the map
+	@param str The string to validate
+	@return true if the player is valid, false otherwise
+*/
+static bool	validate_player(char *str)
 {
 	bool	found;
 
@@ -55,67 +62,67 @@ bool	validate_player(char *str)
 	return (found);
 }
 
-bool	get_linha(int fd, char **line)
-{
-	*line = get_next_line(fd);
-	if (!*line)
-		return (false);
-	return (true);
+/*
+	@brief Removes empty lines from the array
+	@param array The array to remove empty lines from
+	! FIXME Not using this shit but should ?
+*/
+static void remove_empty_lines_in_array(char ***array) {
+    int i = 0;
+    int j;
+
+    while ((*array)[i]) {
+        if (!is_line_empty((*array)[0])) 
+			return ;
+        free((*array)[i]);
+        j = i;
+        while ((*array)[j]) {
+            (*array)[j] = (*array)[j + 1];
+            j++;
+        }
+    }
 }
-
-// static char	*skip_empty_lines(int map_fd)
-// {
-// 	char	*line;
-
-// 	while (get_linha(map_fd, &line) == true)
-// 	{
-// 		if (!is_line_empty(line))
-// 			break ;
-// 		free(line);
-// 	}
-// 	replace_spaces(line);
-// 	return (line);
-// }
-
+/*
+	@brief Reads the map from the file descriptor
+	@param fd The file descriptor to read the map from
+	@return The map read from the file descriptor
+*/
 static char	*read_map(int fd)
 {
 	char	*line;
 	char	*text;
 	char	*temp;
+	bool	found = false;
 
 	text = ft_strdup("");
 	line = get_next_line(fd);
 	while (line)
 	{
+		if (*line == '\n' && found)
+		{
+			free(line);
+			free(text);
+			return (NULL);
+		}
+		if (*line != '\n')
+				found = true;
 		temp = ft_strjoin(text, line);
 		free(text);
 		free(line);
 		text = temp;
 		line = get_next_line(fd);
+	
 	}
 	return (text);
 }
 
-void	remove_empty_lines_in_array(char ***array)
-{
-	int	i;
-	int	j;
+/*
+	@brief Parses the map from the file descriptor
+	@param map_fd The file descriptor to read the map from
+	@param map The map to store the parsed map
+	@return true if the map was parsed successfully, false otherwise
 
-	i = 0;
-	while ((*array)[i])
-	{
-		if (!is_line_empty((*array)[i]))
-			break ;
-		free((*array)[i]);
-		j = i;
-		while ((*array)[j])
-		{
-			(*array)[j] = (*array)[j + 1];
-			j++;
-		}
-	}
-}
-
+*/
 bool	parse_map(int map_fd, char ***map)
 {
 	char	*map_line;
@@ -132,6 +139,11 @@ bool	parse_map(int map_fd, char ***map)
 	free(map_line);
 	if (!*map)
 		return (false);
+	// remove_empty_lines_in_array(map);
+	for (int i = 0; (*map)[i]; i++)
+	{
+		printf("%s\n", (*map)[i]);
+	}
 	if (!handle_map(*map))
 	{
 		ft_free_array(*map);

@@ -1,5 +1,10 @@
 #include "../inc/parser.h"
 
+bool	parse_map(int map_fd, char ***map);
+bool	parse_configs(int map_fd, t_window **win, t_map **map);
+bool	is_line_empty(char *line);
+bool	check_borders(char **map, int i, int j);
+
 /*
 	@brief Tries to open the file to check if it can be read
 	@param path The path to the file
@@ -16,6 +21,13 @@ bool	can_read_file(char *path)
 	return (true);
 }
 
+/*
+	@brief Parses the map file
+	@param path The path to the map file
+	@param win The window struct
+	@param map The map struct
+	@return true if the map file was parsed successfully, false otherwise
+*/
 bool	parser(char *path, t_window **win, t_map **map)
 {
 	int	map_fd;
@@ -34,23 +46,11 @@ bool	parser(char *path, t_window **win, t_map **map)
 		close(map_fd);
 		return (false);
 	}
-	printf("map path: %s\n", path);
-	printf("map SO: %p\n", (*map)->so);
-	printf("map NO: %p\n", (*map)->no);
-	printf("map WE: %p\n", (*map)->we);
-	printf("map EA: %p\n", (*map)->ea);
-	printf("map floor: %p\n", (*map)->floor);
-	printf("map ceiling: %p\n", (*map)->ceiling);
 	if (!parse_map(map_fd, &((*map)->map)))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
 		close(map_fd);
 		return (false);
-	}
-	i = 0;
-	while ((*map)->map[i] != NULL)
-	{
-		printf("%s\n", (*map)->map[i++]);
 	}
 	close(map_fd);
 	return (true);

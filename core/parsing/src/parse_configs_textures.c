@@ -48,8 +48,8 @@ bool	select_texture(char *key, char *value, t_window **win, t_map **map)
 	}
 	if (!can_read_file(value))
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file: %s\n",
-				value);
+		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file: %s\n", \
+		value);
 		return (false);
 	}
 	if (!ft_strncmp(key, "NO", 3) && !(*map)->no)

@@ -3,15 +3,8 @@
 
 # include "../../../libft/libft.h"
 # include "../../model/inc/model.h"
+# include "../../view/inc/view.h"
 # include <stdbool.h>
-
-# ifndef WIN_WIDTH
-#  define WIN_WIDTH 800
-# endif
-
-# ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 600
-# endif
 
 # ifdef __APPLE__
 #  define ESC 53
