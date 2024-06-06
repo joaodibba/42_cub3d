@@ -21,7 +21,7 @@ static bool	guard(int ac, char **av)
 	return (false);
 }
 
-static bool initialization(t_window **win, t_map **map)
+static bool initialization(t_window **win, t_map **map, t_player *player)
 {
 	*win = (t_window *)malloc(sizeof(t_window));
 	if (!*win)
@@ -83,17 +83,12 @@ static bool initialization(t_window **win, t_map **map)
 	}
 	(*win)->img->width = WIN_WIDTH;
 	(*win)->img->height = WIN_HEIGHT;
+	init_player(player, *map);
 	return (true);
 }
 
 static void	render_player(t_map *map, t_window *win)
 {
-	t_vec_double	pos = (t_vec_double){ .x = 2, .y = 2 };
-	t_vec_double	dir = (t_vec_double){ .x = 1, .y = 0 };
-	t_vec_double	plane = (t_vec_double){ .x = 0, .y = 0.66 };
-	t_player		player = (t_player){ .pos = pos, .dir = dir, .plane = plane };
-
-	find_player_start(map, &pos);
 	build_player_2d_image(map, win);
 }
 
@@ -151,7 +146,7 @@ int main(int argc, char **argv)
 	t_controller	ctrl;
 	t_cub			cub;
 
-	if (!guard(argc, argv) || !initialization(&win, &map))
+	if (!guard(argc, argv) || !initialization(&win, &map, &cub.player))
 		return (2);
 	ctrl = init_controller(win);
 	init_temp_map(map);

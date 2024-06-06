@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 22:09:55 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/03 23:49:33 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/06 19:46:50 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void    move_forward(t_player *player, int **map) {
 	speed = 0.4f;
     _x = (int)(player->pos.x + player->dir.x * speed);
     _y = (int)(player->pos.y + player->dir.y * speed);
-
     if (map[_x][(int)player->pos.y] == 0)
         player->pos.x += player->dir.x * speed;
     if (map[(int)player->pos.x][_y] == 0)
@@ -35,7 +34,6 @@ void    move_backward(t_player *player, int **map) {
 	speed = 0.4f;
     _x = (int)(player->pos.x - player->dir.x * speed);
     _y = (int)(player->pos.y - player->dir.y * speed);
-
     if (map[_x][(int)player->pos.y] == 0)
         player->pos.x -= player->dir.x * speed;
     if (map[(int)player->pos.x][_y] == 0)
