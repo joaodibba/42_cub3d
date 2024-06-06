@@ -21,7 +21,7 @@ static bool	guard(int ac, char **av)
 	return (false);
 }
 
-static bool initialization(t_window **win, t_map **map, t_player *player)
+static bool initialization(t_window **win, t_map **map)
 {
 	*win = (t_window *)malloc(sizeof(t_window));
 	if (!*win)
@@ -83,7 +83,6 @@ static bool initialization(t_window **win, t_map **map, t_player *player)
 	}
 	(*win)->img->width = WIN_WIDTH;
 	(*win)->img->height = WIN_HEIGHT;
-	init_player(player, *map);
 	return (true);
 }
 
@@ -92,15 +91,27 @@ static void	render_player(t_map *map, t_window *win)
 	build_player_2d_image(map, win);
 }
 
+static void	render_3d_map(t_cub *cub)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < WIN_WIDTH) {
+		raycast(i, cub->map, &cub->player, &cub->cols[i]);
+		i++;
+	}
+}
+
 int render(t_cub *cub)
 {
+	render_3d_map(cub);
 	render_2d_map(cub->map, cub->win);
 	render_player(cub->map, cub->win);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
 }
 
-#define MAP_WIDTH  16
+#define MAP_WIDTH 16
 #define MAP_HEIGHT 7
 #include <string.h>
 void	init_temp_map(t_map *map)
@@ -146,10 +157,11 @@ int main(int argc, char **argv)
 	t_controller	ctrl;
 	t_cub			cub;
 
-	if (!guard(argc, argv) || !initialization(&win, &map, &cub.player))
+	if (!guard(argc, argv) || !initialization(&win, &map))
 		return (2);
 	ctrl = init_controller(win);
 	init_temp_map(map);
+	init_player(&cub.player, map);
 	print_menu();
 	cub = (t_cub){ .win = win, .map = map, .ctrl = ctrl };
 

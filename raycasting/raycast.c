@@ -6,69 +6,75 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/06 19:33:24 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/06 22:39:05 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-static void __dda(t_computes *computes, char **map) {
-
+static void	__dda(t_computes *computes, char **map)
+{
 	computes->hit = false;
-	while (true) {
+	while (true)
+	{
 		// jump to the nearest side
-		if (computes->side_dist.x < computes->side_dist.y) {
+		if (computes->side_dist.x < computes->side_dist.y)
+		{
 			computes->side_dist.x += computes->delta.x;
 			computes->map.x += computes->step.x;
 			computes->side = SIDE_X;
 		}
-		else {
+		else
+		{
 			computes->side_dist.y += computes->delta.y;
 			computes->map.y += computes->step.y;
 			computes->side = SIDE_Y;
 		}
-
-		if (map[computes->map.x][computes->map.y] > 0) {
+		if (map[computes->map.x][computes->map.y] == '1')
+		{
 			computes->hit = true;
 			break ;
 		}
 	}
 }
 
-static void	__sides(t_computes *computes, t_player *player) {
-	if (computes->ray.x < 0) {
+static void	__sides(t_computes *computes, t_player *player)
+{
+	if (computes->ray.x < 0)
+	{
 		computes->step.x = -1;
-		computes->side_dist.x = (player->pos.x - computes->map.x) * computes->delta.x;
+		computes->side_dist.x = (player->pos.x - computes->map.x)
+			* computes->delta.x;
 	}
-	else {
+	else
+	{
 		computes->step.x = 1;
-		computes->side_dist.x = ((computes->map.x + 1.0) - player->pos.x) * computes->delta.x;
+		computes->side_dist.x = ((computes->map.x + 1.0) - player->pos.x)
+			* computes->delta.x;
 	}
-	if (computes->ray.y < 0) {
+	if (computes->ray.y < 0)
+	{
 		computes->step.y = -1;
-		computes->side_dist.y = (player->pos.y - computes->map.y) * computes->delta.y;
+		computes->side_dist.y = (player->pos.y - computes->map.y)
+			* computes->delta.y;
 	}
-	else {
+	else
+	{
 		computes->step.y = 1;
-		computes->side_dist.y = ((computes->map.y + 1.0) - player->pos.y) * computes->delta.y;
+		computes->side_dist.y = ((computes->map.y + 1.0) - player->pos.y)
+			* computes->delta.y;
 	}
 }
 
-static void	__deltas(t_computes *computes) {
-	int	guard_x;
-	int	guard_y;
-
-	// used for shortcurcit
-	guard_x = computes->ray.x > 0;
-	guard_y = computes->ray.y > 0;
-
-	// compute the deltas if the ray is pos, else a positive value
-	computes->delta.x = (guard_x * fabs(1 / computes->ray.x)) + (!guard_x * 1e30);
-	computes->delta.y = (guard_y * fabs(1 / computes->ray.y)) + (!guard_y * 1e30);
+static void	__deltas(t_computes *computes)
+{
+	// compute the deltas for the ray
+	computes->delta.x = fabs(1 / computes->ray.x);
+	computes->delta.y = fabs(1 / computes->ray.y);
 }
 
-static void	__pos_dir(t_computes *computes, t_player *player, double camera) {
-
+static void	__helper_vecs(t_computes *computes, t_player *player, double camera)
+{
 	// ray starts at the player's position, not the camera
 	// so we need to get the player's position in the map, which is a square
 	computes->map.x = (int)player->pos.x;
@@ -79,15 +85,16 @@ static void	__pos_dir(t_computes *computes, t_player *player, double camera) {
 	computes->ray.y = player->dir.y + (player->plane.y * camera);
 }
 
-void	raycast(int column, t_map *map, t_player *player, t_computes *computes) {
-	double		camera;
+void	raycast(int column, t_map *map, t_player *player, t_computes *computes)
+{
+	double camera;
 
 	// get where the in the x-cordinate the camera plane is
 	camera = (2 * (column / (double)map->width)) - 1;
-	__pos_dir(computes, player, camera);
+	__helper_vecs(computes, player, camera);
 	__deltas(computes);
 	__sides(computes, player);
-	__log_computes(computes);
+	// __log_computes(computes);
 	__dda(computes, map->map);
 	__render_computes(computes, map->height);
 	__log_results(computes);

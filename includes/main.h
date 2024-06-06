@@ -48,7 +48,7 @@ void	init_player(t_player *player, t_map *map);
 void 	build_player_2d_image(t_map *map, t_window *win);
 
 // players function
-void	find_player_start(t_map *map, t_vec_double *cord);
+void	_player_start_pos(t_map *map, t_player *player);
 
 
 #endif
