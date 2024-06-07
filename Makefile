@@ -20,7 +20,7 @@ SQUARE_SIZE = 3
 
 # Compiler and Flags
 CC      = cc
-CFLAGS	= -g -fsanitize=address -DWIN_WIDTH=$(WIN_WIDTH) -DWIN_HEIGHT=$(WIN_HEIGHT) -DSQUARE_SIZE=$(SQUARE_SIZE) #-Wall -Wextra -Werror
+CFLAGS	= -g -DWIN_WIDTH=$(WIN_WIDTH) -DWIN_HEIGHT=$(WIN_HEIGHT) -DSQUARE_SIZE=$(SQUARE_SIZE) #-Wall -Wextra -Werror -fsanitize=address
 
 # Source directories and files
 LFT = libft
