@@ -28,6 +28,10 @@
 #  define RIGHT 65363
 # endif
 
+// player macros
+# define MOVE_SPEED 0.01
+# define ROT_SPEED 0.555
+
 typedef struct s_controller
 {
 	bool		mv_fw;

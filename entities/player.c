@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:32:51 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/07 02:11:38 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:04:41 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,14 @@ void	_player_start_pos(t_map *map, t_player *player)
 	return ;
 }
 
+void	update_camera_plane(t_player *player)
+{
+	player->plane = (t_vec_double){.x = player->dir.x, .y = player->dir.y};
+	__rotate_vector(&player->plane, 90);
+}
+
 void	init_player(t_player *player, t_map *map)
 {
-	player->pos = (t_vec_double){.x = 2, .y = 2};
-	player->dir = (t_vec_double){.x = 1, .y = 0};
-	player->plane = (t_vec_double){.x = 0, .y = 0.66};
 	_player_start_pos(map, player);
+	update_camera_plane(player);
 }
