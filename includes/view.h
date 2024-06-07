@@ -9,6 +9,10 @@
 # define WIN_HEIGHT 600
 #endif
 
+#ifndef SQUARE_SIZE
+# define SQUARE_SIZE 10
+#endif
+
 # include "raycast.h"
 
 // function definations

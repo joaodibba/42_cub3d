@@ -1,39 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 22:32:51 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/07 13:04:41 by rphuyal          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/main.h"
-
-void	build_player_2d_image(t_map *map, t_window *win)
-{
-	int				color;
-	unsigned int	x;
-	unsigned int	y;
-
-	y = 0;
-	while (y < WIN_HEIGHT)
-	{
-		x = 0;
-		while (x < WIN_WIDTH)
-		{
-			if (map->map[y][x] == 'N' || map->map[y][x] == 'S'
-				|| map->map[y][x] == 'E' || map->map[y][x] == 'W')
-			{
-				color = 0x000000FF;
-				draw_square(win->img, x * SQUARE_SIZE, y * SQUARE_SIZE,
-					SQUARE_SIZE, color);
-			}
-		}
-	}
-}
 
 bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,
 		unsigned int y)

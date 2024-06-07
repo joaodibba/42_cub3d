@@ -5,6 +5,8 @@
 
 // include stuffs from the model
 # include "model.h"
+# include <stdbool.h>
+# include <stddef.h>
 
 # define SIDE_X 0
 # define SIDE_Y 1

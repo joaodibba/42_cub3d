@@ -9,11 +9,13 @@ EA textures/ea.xpm
 SO textures/so.xpm
 
 
-F 220,100,0
+F 255,255,255
+
+
+C 220,100,0
 
 
 
-C 225,30,0
 
 
 

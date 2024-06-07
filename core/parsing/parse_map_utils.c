@@ -1,5 +1,5 @@
 
-#include "../../includes/main.h"
+#include "../../includes/parser.h"
 
 /*
 	@brief Checks if the key is a texture
@@ -41,7 +41,6 @@ bool	is_valid_map_char(char c)
 	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W'
 		|| c == ' ' || c == '\n');
 }
-// ! FIXME Not using this shit but should
 
 /*
 	@brief Checks if the character is a space

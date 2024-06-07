@@ -46,7 +46,6 @@ void	draw_square(t_image *img, int x, int y, int size, int color);
 
 // entities functions
 void	init_player(t_player *player, t_map *map);
-void 	build_player_2d_image(t_map *map, t_window *win);
 
 // players function
 void	_player_start_pos(t_map *map, t_player *player);
