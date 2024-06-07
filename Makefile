@@ -34,8 +34,7 @@ DIRS =	core/cub \
 		dimension-2d \
 		dimension-3d \
 		entities \
-		raycasting \
-		$(LFT)
+		raycasting
 
 SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
 OBJ  = $(SRC:.c=.o)
