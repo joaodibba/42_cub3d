@@ -14,8 +14,8 @@ bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,
 	else
 		return (false);
 	printf("Found player (%c) at: (%d, %d)\n", map->map[x][y], x, y);
-	player->pos.x = 0.5 + (float)1;
-	player->pos.y = 0.5 + (float)1;
+	player->pos.x = 0.5 + (float)x;
+	player->pos.y = 0.5 + (float)y;
 	map->map[x][y] = '0';
 	return (true);
 }
