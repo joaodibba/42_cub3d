@@ -13,6 +13,7 @@ bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,
 		player->dir = (t_vec_double){.x = -1, .y = 0};
 	else
 		return (false);
+	printf("Found player (%c) at: (%d, %d)\n", map->map[x][y], x, y);
 	player->pos.x = 0.5 + (float)1;
 	player->pos.y = 0.5 + (float)1;
 	map->map[x][y] = '0';
@@ -25,10 +26,10 @@ void	_player_start_pos(t_map *map, t_player *player)
 	unsigned int	y;
 
 	x = 0;
-	while (x < WIN_WIDTH)
+	while (map->map && map->map[x])
 	{
 		y = 0;
-		while (y < WIN_HEIGHT)
+		while (map->map && map->map[x][y])
 		{
 			if (__player_exists_here(map, player, x, y))
 				return ;
