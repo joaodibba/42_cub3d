@@ -26,7 +26,7 @@ CFLAGS	= -g -fsanitize=address -DWIN_WIDTH=$(WIN_WIDTH) -DWIN_HEIGHT=$(WIN_HEIGH
 LFT = libft
 MLX = mlx_linux
 
-DIRS =	core \
+DIRS =	core/cub \
 		core/model \
 		core/view \
 		core/controller \

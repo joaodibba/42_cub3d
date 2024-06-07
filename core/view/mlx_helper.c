@@ -1,4 +1,4 @@
-#include "../includes/main.h"
+#include "../../includes/main.h"
 
 void	put_pixel(t_image *img, int x, int y, int color)
 {
