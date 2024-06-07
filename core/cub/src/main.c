@@ -51,7 +51,7 @@ static bool initialization(t_window **win, t_map **map)
 		free(*win);
 		return (false);
 	}
-	**map = (t_map){ .map = NULL, .floor = NULL, .ceiling = NULL, .no = NULL, .so = NULL, .we = NULL, .ea = NULL };
+	**map = (t_map){ .map = NULL, .floor = 0, .ceiling = 0, .no = NULL, .so = NULL, .we = NULL, .ea = NULL };
 	(*win)->img = (t_image *)malloc(sizeof(t_image));
 	if (!(*win)->img)
 	{
@@ -83,38 +83,35 @@ static bool initialization(t_window **win, t_map **map)
 	return (true);
 }
 
-void paint_window(t_window *win, int color)
+void paint_window(t_window *win, int floor_color, int ceiling_color)
 {
-    int x;
-    int y;
+	int x;
+	int y;
 
-    // Paint the top half with the given color
 	y = 0;
-    while (y < WIN_HEIGHT / 2)
-    {
-        x = 0;
-        while (x < WIN_WIDTH)
-            put_pixel(win->img, x++, y, 0x00FF0000);  // Red color in hex
-        y++;
-    }
-    y = WIN_HEIGHT / 2;
-    while (y < WIN_HEIGHT)
-    {
-        x = 0;
-        while (x < WIN_WIDTH)
-            put_pixel(win->img, x++, y, color);
-        y++;
-    }
-
-    // Paint the bottom half with red
+	while (y < WIN_HEIGHT / 2)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+			put_pixel(win->img, x++, y, ceiling_color);
+		y++;
+	}
+	y = WIN_HEIGHT / 2;
+	while (y < WIN_HEIGHT)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+			put_pixel(win->img, x++, y, floor_color);
+		y++;
+	}
 }
-
 
 int render(t_cub *cub)
 {
-	paint_window(cub->win, 0x0000ff00); //red
+
+	paint_window(cub->win, cub->map->floor, cub->map->ceiling); 
     render_2d_map(cub->map, cub->win);
-	render_player(cub->map, cub->win);
+	// render_player(cub->map, cub->win);
     mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
     return (0);
 }
@@ -140,7 +137,6 @@ int main(int argc, char **argv)
     cub->win = win;
     cub->map = map;
     cub->ctrl = ctrl;
-
     mlx_loop_hook(win->mlx, &render, cub);
     mlx_loop(win->mlx);
 

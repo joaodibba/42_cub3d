@@ -31,24 +31,16 @@ typedef struct s_window
 	t_image *img; // image data
 }			t_window;
 
-// @brief The color structure
-typedef struct s_color
-{
-	uint8_t	red;
-	uint8_t	green;
-	uint8_t	blue;
-}			t_color;
-
 // @brief The map structure
 typedef struct s_map
 {
-	char	**map;
-	t_color	*floor;
-	t_color	*ceiling;
-	t_image	*no;
-	t_image	*so;
-	t_image	*we;
-	t_image	*ea;
+	char			**map;
+	unsigned int	floor; // floor color
+	unsigned int	ceiling; // ceiling color
+	t_image			*no;
+	t_image			*so;
+	t_image			*we;
+	t_image			*ea;
 }			t_map;
 
 #endif
