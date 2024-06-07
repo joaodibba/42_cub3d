@@ -4,6 +4,7 @@
 bool	is_line_empty(char *line);
 bool	check_borders(char **map, int i, int j);
 bool	is_valid_map_char(char c);
+bool	is_valid_player_char(char c);
 
 /*
 	@brief Checks if the character is a valid player character

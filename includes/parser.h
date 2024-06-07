@@ -15,8 +15,6 @@
 
 bool	parser(char *path, t_window **win, t_map **map);
 
-bool	is_valid_player_char(char c);
-
 bool	can_read_file(char *path);
 
 #endif
