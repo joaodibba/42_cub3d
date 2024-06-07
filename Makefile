@@ -14,9 +14,13 @@ OS := $(shell uname)
 # Project Name
 CUB = cub3D
 
+WIN_WIDTH = 800
+WIN_HEIGHT = 600
+SQUARE_SIZE = 3
+
 # Compiler and Flags
 CC      = cc
-CFLAGS	= -g -fsanitize=address  #-Wall -Wextra -Werror
+CFLAGS	= -g -fsanitize=address -DWIN_WIDTH=$(WIN_WIDTH) -DWIN_HEIGHT=$(WIN_HEIGHT) -DSQUARE_SIZE=$(SQUARE_SIZE) #-Wall -Wextra -Werror
 
 # Source directories and files
 LFT = libft
@@ -26,10 +30,12 @@ DIRS =	core \
 		core/model \
 		core/view \
 		core/controller \
+		core/parsing \
 		dimension-2d \
 		dimension-3d \
 		entities \
-		raycasting
+		raycasting \
+		$(LFT)
 
 SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
 OBJ  = $(SRC:.c=.o)
@@ -60,7 +66,7 @@ $(CUB): $(OBJ)
 
 %.o: %.c
 	@printf "$(BL)Compiling $< into $@$(RC)\n"
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
 	@printf "$(BL)Cleaning .o files$(RC)\n"

@@ -70,9 +70,6 @@ static bool initialization(t_window **win, t_map **map)
 		return (false);
 	}
 	(*win)->img->addr = mlx_get_data_addr((*win)->img->img, &(*win)->img->bpp, &(*win)->img->line_len, &(*win)->img->endian);
-	printf("bpp: %d\n", (*win)->img->bpp);
-	printf("line_len: %d\n", (*win)->img->line_len);
-	printf("endian: %d\n", (*win)->img->endian);
 	if (!(*win)->img->addr)
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to get image address.\n");
@@ -102,74 +99,73 @@ static void	render_3d_map(t_cub *cub)
 	}
 }
 
+void paint_window(t_window *win, int color)
+{
+    int x;
+    int y;
+
+    // Paint the top half with the given color
+	y = 0;
+    while (y < WIN_HEIGHT / 2)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+            put_pixel(win->img, x++, y, 0x00FF0000);  // Red color in hex
+        y++;
+    }
+    y = WIN_HEIGHT / 2;
+    while (y < WIN_HEIGHT)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+            put_pixel(win->img, x++, y, color);
+        y++;
+    }
+
+    // Paint the bottom half with red
+}
+
+
 int render(t_cub *cub)
 {
-	render_3d_map(cub);
+	paint_window(cub->win, 0x0000ff00); //red
+	// render_3d_map(cub);
 	render_2d_map(cub->map, cub->win);
 	render_player(cub->map, cub->win);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
 }
 
-#define MAP_WIDTH 16
-#define MAP_HEIGHT 7
-#include <string.h>
-void	init_temp_map(t_map *map)
-{
-    // Allocate memory for the map
-    map->map = (char **)malloc(MAP_HEIGHT * sizeof(char *));
-    if (!map->map)
-    {
-        ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for map.\n");
-        return;
-    }
-    for (int i = 0; i < MAP_HEIGHT; i++)
-    {
-        map->map[i] = (char *)malloc((MAP_WIDTH + 1) * sizeof(char));
-        if (!map->map[i])
-        {
-            ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for map row %d.\n", i);
-            ft_free_array(map->map);
-            return;
-        }
-    }
-    char _map[MAP_HEIGHT][MAP_WIDTH + 1] = {
-        "111111111",
-        "100000001",
-        "10N111001",
-        "100101001",
-        "100111001",
-        "100000001",
-        "111111111"
-    };
-    for (int i = 0; i < MAP_HEIGHT; i++) {
-       strcpy(map->map[i], _map[i]);
-	}
-    map->width = MAP_WIDTH;
-    map->height = MAP_HEIGHT;
-}
-
 
 int main(int argc, char **argv)
 {
-	t_window		*win = NULL;
-	t_map			*map = NULL;
-	t_controller	ctrl;
-	t_cub			cub;
+    t_window        *win = NULL;
+    t_map           *map = NULL;
+    t_controller    ctrl;
+    t_cub           *cub;
 
-	if (!guard(argc, argv) || !initialization(&win, &map))
-		return (2);
-	ctrl = init_controller(win);
-	init_temp_map(map);
-	init_player(&cub.player, map);
-	print_menu();
-	cub = (t_cub){ .win = win, .map = map, .ctrl = ctrl };
+    if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], &win, &map))
+        return (2);
+    ctrl = init_controller(win);
+    print_menu();
+    cub = (t_cub *)malloc(sizeof(t_cub));
+	// init_player(&cub->player, map);
+    if (!cub)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
+        return (2);
+    }
+    cub->win = win;
+    cub->map = map;
+    cub->ctrl = ctrl;
 
-	mlx_loop_hook(win->mlx, &render, &cub);
-	mlx_loop(win->mlx);
+    mlx_loop_hook(win->mlx, &render, cub);
+    mlx_loop(win->mlx);
 
-	ft_free_array(map->map);
-	free(map);
-	free(win);
-	return (0);
+    ft_free_array(map->map);
+    free(map);
+    free(win);
+    free(cub);
+    return (0);
 }
+

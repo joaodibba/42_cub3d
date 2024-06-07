@@ -25,6 +25,7 @@
 
 // include the additional components
 # include "raycast.h"
+# include "parser.h"
 
 
 typedef struct s_cub

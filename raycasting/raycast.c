@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/06 22:39:05 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/07 01:53:29 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ void	raycast(int column, t_map *map, t_player *player, t_computes *computes)
 	double camera;
 
 	// get where the in the x-cordinate the camera plane is
-	camera = (2 * (column / (double)map->width)) - 1;
+	camera = (2 * (column / (double)WIN_WIDTH)) - 1;
 	__helper_vecs(computes, player, camera);
 	__deltas(computes);
 	__sides(computes, player);
 	// __log_computes(computes);
 	__dda(computes, map->map);
-	__render_computes(computes, map->height);
+	__render_computes(computes, WIN_HEIGHT);
 	__log_results(computes);
 	return ;
 }
