@@ -51,7 +51,7 @@ static bool initialization(t_window **win, t_map **map)
 		free(*win);
 		return (false);
 	}
-	**map = (t_map){ .map = NULL, .floor = NULL, .ceiling = NULL, .no = NULL, .so = NULL, .we = NULL, .ea = NULL };
+	**map = (t_map){ .map = NULL, .floor = 0, .ceiling = 0, .no = NULL, .so = NULL, .we = NULL, .ea = NULL };
 	(*win)->img = (t_image *)malloc(sizeof(t_image));
 	if (!(*win)->img)
 	{
@@ -94,7 +94,7 @@ static void	render_3d_map(t_cub *cub)
 	}
 }
 
-void paint_window(t_window *win, int color)
+void paint_window(t_window *win, int ceiling_color, int floor_color)
 {
     int x;
     int y;
@@ -105,7 +105,7 @@ void paint_window(t_window *win, int color)
     {
         x = 0;
         while (x < WIN_WIDTH)
-            put_pixel(win->img, x++, y, 0x00FF0000);  // Red color in hex
+            put_pixel(win->img, x++, y, ceiling_color);
         y++;
     }
     y = WIN_HEIGHT / 2;
@@ -113,7 +113,7 @@ void paint_window(t_window *win, int color)
     {
         x = 0;
         while (x < WIN_WIDTH)
-            put_pixel(win->img, x++, y, color);
+            put_pixel(win->img, x++, y, floor_color);
         y++;
     }
 
@@ -123,7 +123,7 @@ void paint_window(t_window *win, int color)
 
 int render(t_cub *cub)
 {
-	paint_window(cub->win, 0x0000ff00); //red
+	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
 	// render_3d_map(cub);
 	render_2d_map(cub->map, cub->win);
 

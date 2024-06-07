@@ -1,4 +1,6 @@
-#include "../../includes/main.h"
+#include "../../includes/parser.h"
+
+bool	can_read_file(char *path);
 
 /*
 	@brief Assigns the value to the texture structure

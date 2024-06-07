@@ -12,9 +12,9 @@
 #  define TEXTURE_HEIGHT 128
 # endif
 
+#include "main.h"
+
 
 bool	parser(char *path, t_window **win, t_map **map);
-
-bool	can_read_file(char *path);
 
 #endif
