@@ -191,12 +191,10 @@ void player_move(t_player *player, t_controller *controller, char **map) {
 
 int render(t_cub *cub)
 {
-	// printf("Player position: %f, %f\n", cub->player.pos.x, cub->player.pos.y);
-	// printf("Player direction: %f, %f\n", cub->player.dir.x, cub->player.dir.y);
 	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
 	render_dimension_3d(cub);
-	render_2d_map(cub->map, cub->win);
+	render_2d_map(cub->map, cub->win, cub->player);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
 }
@@ -211,7 +209,6 @@ int main(int argc, char **argv)
     if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], &win, &map))
         return (2);
     ctrl = init_controller(win);
-    print_menu();
     cub = (t_cub *)malloc(sizeof(t_cub));
     if (!cub)
     {
