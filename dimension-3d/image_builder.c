@@ -49,13 +49,11 @@ void    create_wall(t_image *image, t_computes *computes, t_map *map, t_player *
         j = -1;
         while (++j < WIN_HEIGHT)
         {
-            // if (j < computes[i].start_wall || j > computes[i].end_wall)
-            //     continue ;
 			if (j < computes[i].start_wall || j > computes[i].end_wall)
                 continue ;
 
 			if (computes[i].dir == 'N')
-				color = 0x00FF0000;
+				color = 0x00000000;
 			else if (computes[i].dir == 'S')
 				color = 0x0000FF00;
 			else if (computes[i].dir == 'W')

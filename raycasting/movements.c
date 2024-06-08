@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 22:09:55 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/06 19:46:50 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/08 17:55:31 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void    move_backward(t_player *player, int **map) {
 }
 
 void	__move_right(t_player *player, double angle) {
-	__rotate_vector(&player->dir, -angle);
-	__rotate_vector(&player->plane, -angle);
+	rotate_vector(&player->dir, -angle);
+	rotate_vector(&player->plane, -angle);
 }
 
 void	__move_left(t_player *player, double angle) {
-	__rotate_vector(&player->dir, angle);
-	__rotate_vector(&player->plane, angle);
+	rotate_vector(&player->dir, angle);
+	rotate_vector(&player->plane, angle);
 }

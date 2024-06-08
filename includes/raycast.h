@@ -61,14 +61,9 @@ typedef struct s_computes {
 
 // function definations
 void	raycast(int column, t_map *map, t_player *player, t_computes *computes);
-void	__render_computes(t_computes *computes, t_player *player);
 
 // helper functions
-void    __rotate_vector(t_vec_double *vec, double angle);
-
-// loggers
-void    __log_computes(t_computes *computes);
-void    __log_results(t_computes *computes);
+void    rotate_vector(t_vec_double *vec, double angle);
 
 
 #endif

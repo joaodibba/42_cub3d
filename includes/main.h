@@ -43,6 +43,7 @@ void				draw_square(t_image *img, int x, int y, int size,
 
 // entities functions
 void				init_player(t_player *player, t_map *map);
+void				update_camera_plane(t_player *player);
 
 // players function
 void    create_wall(t_image *image, t_computes *computes, t_map *map, t_player *player);

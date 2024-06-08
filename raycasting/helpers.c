@@ -6,13 +6,13 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 01:50:46 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/08 16:59:40 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/08 17:57:01 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-void	__rotate_vector(t_vec_double *vec, double angle)
+void	rotate_vector(t_vec_double *vec, double angle)
 {
     angle = angle * (M_PI / 180);
 	vec->y = vec->x * sin(angle) + vec->y * cos(angle);

@@ -6,11 +6,17 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/08 16:59:24 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/08 18:11:28 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
+
+// loggers
+void		__log_results(t_computes *computes);
+void		__log_computes(t_computes *computes);
+// more computation functions
+void		__render_computes(t_computes *computes, t_player *player);
 
 static void	__dda(t_computes *computes, char **map)
 {
@@ -79,10 +85,9 @@ static void	__helper_vecs(t_computes *computes, t_player *player, double camera)
 	// so we need to get the player's position in the map, which is a square
 	computes->map.x = (int)player->pos.x;
 	computes->map.y = (int)player->pos.y;
-
 	// get the camera plane ops straight from the eye of the player
-	computes->ray.x = player->dir.x + (player->plane.x * camera);
-	computes->ray.y = player->dir.y + (player->plane.y * camera);
+	computes->ray.x = player->dir.x + (player->plane.x * camera) * 20;
+	computes->ray.y = player->dir.y + (player->plane.y * camera) * 20;
 }
 
 void	raycast(int column, t_map *map, t_player *player, t_computes *computes)

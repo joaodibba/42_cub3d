@@ -174,9 +174,9 @@ void player_move(t_player *player, t_controller *controller, char **map) {
         move_dir.x += 1;
 
     if (controller->rt_lf == true)
-		rotate_vector_by_angle(&player->dir, degree_to_radian(-2));
+		rotate_vector_by_angle(&player->dir, degree_to_radian(-0.5));
 	if (controller->rt_rt == true)
-    	rotate_vector_by_angle(&player->dir, degree_to_radian(2));
+    	rotate_vector_by_angle(&player->dir, degree_to_radian(0.5));
 
 
     if (move_dir.x != 0 || move_dir.y != 0)
@@ -193,6 +193,7 @@ int render(t_cub *cub)
 {
 	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
+	update_camera_plane(&cub->player);
 	render_dimension_3d(cub);
 	render_2d_map(cub->map, cub->win, cub->player);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
