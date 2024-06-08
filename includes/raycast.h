@@ -51,6 +51,7 @@ typedef struct s_computes {
     int             start_wall;
     int             wall_height;
     double          dist_to_wall;
+    t_vec_double    hit_pos;
 	t_vec_double	ray;
 	t_cordinates    map;
     t_cordinates    step;

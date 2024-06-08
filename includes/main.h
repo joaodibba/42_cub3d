@@ -37,7 +37,8 @@ typedef struct s_cub
 }					t_cub;
 
 // minimap functions
-void				render_2d_map(t_map *map, t_window *win, t_player player);
+// void				render_2d_map(t_map *map, t_window *win, t_player player);
+void				render_2d_map(t_cub *cub, t_map *map, t_window *win, t_player player);
 void				draw_square(t_image *img, int x, int y, int size,
 						int color);
 
@@ -49,5 +50,7 @@ void				update_camera_plane(t_player *player);
 void    create_wall(t_image *image, t_computes *computes, t_map *map, t_player *player);
 void				_player_start_pos(t_map *map, t_player *player);
 
+
+void 	rotate_vector_by_angle(t_vec_double *vector, double angle);
 
 #endif

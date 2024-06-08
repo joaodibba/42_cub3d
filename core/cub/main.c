@@ -130,7 +130,7 @@ void move_if_valid(t_player *player, char **map, t_vec_double dir) {
         collision.y = 0.1;
     else if (dir.y < 0)
         collision.y = -0.1;
-    if ( map[(int)(player->pos.y)][(int)(player->pos.x + dir.x + collision.x)] && map[(int)(player->pos.y)][(int)(player->pos.x + dir.x + collision.x)] == '0')
+    if (map[(int)(player->pos.y)][(int)(player->pos.x + dir.x + collision.x)] && map[(int)(player->pos.y)][(int)(player->pos.x + dir.x + collision.x)] == '0')
         player->pos.x += dir.x;
     if (map[(int)(player->pos.y + dir.y + collision.y)][(int)(player->pos.x)] && map[(int)(player->pos.y + dir.y + collision.y)][(int)(player->pos.x)] == '0')
         player->pos.y += dir.y;
@@ -158,7 +158,20 @@ void normalize_vector_dbl(t_vec_double *vector) {
 
 double degree_to_radian(double degree)
 {
-	return (degree * M_PI / 180);
+	return ((degree * M_PI) / 180);
+}
+
+void	rotate_vector_by_vector(t_vec_double *vector, t_vec_double *rotate)
+{
+	double	theta;
+	double	new_x;
+	double	new_y;
+
+	theta = atan2(rotate->y, rotate->x) + M_PI / 2;
+	new_x = vector->x * cos(theta) + vector->y * -sin(theta);
+	new_y = -vector->x * -sin(theta) + vector->y * cos(theta);
+	vector->x = new_x;
+	vector->y = new_y;
 }
 
 void player_move(t_player *player, t_controller *controller, char **map) {
@@ -173,16 +186,15 @@ void player_move(t_player *player, t_controller *controller, char **map) {
     if (controller->mv_rt)
         move_dir.x += 1;
 
-    if (controller->rt_lf == true)
+    if (controller->rt_lf)
 		rotate_vector_by_angle(&player->dir, degree_to_radian(-0.5));
-	if (controller->rt_rt == true)
+	if (controller->rt_rt)
     	rotate_vector_by_angle(&player->dir, degree_to_radian(0.5));
 
-
-    if (move_dir.x != 0 || move_dir.y != 0)
+	if (move_dir.x != 0 || move_dir.y != 0)
 	{
         normalize_vector_dbl(&move_dir);
-        rotate_vector_by_angle(&move_dir, atan2(player->dir.y, player->dir.x));
+        rotate_vector_by_vector(&move_dir, &player->dir);
         move_dir.x *= MOVE_SPEED;
         move_dir.y *= MOVE_SPEED;
         move_if_valid(player, map, move_dir);
@@ -195,7 +207,7 @@ int render(t_cub *cub)
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
 	update_camera_plane(&cub->player);
 	render_dimension_3d(cub);
-	render_2d_map(cub->map, cub->win, cub->player);
+	render_2d_map(cub, cub->map, cub->win, cub->player);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
 }

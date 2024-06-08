@@ -14,8 +14,8 @@ OS := $(shell uname)
 # Project Name
 CUB = cub3D
 
-WIN_WIDTH = 1080
-WIN_HEIGHT = 720
+WIN_WIDTH = 800
+WIN_HEIGHT = 600
 SQUARE_SIZE = 8
 PLAYER_SIZE = 3
 

@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/08 18:11:28 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/08 22:58:05 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ void	raycast(int column, t_map *map, t_player *player, t_computes *computes)
 	// __log_computes(computes);
 	__dda(computes, map->map);
 	__render_computes(computes, player);
-	// __log_results(computes);
+	__log_results(computes);
 	return ;
 }
