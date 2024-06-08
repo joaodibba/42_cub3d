@@ -3,6 +3,7 @@
 
 # include <stdbool.h>
 # include "model.h"
+# include "main.h"
 
 # ifdef __APPLE__
 #  define ESC 53
@@ -10,6 +11,8 @@
 #  define A 0
 #  define S 1
 #  define D 2
+#  define Q 12
+#  define E 14
 #  define UP 126
 #  define DOWN 125
 #  define LEFT 123
@@ -22,6 +25,8 @@
 #  define A 97
 #  define S 115
 #  define D 100
+#  define Q 113
+#  define E 101
 #  define UP 65362
 #  define DOWN 65364
 #  define LEFT 65361
@@ -29,8 +34,7 @@
 # endif
 
 // player macros
-# define MOVE_SPEED 0.01
-# define ROT_SPEED 0.555
+# define MOVE_SPEED 0.055
 
 typedef struct s_controller
 {
@@ -43,6 +47,6 @@ typedef struct s_controller
 	bool		game_over;
 }				t_controller;
 
-t_controller	init_controller(t_window *win);
+t_controller	*init_controller(t_window *win);
 
 #endif

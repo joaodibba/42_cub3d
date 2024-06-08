@@ -14,13 +14,21 @@ OS := $(shell uname)
 # Project Name
 CUB = cub3D
 
-WIN_WIDTH = 800
-WIN_HEIGHT = 600
-SQUARE_SIZE = 3
+WIN_WIDTH = 1080
+WIN_HEIGHT = 720
+SQUARE_SIZE = 8
+PLAYER_SIZE = 3
 
 # Compiler and Flags
 CC      = cc
-CFLAGS	= -g -DWIN_WIDTH=$(WIN_WIDTH) -DWIN_HEIGHT=$(WIN_HEIGHT) -DSQUARE_SIZE=$(SQUARE_SIZE) #-Wall -Wextra -Werror -fsanitize=address
+CFLAGS	=	-g \
+			-DWIN_WIDTH=$(WIN_WIDTH) \
+			-DWIN_HEIGHT=$(WIN_HEIGHT)\
+			-DSQUARE_SIZE=$(SQUARE_SIZE) \
+			-DPLAYER_SIZE=$(PLAYER_SIZE) \
+			-fsanitize=address
+
+#-Wall -Wextra -Werror
 
 # Source directories and files
 LFT = libft
