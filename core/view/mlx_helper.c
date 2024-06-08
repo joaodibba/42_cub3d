@@ -21,3 +21,5 @@ void	draw_square(t_image *img, int x, int y, int size, int color)
 		}
 	}
 }
+
+

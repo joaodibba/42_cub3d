@@ -1,5 +1,6 @@
 #include "../../includes/main.h"
 #include <errno.h>
+#include <unistd.h>
 
 // TODO: later change all printf to ft_printf
 // ! No need to change printf to ft_printf because printf is allowed in the project
@@ -116,10 +117,83 @@ void paint_window(t_window *win, int ceiling_color, int floor_color)
         y++;
     }
 }
+void move_if_valid(t_player *player, char **map, t_vec_double dir) {
+    t_vec_double collision;
 
+    collision.x = 0;
+    collision.y = 0;
+    if (dir.x > 0)
+        collision.x = 0.1;
+    else if (dir.x < 0)
+        collision.x = -0.1;
+    if (dir.y > 0)
+        collision.y = 0.1;
+    else if (dir.y < 0)
+        collision.y = -0.1;
+    if ( map[(int)(player->pos.y)][(int)(player->pos.x + dir.x + collision.x)] && map[(int)(player->pos.y)][(int)(player->pos.x + dir.x + collision.x)] == '0')
+        player->pos.x += dir.x;
+    if (map[(int)(player->pos.y + dir.y + collision.y)][(int)(player->pos.x)] && map[(int)(player->pos.y + dir.y + collision.y)][(int)(player->pos.x)] == '0')
+        player->pos.y += dir.y;
+}
+
+void rotate_vector_by_angle(t_vec_double *vector, double angle) {
+    double new_x = vector->x * cos(angle) - vector->y * sin(angle);
+    double new_y = vector->x * sin(angle) + vector->y * cos(angle);
+    vector->x = new_x;
+    vector->y = new_y;
+}
+
+void normalize_vector_dbl(t_vec_double *vector) {
+    double gcd;
+
+    gcd = sqrt(vector->x * vector->x + vector->y * vector->y);
+    if (gcd != 0) {
+        vector->x /= gcd;
+        vector->y /= gcd;
+    } else {
+        vector->x = 0;
+        vector->y = 0;
+    }
+}
+
+double degree_to_radian(double degree)
+{
+	return (degree * M_PI / 180);
+}
+
+void player_move(t_player *player, t_controller *controller, char **map) {
+    t_vec_double move_dir = {0, 0};
+
+    if (controller->mv_fw)
+        move_dir.y -= 1;
+    if (controller->mv_bw)
+        move_dir.y += 1;
+    if (controller->mv_lf)
+        move_dir.x -= 1;
+    if (controller->mv_rt)
+        move_dir.x += 1;
+
+    if (controller->rt_lf == true)
+		rotate_vector_by_angle(&player->dir, degree_to_radian(-2));
+	if (controller->rt_rt == true)
+    	rotate_vector_by_angle(&player->dir, degree_to_radian(2));
+
+
+    if (move_dir.x != 0 || move_dir.y != 0)
+	{
+        normalize_vector_dbl(&move_dir);
+        rotate_vector_by_angle(&move_dir, atan2(player->dir.y, player->dir.x));
+        move_dir.x *= MOVE_SPEED;
+        move_dir.y *= MOVE_SPEED;
+        move_if_valid(player, map, move_dir);
+    }
+}
 
 int render(t_cub *cub)
 {
+	// printf("Player position: %f, %f\n", cub->player.pos.x, cub->player.pos.y);
+	// printf("Player direction: %f, %f\n", cub->player.dir.x, cub->player.dir.y);
+	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
 	render_dimension_3d(cub);
 	render_2d_map(cub->map, cub->win);
@@ -127,23 +201,29 @@ int render(t_cub *cub)
 	return (0);
 }
 
-
 int main(int argc, char **argv)
 {
     t_window        *win = NULL;
     t_map           *map = NULL;
-    t_controller    ctrl;
+    t_controller    *ctrl = NULL;
     t_cub           *cub;
 
     if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], &win, &map))
         return (2);
     ctrl = init_controller(win);
+    print_menu();
     cub = (t_cub *)malloc(sizeof(t_cub));
     if (!cub)
     {
         ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
         return (2);
     }
+    ctrl = init_controller(win);
+	if (!ctrl)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize controller.\n");
+		return (2);
+	}
     cub->win = win;
     cub->map = map;
     cub->ctrl = ctrl;
