@@ -43,12 +43,14 @@ typedef struct s_cub
 void	render_2d_map(t_map *map, t_window *window);
 void	draw_square(t_image *img, int x, int y, int size, int color);
 
+// 3d map functions
+void	render_dimension_3d(t_cub *cub);
 
 // entities functions
 void	init_player(t_player *player, t_map *map);
 
 // players function
-void	_player_start_pos(t_map *map, t_player *player);
+void    create_wall(t_image *image, t_computes *computes, t_map *map, t_player *player);
 
 
 #endif

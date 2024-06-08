@@ -29,7 +29,7 @@ void	_player_start_pos(t_map *map, t_player *player)
 	while (map->map && map->map[x])
 	{
 		y = 0;
-		while (map->map && map->map[x][y])
+		while (map->map[x] && map->map[x][y])
 		{
 			if (__player_exists_here(map, player, x, y))
 				return ;
@@ -43,11 +43,14 @@ void	_player_start_pos(t_map *map, t_player *player)
 void	update_camera_plane(t_player *player)
 {
 	player->plane = (t_vec_double){.x = player->dir.x, .y = player->dir.y};
-	__rotate_vector(&player->plane, 90);
+	__rotate_vector(&player->plane, player->fov);
+	player->plane.x *= tan(player->fov / 2 * (M_PI / 180));
+	player->plane.y *= tan(player->fov / 2 * (M_PI / 180));
 }
 
 void	init_player(t_player *player, t_map *map)
 {
+	player->fov = 90;
 	_player_start_pos(map, player);
 	update_camera_plane(player);
 }

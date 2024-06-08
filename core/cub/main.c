@@ -83,15 +83,14 @@ static bool initialization(t_window **win, t_map **map)
 	return (true);
 }
 
-static void	render_3d_map(t_cub *cub)
+void	render_dimension_3d(t_cub *cub)
 {
 	unsigned int	i;
 
-	i = 0;
-	while (i < WIN_WIDTH) {
+	i = -1;
+	while (++i < WIN_WIDTH)
 		raycast(i, cub->map, &cub->player, &cub->cols[i]);
-		i++;
-	}
+	create_wall(cub->win->img, cub->cols, cub->map, &cub->player);
 }
 
 void paint_window(t_window *win, int ceiling_color, int floor_color)
@@ -116,15 +115,13 @@ void paint_window(t_window *win, int ceiling_color, int floor_color)
             put_pixel(win->img, x++, y, floor_color);
         y++;
     }
-
-    // Paint the bottom half with red
 }
 
 
 int render(t_cub *cub)
 {
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
-	// render_3d_map(cub);
+	render_dimension_3d(cub);
 	render_2d_map(cub->map, cub->win);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
@@ -141,7 +138,6 @@ int main(int argc, char **argv)
     if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], &win, &map))
         return (2);
     ctrl = init_controller(win);
-    print_menu();
     cub = (t_cub *)malloc(sizeof(t_cub));
     if (!cub)
     {
@@ -153,6 +149,7 @@ int main(int argc, char **argv)
     cub->ctrl = ctrl;
 	init_player(&cub->player, map);
 
+	print_menu();
     mlx_loop_hook(win->mlx, &render, cub);
     mlx_loop(win->mlx);
 

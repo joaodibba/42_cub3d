@@ -11,6 +11,8 @@
 # define SIDE_X 0
 # define SIDE_Y 1
 
+# define WALLSCALE 10
+
 typedef enum e_move_dir
 {
     TOLEFT,
@@ -33,6 +35,8 @@ typedef struct s_vec_double
 
 typedef struct s_player
 {
+    double			fov;
+    double			speed;
     t_vec_double	pos;
     t_vec_double	dir;
     t_vec_double	plane;
@@ -57,7 +61,7 @@ typedef struct s_computes {
 
 // function definations
 void	raycast(int column, t_map *map, t_player *player, t_computes *computes);
-void    __render_computes(t_computes *computes, size_t height);
+void	__render_computes(t_computes *computes, t_player *player);
 
 // helper functions
 void    __rotate_vector(t_vec_double *vec, double angle);
