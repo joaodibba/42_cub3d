@@ -1,5 +1,5 @@
 
-#include "../../includes/parser.h"
+#include "../../includes/main.h"
 
 bool	is_line_empty(char *line);
 bool	check_borders(char **map, int i, int j);

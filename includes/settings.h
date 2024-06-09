@@ -1,9 +1,24 @@
-#ifndef CONTROLLER_H
-# define CONTROLLER_H
+#ifndef SETTINGS_H
+# define SETTINGS_H
 
-# include <stdbool.h>
-# include "model.h"
-# include "main.h"
+#ifndef WIN_WIDTH
+# define WIN_WIDTH 800
+#endif
+
+#ifndef WIN_HEIGHT
+# define WIN_HEIGHT 600
+#endif
+
+#ifndef SQUARE_SIZE
+# define SQUARE_SIZE 10
+#endif
+
+#ifndef PLAYER_SIZE
+# define PLAYER_SIZE 2
+#endif
+
+// player macros
+# define MOVE_SPEED 0.055
 
 # ifdef __APPLE__
 #  define ESC 53
@@ -33,20 +48,5 @@
 #  define RIGHT 65363
 # endif
 
-// player macros
-# define MOVE_SPEED 0.055
-
-typedef struct s_controller
-{
-	bool		mv_fw;
-	bool		mv_bw;
-	bool		mv_lf;
-	bool		mv_rt;
-	bool		rt_lf;
-	bool		rt_rt;
-	bool		game_over;
-}				t_controller;
-
-t_controller	*init_controller(t_window *win);
 
 #endif

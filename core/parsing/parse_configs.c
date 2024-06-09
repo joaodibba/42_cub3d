@@ -1,4 +1,4 @@
-#include "../../includes/parser.h"
+#include "../../includes/main.h"
 
 bool	is_texture(char *key);
 bool	is_color(char *key);

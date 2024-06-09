@@ -1,4 +1,4 @@
-#include "../../includes/parser.h"
+#include "../../includes/main.h"
 
 /*
 	@brief Checks if the string is a valid color

@@ -1,4 +1,4 @@
-#include "../../includes/parser.h"
+#include "../../includes/main.h"
 
 bool	can_read_file(char *path);
 
@@ -26,12 +26,10 @@ t_image	*assign_texture(void *mlx, char *path)
 		return (NULL);
 	}
 	img->img = mlx_xpm_file_to_image(mlx, path, &(img->width), &(img->height));
-	if (img->width > TEXTURE_WIDTH || img->height > TEXTURE_HEIGHT)
+	if (img->width > TEXTURE_SIZE || img->height > TEXTURE_SIZE)
 	{
 		ft_fprintf(STDERR_FILENO,
-				"Error: '%s' image width and height should be ", path);
-		ft_fprintf(STDERR_FILENO, "%d and ", TEXTURE_WIDTH);
-		ft_fprintf(STDERR_FILENO, "%d respectively.\n", TEXTURE_HEIGHT);
+				"Error: '%s' image width and height should be %d\n", path, TEXTURE_SIZE);
 		free(img);
 		return (NULL);
 	}

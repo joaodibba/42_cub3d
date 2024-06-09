@@ -1,4 +1,4 @@
-#include "../../includes/parser.h"
+#include "../../includes/main.h"
 
 bool	is_space(char c);
 

@@ -1,6 +1,5 @@
-#include "../includes/view.h"
-# include <stdio.h>
-# include <stdlib.h>
+#include "../includes/main.h"
+
 // void   get_texture_color(t_texture *texture, int x, int y)
 // {
 //     int     color;

@@ -7,6 +7,8 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <stddef.h>
+
 
 // Platform-specific dependencies
 # ifdef __APPLE__
@@ -18,35 +20,43 @@
 // Project-specific dependencies
 # include "../libft/libft.h"
 
-// include the components of the MVC architecture
-# include "controller.h"
-# include "model.h"
-# include "view.h"
+# include "structures.h"
+# include "settings.h"
 
-// include the additional components
-# include "parser.h"
-# include "raycast.h"
+// Macros for the raycaster
+# define SIDE_X 0
+# define SIDE_Y 1
+# define WALLSCALE 10
+# define TEXTURE_SIZE 128
 
-typedef struct s_cub
-{
-	t_window		*win;
-	t_map			*map;
-	t_controller	*ctrl;
-	t_player		player;
-	t_computes		cols[WIN_WIDTH];
-}					t_cub;
 
-// minimap functions
-void				render_2d_map(t_map *map, t_window *win, t_player player);
-void				draw_square(t_image *img, int x, int y, int size,
+bool			parser(char *path, t_window **win, t_map **map);
+
+t_controller	*init_controller(t_window *win);
+void			render_2d_map(t_map *map, t_window *win, t_player player);
+void			draw_square(t_image *img, int x, int y, int size,
 						int color);
 
 // entities functions
-void				init_player(t_player *player, t_map *map);
+void			init_player(t_player *player, t_map *map);
 
 // players function
-void    create_wall(t_image *image, t_computes *computes, t_map *map, t_player *player);
+void    		create_wall(t_image *image, t_computes *computes, t_map *map, t_player *player);
 void				_player_start_pos(t_map *map, t_player *player);
 
+void			raycast(int column, t_map *map, t_player *player, t_computes *computes);
+void			__render_computes(t_computes *computes, t_player *player);
+
+// helper functions
+void    		__rotate_vector(t_vec_double *vec, double angle);
+
+// loggers
+void    		__log_computes(t_computes *computes);
+void    		__log_results(t_computes *computes);
+
+// function definations
+void			put_pixel(t_image *img, int x, int y, int color);
+void			draw_square(t_image *img, int x, int y, int size, int color);
+void			draw_line(t_image *img, t_vec_double start, t_vec_double end, int color);
 
 #endif

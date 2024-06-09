@@ -1,6 +1,4 @@
 #include "../../includes/main.h"
-#include <errno.h>
-#include <unistd.h>
 
 // TODO: later change all printf to ft_printf
 // ! No need to change printf to ft_printf because printf is allowed in the project
@@ -189,11 +187,11 @@ void player_move(t_player *player, t_controller *controller, char **map) {
     }
 }
 
-int render(t_cub *cub)
+int cube_loop(t_cub *cub)
 {
 	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
-	render_dimension_3d(cub);
+	// render_dimension_3d(cub);
 	render_2d_map(cub->map, cub->win, cub->player);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
@@ -227,7 +225,7 @@ int main(int argc, char **argv)
 	init_player(&cub->player, map);
 
 	print_menu();
-    mlx_loop_hook(win->mlx, &render, cub);
+    mlx_loop_hook(win->mlx, &cube_loop, cub);
     mlx_loop(win->mlx);
 
     ft_free_array(map->map);

@@ -1,5 +1,5 @@
 
-#include "../../includes/parser.h"
+#include "../../includes/main.h"
 
 /*
 	@brief Checks if the key is a texture

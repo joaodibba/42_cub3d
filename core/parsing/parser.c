@@ -1,4 +1,4 @@
-#include "../../includes/parser.h"
+#include "../../includes/main.h"
 
 bool	parse_map(int map_fd, char ***map);
 bool	parse_configs(int map_fd, t_window **win, t_map **map);
