@@ -72,12 +72,14 @@ static void remove_empty_lines_in_array(char ***array) {
     int i = 0;
     int j;
 
-    while ((*array)[i]) {
+    while ((*array)[i]) 
+	{
         if (!is_line_empty((*array)[0]))
 			return ;
         free((*array)[i]);
         j = i;
-        while ((*array)[j]) {
+        while ((*array)[j]) 
+		{
             (*array)[j] = (*array)[j + 1];
             j++;
         }
@@ -124,7 +126,7 @@ static char	*read_map(int fd)
 	@return true if the map was parsed successfully, false otherwise
 
 */
-bool	parse_map(int map_fd, char ***map)
+bool	parse_map(int map_fd, t_map **map)
 {
 	char	*map_line;
 
@@ -136,18 +138,18 @@ bool	parse_map(int map_fd, char ***map)
 		free(map_line);
 		return (false);
 	}
-	*map = ft_split(map_line, '\n');
+	(*map)->map = ft_split(map_line, '\n');
 	free(map_line);
-	if (!*map)
+	if (!(*map)->map)
 		return (false);
 	// remove_empty_lines_in_array(map);
-	for (int i = 0; (*map)[i]; i++)
+	for (int i = 0; (*map)->map[i]; i++)
 	{
-		printf("%s\n", (*map)[i]);
+		printf("%s\n", (*map)->map[i]);
 	}
-	if (!handle_map(*map))
+	if (!handle_map((*map)->map))
 	{
-		ft_free_array(*map);
+		ft_free_array((*map)->map);
 		return (false);
 	}
 	return (true);

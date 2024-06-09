@@ -1,7 +1,7 @@
 #include "../../includes/main.h"
 
-bool	parse_map(int map_fd, char ***map);
-bool	parse_configs(int map_fd, t_window **win, t_map **map);
+bool	parse_map(int map_fd, t_map **map);
+bool	parse_configs(int map_fd, t_window *win, t_map *map);
 bool	is_line_empty(char *line);
 bool	check_borders(char **map, int i, int j);
 
@@ -28,10 +28,9 @@ bool	can_read_file(char *path)
 	@param map The map struct
 	@return true if the map file was parsed successfully, false otherwise
 */
-bool	parser(char *path, t_window **win, t_map **map)
+bool	parser(char *path, t_window *win, t_map *map)
 {
 	int	map_fd;
-	int	i;
 
 	if (!can_read_file(path))
 	{
@@ -41,13 +40,13 @@ bool	parser(char *path, t_window **win, t_map **map)
 	map_fd = open(path, O_RDONLY);
 	if (!parse_configs(map_fd, win, map))
 	{
-		ft_fprintf(STDERR_FILENO,
-				"Error: Failed to parse configs. Please check the map file.\n");
+		ft_fprintf(STDERR_FILENO, "Error: Failed to parse configs. Please check the map file.\n");
 		close(map_fd);
 		return (false);
 	}
-	if (!parse_map(map_fd, &((*map)->map)))
+	if (!parse_map(map_fd, &map))
 	{
+
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
 		close(map_fd);
 		return (false);

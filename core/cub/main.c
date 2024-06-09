@@ -204,7 +204,7 @@ int main(int argc, char **argv)
     t_controller    *ctrl = NULL;
     t_cub           *cub;
 
-    if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], &win, &map))
+    if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], win, map))
         return (2);
     ctrl = init_controller(win);
     cub = (t_cub *)malloc(sizeof(t_cub));

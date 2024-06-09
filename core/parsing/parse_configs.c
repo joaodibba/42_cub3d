@@ -5,8 +5,8 @@ bool	is_color(char *key);
 bool	is_line_empty(char *line);
 bool	all_configs_set(t_map *map);
 bool	gnl(int fd, char **line);
-bool	select_texture(char *key, char *value, t_window **win, t_map **map);
-bool	select_color(char key, char *value, t_map **map);
+bool	select_texture(char *key, char *value, t_window *win, t_map *map);
+bool	select_color(char key, char *value, t_map *map);
 
 /*
 	@brief Parses the line and assigns the value to the key in the map structure
@@ -15,7 +15,7 @@ bool	select_color(char key, char *value, t_map **map);
 	@param map The map structure
 	@return true if the line was parsed successfully, false otherwise
 */
-static bool	parse_line(char *line, t_window **win, t_map **map)
+static bool	parse_line(char *line, t_window *win, t_map *map)
 {
 	char	**key_value;
 	char	*key;
@@ -60,11 +60,11 @@ static bool	parse_line(char *line, t_window **win, t_map **map)
 	@param map The map structure
 	@return true if the configurations were parsed successfully, false otherwise
 */
-bool	parse_configs(int map_fd, t_window **win, t_map **map)
+bool	parse_configs(int map_fd, t_window *win, t_map *map)
 {
 	char	*line;
 
-	while (!all_configs_set(*map) && gnl(map_fd, &line) == true)
+	while (!all_configs_set(map) && gnl(map_fd, &line) == true)
 	{
 		if (!line)
 			break ;

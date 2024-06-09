@@ -29,7 +29,7 @@ t_image	*assign_texture(void *mlx, char *path)
 	if (img->width > TEXTURE_SIZE || img->height > TEXTURE_SIZE)
 	{
 		ft_fprintf(STDERR_FILENO,
-				"Error: '%s' image width and height should be %d\n", path, TEXTURE_SIZE);
+				"Error: '%s' image width and height should be %d", path, TEXTURE_SIZE);
 		free(img);
 		return (NULL);
 	}
@@ -39,7 +39,7 @@ t_image	*assign_texture(void *mlx, char *path)
 	return (img);
 }
 
-bool	select_texture(char *key, char *value, t_window **win, t_map **map)
+bool	select_texture(char *key, char *value, t_window *win, t_map *map)
 {
 	if (!map || !win)
 	{
@@ -52,28 +52,28 @@ bool	select_texture(char *key, char *value, t_window **win, t_map **map)
 		value);
 		return (false);
 	}
-	if (!ft_strncmp(key, "NO", 3) && !(*map)->no)
+	if (!ft_strncmp(key, "NO", 3) && !map->no)
 	{
-		(*map)->no = assign_texture((*win)->mlx, value);
-		if (!(*map)->no)
+		map->no = assign_texture(win->mlx, value);
+		if (!map->no)
 			return (false);
 	}
-	else if (!ft_strncmp(key, "SO", 3) && !(*map)->so)
+	else if (!ft_strncmp(key, "SO", 3) && !map->so)
 	{
-		(*map)->so = assign_texture((*win)->mlx, value);
-		if (!(*map)->so)
+		map->so = assign_texture(win->mlx, value);
+		if (!map->so)
 			return (false);
 	}
-	else if (!ft_strncmp(key, "WE", 3) && !(*map)->we)
+	else if (!ft_strncmp(key, "WE", 3) && !map->we)
 	{
-		(*map)->we = assign_texture((*win)->mlx, value);
-		if (!(*map)->we)
+		map->we = assign_texture(win->mlx, value);
+		if (!map->we)
 			return (false);
 	}
-	else if (!ft_strncmp(key, "EA", 3) && !(*map)->ea)
+	else if (!ft_strncmp(key, "EA", 3) && !map->ea)
 	{
-		(*map)->ea = assign_texture((*win)->mlx, value);
-		if (!(*map)->ea)
+		map->ea = assign_texture(win->mlx, value);
+		if (!map->ea)
 			return (false);
 	}
 	else

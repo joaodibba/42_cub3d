@@ -78,17 +78,17 @@ static bool	assign_color(char *value, unsigned int *color)
 	@param map The map structure to assign the color to
 	@return true if the color was assigned successfully, false otherwise
 */
-bool	select_color(char key, char *value, t_map **map)
+bool	select_color(char key, char *value, t_map *map)
 {
 	if (key == 'F')
 	{
-		if ((*map)->floor != 0)
+		if (map->floor != 0)
 		{
 			ft_fprintf(STDERR_FILENO,
 					"Error: Floor color code specified more than once.\n");
 			return (false);
 		}
-		else if (!assign_color(value, &(*map)->floor))
+		else if (!assign_color(value, &map->floor))
 		{
 			ft_fprintf(STDERR_FILENO, "Error: Failed to assign color\n");
 			return (false);
@@ -96,13 +96,13 @@ bool	select_color(char key, char *value, t_map **map)
 	}
 	else if (key == 'C')
 	{
-		if ((*map)->ceiling != 0)
+		if (map->ceiling != 0)
 		{
 			ft_fprintf(STDERR_FILENO,
 					"Error: Ceiling color code specified more than once.\n");
 			return (false);
 		}
-		if (!assign_color(value, &(*map)->ceiling))
+		if (!assign_color(value, &map->ceiling))
 		{
 			ft_fprintf(STDERR_FILENO, "Error: Failed to assign color");
 			return (false);

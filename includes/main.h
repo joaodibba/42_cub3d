@@ -57,7 +57,7 @@
 
 // ------------------ Functions ------------------
 
-bool			parser(char *path, t_window **win, t_map **map);
+bool	parser(char *path, t_window *win, t_map *map);
 
 t_controller	*init_controller(t_window *win);
 void			init_player(t_player *player, t_map *map);

@@ -63,5 +63,6 @@ bool	gnl(int fd, char **line)
 	*line = get_next_line(fd);
 	if (!*line)
 		return (false);
+
 	return (true);
 }
