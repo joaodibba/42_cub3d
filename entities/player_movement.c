@@ -47,29 +47,44 @@ double	degree_to_radian(double degree)
 	return (degree * M_PI / 180);
 }
 
-void	player_move(t_player *player, t_controller *controller, char **map)
+void	rotate_vector_by_vector(t_vec_double *vector, t_vec_double *rotate)
 {
-	t_vec_double move_dir = {0, 0};
+	double	theta;
+	double	new_x;
+	double	new_y;
 
-	if (controller->mv_fw)
-		move_dir.y -= 1;
-	if (controller->mv_bw)
-		move_dir.y += 1;
-	if (controller->mv_lf)
-		move_dir.x -= 1;
-	if (controller->mv_rt)
-		move_dir.x += 1;
+	theta = atan2(rotate->y, rotate->x) + M_PI / 2;
+	new_x = vector->x * cos(theta) + vector->y * -sin(theta);
+	new_y = -vector->x * -sin(theta) + vector->y * cos(theta);
+	vector->x = new_x;
+	vector->y = new_y;
+}
 
-	if (controller->rt_lf == true)
-		rotate_vector_by_angle(&player->dir, degree_to_radian(-2));
-	if (controller->rt_rt == true)
-		rotate_vector_by_angle(&player->dir, degree_to_radian(2));
+void player_move(t_player *player, t_controller *controller, char **map) {
+    t_vec_double move_dir = {0, 0};
+
+    if (controller->mv_fw)
+        move_dir.y -= 1;
+    if (controller->mv_bw)
+        move_dir.y += 1;
+    if (controller->mv_lf)
+        move_dir.x -= 1;
+    if (controller->mv_rt)
+        move_dir.x += 1;
+
+    if (controller->rt_lf)
+		rotate_vector_by_angle(&player->dir, degree_to_radian(-1));
+	if (controller->rt_rt)
+    	rotate_vector_by_angle(&player->dir, degree_to_radian(1));
+	normalize_vector_dbl(&player->dir);
 
 	if (move_dir.x != 0 || move_dir.y != 0)
 	{
-		normalize_vector_dbl(&move_dir);
-		rotate_vector_by_angle(&move_dir, atan2(player->dir.y, player->dir.x));
-		move_dir = (t_vec_double){move_dir.x * MOVE_SPEED, move_dir.y * MOVE_SPEED};
-		move_if_valid(player, map, move_dir);
-	}
+        rotate_vector_by_vector(&move_dir, &player->dir);
+        normalize_vector_dbl(&move_dir);
+        move_dir.x *= MOVE_SPEED;
+        move_dir.y *= MOVE_SPEED;
+        move_if_valid(player, map, move_dir);
+		normalize_vector_dbl(&player->dir);
+    }
 }

@@ -23,7 +23,7 @@ unsigned int    get_pixel(t_image *texture, int x, int y)
 given the map and the player and the computes
 draw the wall for each pixel column. with color or texture
 */
-void    draw_wall(t_cub *cub, t_image *image, t_computes *computes, t_map *map, t_player *player)
+void    create_wall(t_cub *cub, t_image *image, t_computes *computes, t_map *map, t_player *player)
 {
     unsigned int    i;
     unsigned int    j;
@@ -69,5 +69,5 @@ void	render_dimension_3d(t_cub *cub)
 	i = -1;
 	while (++i < WIN_WIDTH)
 		raycast(i, cub->map, &cub->player, &cub->cols[i]);
-	create_wall(cub->win->img, cub->cols, cub->map, &cub->player);
+	create_wall(cub, cub->win->img, cub->cols, cub->map, &cub->player);
 }

@@ -66,7 +66,7 @@ void			player_move(t_player *player, t_controller *controller, char **map);
 // ------------------ Rendering ------------------
 
 void			paint_window(t_window *win, int ceiling_color, int floor_color);
-void			render_2d_map(t_map *map, t_window *win, t_player player);
+void			render_2d_map(t_cub *cub, t_map *map, t_window *win, t_player player);
 void			draw_square(t_image *img, int x, int y, int size, int color);
 void			put_pixel(t_image *img, int x, int y, int color);
 void			render_dimension_3d(t_cub *cub);
@@ -80,6 +80,7 @@ void			__rotate_vector(t_vec_double *vec, double angle);
 void			__log_computes(t_computes *computes);
 void			__log_results(t_computes *computes);
 
-void 	rotate_vector_by_angle(t_vec_double *vector, double angle);
+void 			rotate_vector_by_angle(t_vec_double *vector, double angle);
+void			rotate_vector(t_vec_double *vec, double angle);
 
 #endif

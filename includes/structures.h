@@ -20,7 +20,6 @@ typedef struct s_vec_double
 // @brief The player structure
 typedef struct s_player
 {
-	double			fov;
 	double			speed;
 	t_vec_double	pos;
 	t_vec_double	dir;
@@ -28,21 +27,22 @@ typedef struct s_player
 }					t_player;
 
 // @brief The computes structure for raycasting
-typedef struct s_computes
-{
-	bool			hit;
-	char			dir;
-	int				side;
-	int				end_wall;
-	int				start_wall;
-	int				wall_height;
-	double			dist_to_wall;
+typedef struct s_computes {
+    bool            hit;
+    char            dir;
+    int             side;
+    int             end_wall;
+    int             start_wall;
+    int             wall_height;
+    double          dist_to_wall;
+    double          wall_x;
+    t_vec_double    hit_pos;
 	t_vec_double	ray;
-	t_cordinates	map;
-	t_cordinates	step;
+	t_cordinates    map;
+    t_cordinates    step;
 	t_vec_double	delta;
-	t_vec_double	side_dist;
-}					t_computes;
+	t_vec_double	step_size;
+} t_computes;
 
 // @brief The controller structure for player movement and game state
 typedef struct s_controller

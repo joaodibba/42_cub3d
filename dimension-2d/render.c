@@ -54,7 +54,7 @@ void	draw_square_db(t_image *img, double x, double y, int size, int color)
 	}
 }
 
-void	render_2d_map(t_map *map, t_window *win, t_player player)
+void	render_2d_map(t_cub *cub, t_map *map, t_window *win, t_player player)
 {
 	int	x;
 	int	y;

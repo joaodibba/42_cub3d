@@ -20,12 +20,15 @@ static bool	guard(int ac, char **av)
 	return (false);
 }
 
+void    update_camera_plane(t_player *player);
+
 int cube_loop(t_cub *cub)
 {
 	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
-	// render_dimension_3d(cub);
-	render_2d_map(cub->map, cub->win, cub->player);
+    update_camera_plane(&cub->player);
+	render_dimension_3d(cub);
+	render_2d_map(cub, cub->map, cub->win, cub->player);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
 }
