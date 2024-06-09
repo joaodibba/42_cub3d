@@ -14,8 +14,8 @@ bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,
 	else
 		return (false);
 	printf("Found player (%c) at: (%d, %d)\n", map->map[x][y], x, y);
-	player->pos.x = 0.5 + (float)x;
-	player->pos.y = 0.5 + (float)y;
+	player->pos.x = 0.5 + (double)y;
+	player->pos.y = 0.5 + (double)x;
 	map->map[x][y] = '0';
 	return (true);
 }
@@ -46,13 +46,12 @@ void	update_camera_plane(t_player *player)
 
 	plane = (t_vec_double){.x = player->dir.x, .y = player->dir.y};
 	rotate_vector(&plane, 90);
-	player->plane.x = plane.x * (player->fov / 100);
-	player->plane.y = plane.y * (player->fov / 100);
+	player->plane.x = plane.x;
+	player->plane.y = plane.y;
 }
 
 void	init_player(t_player *player, t_map *map)
 {
-	player->fov = 100;
 	_player_start_pos(map, player);
 	update_camera_plane(player);
 }

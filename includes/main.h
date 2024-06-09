@@ -47,7 +47,7 @@ void				init_player(t_player *player, t_map *map);
 void				update_camera_plane(t_player *player);
 
 // players function
-void    create_wall(t_image *image, t_computes *computes, t_map *map, t_player *player);
+void    draw_wall(t_cub *cub, t_image *image, t_computes *computes, t_map *map, t_player *player);
 void				_player_start_pos(t_map *map, t_player *player);
 
 

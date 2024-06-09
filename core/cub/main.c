@@ -91,7 +91,7 @@ void	render_dimension_3d(t_cub *cub)
 	i = -1;
 	while (++i < WIN_WIDTH)
 		raycast(i, cub->map, &cub->player, &cub->cols[i]);
-	create_wall(cub->win->img, cub->cols, cub->map, &cub->player);
+	draw_wall(cub, cub->win->img, cub->cols, cub->map, &cub->player);
 }
 
 void paint_window(t_window *win, int ceiling_color, int floor_color)
@@ -158,7 +158,7 @@ void normalize_vector_dbl(t_vec_double *vector) {
 
 double degree_to_radian(double degree)
 {
-	return ((degree * M_PI) / 180);
+	return (degree * M_PI / 180);
 }
 
 void	rotate_vector_by_vector(t_vec_double *vector, t_vec_double *rotate)
@@ -187,19 +187,19 @@ void player_move(t_player *player, t_controller *controller, char **map) {
         move_dir.x += 1;
 
     if (controller->rt_lf)
-		rotate_vector_by_angle(&player->dir, degree_to_radian(0.5));
+		rotate_vector_by_angle(&player->dir, degree_to_radian(-1));
 	if (controller->rt_rt)
-    	rotate_vector_by_angle(&player->dir, degree_to_radian(-0.5));
+    	rotate_vector_by_angle(&player->dir, degree_to_radian(1));
+	normalize_vector_dbl(&player->dir);
 
 	if (move_dir.x != 0 || move_dir.y != 0)
 	{
         rotate_vector_by_vector(&move_dir, &player->dir);
-        // normalize_vector_dbl(&move_dir);
+        normalize_vector_dbl(&move_dir);
         move_dir.x *= MOVE_SPEED;
         move_dir.y *= MOVE_SPEED;
-		player->pos.x += move_dir.x;
-		player->pos.y += move_dir.y;
-        // move_if_valid(player, map, move_dir);
+        move_if_valid(player, map, move_dir);
+		normalize_vector_dbl(&player->dir);
     }
 }
 
@@ -207,7 +207,7 @@ int render(t_cub *cub)
 {
 	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
-	// update_camera_plane(&cub->player);
+	update_camera_plane(&cub->player);
 	render_dimension_3d(cub);
 	render_2d_map(cub, cub->map, cub->win, cub->player);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);

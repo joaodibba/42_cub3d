@@ -34,7 +34,7 @@
 # endif
 
 // player macros
-# define MOVE_SPEED 0.055
+# define MOVE_SPEED 0.04
 
 typedef struct s_controller
 {

@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/09 16:30:49 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/09 18:55:25 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	__dda(t_computes *computes, char **map)
 		}
 		if (computes->map.x < 0 || computes->map.y < 0)
 			break ;
-		if (map[computes->map.x] && map[computes->map.x][computes->map.y] == '1')
+		if (map[computes->map.y] && map[computes->map.y][computes->map.x] == '1')
 		{
 			computes->hit = true;
 			break ;
@@ -87,7 +87,8 @@ static void	__helper_vecs(t_computes *computes, t_player *player, double camera)
 	// so we need to get the player's position in the map, which is a square
 	computes->map.x = (int)player->pos.x;
 	computes->map.y = (int)player->pos.y;
-	// get the camera plane ops straight from the eye of the player
+
+	// get the camera plane pos straight from the eye of the player
 	computes->ray.x = player->dir.x + (player->plane.x * camera);
 	computes->ray.y = player->dir.y + (player->plane.y * camera);
 }
@@ -101,9 +102,7 @@ void	raycast(int column, t_map *map, t_player *player, t_computes *computes)
 	__helper_vecs(computes, player, camera);
 	__deltas(computes);
 	__sides(computes, player);
-	// __log_computes(computes);
 	__dda(computes, map->map);
 	__render_computes(computes, player);
-	// __log_results(computes);
 	return ;
 }

@@ -28,7 +28,7 @@ void	draw_line(t_image *img, t_vec_double *start, t_vec_double *line_len,
 static void	draw_rays(t_cub *cub)
 {
 	t_vec_double	player_cord;
-	t_vec_double	hit_pos;
+	t_vec_double	hit_cord;
 	int				i;
 
 	player_cord.x = cub->player.pos.x * SQUARE_SIZE;
@@ -36,9 +36,9 @@ static void	draw_rays(t_cub *cub)
 	i = -1;
 	while (++i < WIN_WIDTH)
 	{
-		hit_pos.x = cub->cols[i].hit_pos.x * SQUARE_SIZE - player_cord.x;
-		hit_pos.y = cub->cols[i].hit_pos.y * SQUARE_SIZE - player_cord.y;
-		draw_line(cub->win->img, &player_cord, &hit_pos, 0x00FFFF00);
+		hit_cord.x = cub->cols[i].hit_pos.x * SQUARE_SIZE - player_cord.x;
+		hit_cord.y = cub->cols[i].hit_pos.y * SQUARE_SIZE - player_cord.y;
+		draw_line(cub->win->img, &player_cord, &hit_cord, 0x00F5F1D3);
 	}
 }
 
