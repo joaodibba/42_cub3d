@@ -56,7 +56,7 @@ typedef struct s_computes {
 	t_cordinates    map;
     t_cordinates    step;
 	t_vec_double	delta;
-	t_vec_double	side_dist;
+	t_vec_double	step_size;
 } t_computes;
 
 

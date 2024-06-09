@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:07:50 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/08 14:03:51 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/09 14:58:03 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void __log_computes(t_computes *computes) {
 	printf("delta.y: %f\n", computes->delta.y);
 	printf("step.x: %d\n", computes->step.x);
 	printf("step.y: %d\n", computes->step.y);
-	printf("side_dist.x: %f\n", computes->side_dist.x);
-	printf("side_dist.y: %f\n", computes->side_dist.y);
+	printf("step_size.x: %f\n", computes->step_size.x);
+	printf("step_size.y: %f\n", computes->step_size.y);
 	printf("-------------------------\n\n");
 }
 

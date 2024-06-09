@@ -38,7 +38,6 @@ static void	draw_rays(t_cub *cub)
 	{
 		hit_pos.x = cub->cols[i].hit_pos.x * SQUARE_SIZE - player_cord.x;
 		hit_pos.y = cub->cols[i].hit_pos.y * SQUARE_SIZE - player_cord.y;
-		// printf("at col i : %d | hit_pos.x: %f, hit_pos.y: %f\n", i, hit_pos.x, hit_pos.y);
 		draw_line(cub->win->img, &player_cord, &hit_pos, 0x00FFFF00);
 	}
 }
@@ -88,6 +87,6 @@ void	render_2d_map(t_cub *cub, t_map *map, t_window *win, t_player player)
 		}
 		y++;
 	}
-	// draw_rays(cub);
+	draw_rays(cub);
 	draw_player(win->img, player.pos.x, player.pos.y, 0x00FF0000);
 }
