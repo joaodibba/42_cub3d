@@ -1,55 +1,84 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-// Standard libraries
+// ------------------ Dependencies ------------------
 # include <errno.h>
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <stddef.h>
 
-// Platform-specific dependencies
+// ------------------ Local Headers ------------------
+
 # ifdef __APPLE__
 #  include "../mlx_macos/mlx.h"
 # else
 #  include "../mlx_linux/mlx.h"
 # endif
 
-// Project-specific dependencies
 # include "../libft/libft.h"
+# include "structures.h"
+# include "settings.h"
 
-// include the components of the MVC architecture
-# include "controller.h"
-# include "model.h"
-# include "view.h"
+// ------------------ Macros ------------------
+# define SIDE_X 0
+# define SIDE_Y 1
+# define WALLSCALE 10
+# define TEXTURE_SIZE 128
 
-// include the additional components
-# include "parser.h"
-# include "raycast.h"
+# ifdef __APPLE__
+#  define ESC 53
+#  define W 13
+#  define A 0
+#  define S 1
+#  define D 2
+#  define Q 12
+#  define E 14
+#  define UP 126
+#  define DOWN 125
+#  define LEFT 123
+#  define RIGHT 124
+# endif
 
-typedef struct s_cub
-{
-	t_window		*win;
-	t_map			*map;
-	t_controller	*ctrl;
-	t_player		player;
-	t_computes		cols[WIN_WIDTH];
-}					t_cub;
+# ifdef __linux__
+#  define ESC 65307
+#  define W 119
+#  define A 97
+#  define S 115
+#  define D 100
+#  define Q 113
+#  define E 101
+#  define UP 65362
+#  define DOWN 65364
+#  define LEFT 65361
+#  define RIGHT 65363
+# endif
 
-// minimap functions
-// void				render_2d_map(t_map *map, t_window *win, t_player player);
-void				render_2d_map(t_cub *cub, t_map *map, t_window *win, t_player player);
-void				draw_square(t_image *img, int x, int y, int size,
-						int color);
+// ------------------ Functions ------------------
 
-// entities functions
-void				init_player(t_player *player, t_map *map);
-void				update_camera_plane(t_player *player);
+bool	parser(char *path, t_window *win, t_map *map);
 
-// players function
-void    draw_wall(t_cub *cub, t_image *image, t_computes *computes, t_map *map, t_player *player);
-void				_player_start_pos(t_map *map, t_player *player);
+t_controller	*init_controller(t_window *win);
+void			init_player(t_player *player, t_map *map);
+void			player_move(t_player *player, t_controller *controller, char **map);
 
+// ------------------ Rendering ------------------
+
+void			paint_window(t_window *win, int ceiling_color, int floor_color);
+void			render_2d_map(t_map *map, t_window *win, t_player player);
+void			draw_square(t_image *img, int x, int y, int size, int color);
+void			put_pixel(t_image *img, int x, int y, int color);
+void			render_dimension_3d(t_cub *cub);
+
+// ------------------ Raycasting ------------------
+
+void			raycast(int column, t_map *map, \
+						t_player *player, t_computes *computes);
+void			__render_computes(t_computes *computes, t_player *player);
+void			__rotate_vector(t_vec_double *vec, double angle);
+void			__log_computes(t_computes *computes);
+void			__log_results(t_computes *computes);
 
 void 	rotate_vector_by_angle(t_vec_double *vector, double angle);
 

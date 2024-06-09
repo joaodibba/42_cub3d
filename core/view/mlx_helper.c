@@ -22,4 +22,26 @@ void	draw_square(t_image *img, int x, int y, int size, int color)
 	}
 }
 
+void	paint_window(t_window *win, int ceiling_color, int floor_color)
+{
+    int x;
+    int y;
 
+    // Paint the top half with the given color
+	y = 0;
+    while (y < WIN_HEIGHT / 2)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+            put_pixel(win->img, x++, y, ceiling_color);
+        y++;
+    }
+    y = WIN_HEIGHT / 2;
+    while (y < WIN_HEIGHT)
+    {
+        x = 0;
+        while (x < WIN_WIDTH)
+            put_pixel(win->img, x++, y, floor_color);
+        y++;
+    }
+}

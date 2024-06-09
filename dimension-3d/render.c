@@ -62,3 +62,12 @@ void    draw_wall(t_cub *cub, t_image *image, t_computes *computes, t_map *map, 
     }
 }
 
+void	render_dimension_3d(t_cub *cub)
+{
+	unsigned int	i;
+
+	i = -1;
+	while (++i < WIN_WIDTH)
+		raycast(i, cub->map, &cub->player, &cub->cols[i]);
+	create_wall(cub->win->img, cub->cols, cub->map, &cub->player);
+}
