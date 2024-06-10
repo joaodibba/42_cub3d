@@ -13,18 +13,20 @@ void	_check_for_colision(t_player *player, char **map, t_vec_double dir)
 		collision.y = 0.1;
 	else if (dir.y < 0)
 		collision.y = -0.1;
-	if (map[(int)(player->pos.y)][(int)(player->pos.x + dir.x + collision.x)] == '0')
+	if (map[(int)(player->pos.y)][(int)(player->pos.x + dir.x
+			+ collision.x)] == '0')
 		player->pos.x += dir.x;
-	if (map[(int)(player->pos.y + dir.y + collision.y)][(int)(player->pos.x)] == '0')
+	if (map[(int)(player->pos.y + dir.y
+			+ collision.y)][(int)(player->pos.x)] == '0')
 		player->pos.y += dir.y;
 }
 
 void	rotate_vector(t_vec_double *vec, double angle)
 {
-	double		rad;
-	t_vec_double tmp;
+	double			rad;
+	t_vec_double	tmp;
 
-    rad = angle * M_PI / 180;
+	rad = angle * M_PI / 180;
 	tmp = (t_vec_double){.x = vec->x, .y = vec->y};
 	vec->x = tmp.x * cos(rad) - tmp.y * sin(rad);
 	vec->y = tmp.x * sin(rad) + tmp.y * cos(rad);
@@ -32,8 +34,8 @@ void	rotate_vector(t_vec_double *vec, double angle)
 
 void	rotate_player_dir(t_vec_double *vector, t_vec_double *rotate)
 {
-	double	theta;
-	t_vec_double tmp;
+	double			theta;
+	t_vec_double	tmp;
 
 	theta = atan2(rotate->y, rotate->x) + M_PI / 2;
 	tmp = (t_vec_double){.x = vector->x, .y = vector->y};
@@ -50,24 +52,21 @@ void	_normalizer(t_vec_double *vector)
 	vector->y /= length;
 }
 
-void player_move(t_player *player, t_controller *controller, char **map)
+void	player_move(t_player *player, t_controller *controller, char **map)
 {
-    t_vec_double move_dir;
+	t_vec_double	move_dir;
 
 	move_dir = (t_vec_double){0, 0};
 	move_dir.y -= (controller->mv_fw);
 	move_dir.y += (controller->mv_bw);
 	move_dir.x -= (controller->mv_lf);
 	move_dir.x += (controller->mv_rt);
-
-    if (controller->rt_lf)
+	if (controller->rt_lf)
 		rotate_vector(&player->dir, -ROT_SPEED);
 	if (controller->rt_rt)
-    	rotate_vector(&player->dir, ROT_SPEED);
-
+		rotate_vector(&player->dir, ROT_SPEED);
 	if (move_dir.x == 0 && move_dir.y == 0)
 		return ;
-
 	rotate_player_dir(&move_dir, &player->dir);
 	move_dir.x *= MOVE_SPEED;
 	move_dir.y *= MOVE_SPEED;
