@@ -49,7 +49,6 @@ SRC	 =	core/cub/exit.c \
 		entities/player.c \
 		entities/player_movement.c \
 		raycasting/helpers.c \
-		raycasting/loggers.c \
 		raycasting/raycast.c
 
 

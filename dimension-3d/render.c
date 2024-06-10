@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:28:01 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 20:36:49 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 20:54:28 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ static double	get_delta_pos(t_image *texture, t_vec_double *pos,
 	pos->y = (((double)(wall_height - WIN_HEIGHT) / 2) / wall_height)
 		* texture->height;
 	delta = 1 - ((double)(wall_height - WIN_HEIGHT) / wall_height);
-	delta *= texture->height;
-	delta /= WIN_HEIGHT;
+	delta = (delta * texture->height) / WIN_HEIGHT;
 	return (delta);
 }
 
@@ -67,9 +66,9 @@ draw the wall for each pixel column with texture
 void	create_wall(t_image *image, t_computes *computes, t_map *map)
 {
 	double			delta;
+	t_cordinates	cords;
 	t_image			*texture;
 	t_computes		*computed;
-	t_cordinates	cords;
 	t_vec_double	texture_pos;
 
 	cords = (t_cordinates){-1, -1};
