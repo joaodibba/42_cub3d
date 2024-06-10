@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:54:17 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 22:56:42 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:18:06 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ typedef struct s_player
 }					t_player;
 
 // @brief The computes structure for raycasting
-typedef struct s_computes {
+typedef struct s_computes
+{
 	bool			hit;
 	char			dir;
 	int				side;

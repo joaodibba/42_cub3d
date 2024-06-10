@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_configs_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:03:08 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:41:21 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 23:18:32 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	parse_line(char *line, t_window *win, t_map *map)
 	}
 	key = *key_value;
 	value = *(key_value + 1);
-	if (is_texture(key)) 
+	if (is_texture(key))
 	{
 		if (!select_texture(key, value, win, map))
 			return (free_arr_and_return(key_value, false));
