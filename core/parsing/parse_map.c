@@ -155,9 +155,6 @@ bool	parse_map(int map_fd, t_map **map)
 		printf("\n");
 	}
 	if (!handle_map((*map)->map))
-	{
-		ft_free_array((*map)->map);
 		return (false);
-	}
 	return (true);
 }
