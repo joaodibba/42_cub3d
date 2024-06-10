@@ -5,10 +5,18 @@
 
 void	print_menu(void)
 {
-	printf("Move Player  : [UP (W) | DOWN (S) | LEFT (A) | RIGHT (D)]\n");
-	printf("Rotate View  : [ARROW LEFT | ARROW RIGHT]\n");
-	printf("Dimension ±  : [R]\n");
-	printf("Exit         : [ESC]\n");
+    printf("---------- CONTROLS ----------\n");
+	printf(GREEN BOLD "Movements:\n" RESET_COLOR);
+    printf("FORWARD     : [UP (W | ⬆)]\n");
+    printf("BACK        : [DOWN (S | ⬇)]\n");
+    printf("LEFT        : [A]\n");
+    printf("RIGHT       : [D]\n\n");
+	printf(GREEN BOLD "Rotatations :\n" RESET_COLOR);
+    printf("LEFT        : [LEFT (Q | ⬅)]\n");
+    printf("RIGHT       : [RIGHT (E | →)]\n\n");
+    printf(GREEN BOLD "Others:\n" RESET_COLOR);
+	printf("Exit        : [CLOSE (ESC)]\n");
+    printf("------------------------------\n");
 }
 
 static bool	guard(int ac, char **av)

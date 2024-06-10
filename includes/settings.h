@@ -10,9 +10,9 @@
 # endif
 
 # ifndef SQUARE_SIZE
-#  define SQUARE_SIZE 10
+#  define SQUARE_SIZE 20
 # endif
 
-# define MOVE_SPEED 0.055
-
+# define MOVE_SPEED 0.045
+# define ROT_SPEED 2
 #endif

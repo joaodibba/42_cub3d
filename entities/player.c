@@ -1,5 +1,16 @@
 #include "../includes/main.h"
 
+void	rotate_vector(t_vec_double *vec, double angle);
+
+void    __display_player_info(t_player *player, char dir)
+{
+	printf("------------------------------\n");
+	printf(GREEN BOLD"Player: \n"RESET_COLOR);
+	printf(CYAN"Found at: (%d, %d)\n"RESET_COLOR, (int)player->pos.x, (int)player->pos.y);
+	printf(CYAN"Start: (%f, %f)\n"RESET_COLOR, player->pos.x, player->pos.y);
+	printf(CYAN"Direction: (%c)\n"RESET_COLOR, dir);
+}
+
 bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,
 		unsigned int y)
 {
@@ -13,7 +24,8 @@ bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,
 		player->dir = (t_vec_double){.x = -1, .y = 0};
 	else
 		return (false);
-	player->pos = (t_vec_double){.x = (float)x + 0.5, .y = (float)y + 0.5};
+	player->pos = (t_vec_double){.x = (double)x + 0.5, .y = (double)y + 0.5};
+	__display_player_info(player, map->map[y][x]);
 	map->map[y][x] = '0';
 	return (true);
 }
