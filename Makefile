@@ -24,7 +24,7 @@ CFLAGS	=	-g \
 			-DWIN_WIDTH=$(WIN_WIDTH) \
 			-DWIN_HEIGHT=$(WIN_HEIGHT)\
 			-DSQUARE_SIZE=$(SQUARE_SIZE)
-			-fsanitize=address \
+			# -fsanitize=address \
 			#-Wall -Wextra -Werror
 
 #-Wall -Wextra -Werror

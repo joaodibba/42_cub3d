@@ -5,18 +5,18 @@
 
 void	print_menu(void)
 {
-    printf("---------- CONTROLS ----------\n");
+	printf("---------- CONTROLS ----------\n");
 	printf(GREEN BOLD "Movements:\n" RESET_COLOR);
-    printf("FORWARD     : [UP (W | ⬆)]\n");
-    printf("BACK        : [DOWN (S | ⬇)]\n");
-    printf("LEFT        : [A]\n");
-    printf("RIGHT       : [D]\n\n");
+	printf("FORWARD     : [UP (W | ⬆)]\n");
+	printf("BACK        : [DOWN (S | ⬇)]\n");
+	printf("LEFT        : [A]\n");
+	printf("RIGHT       : [D]\n\n");
 	printf(GREEN BOLD "Rotatations :\n" RESET_COLOR);
-    printf("LEFT        : [LEFT (Q | ⬅)]\n");
-    printf("RIGHT       : [RIGHT (E | →)]\n\n");
-    printf(GREEN BOLD "Others:\n" RESET_COLOR);
+	printf("LEFT        : [LEFT (Q | ⬅)]\n");
+	printf("RIGHT       : [RIGHT (E | →)]\n\n");
+	printf(GREEN BOLD "Others:\n" RESET_COLOR);
 	printf("Exit        : [CLOSE (ESC)]\n");
-    printf("------------------------------\n");
+	printf("------------------------------\n");
 }
 
 static bool	guard(int ac, char **av)
@@ -34,50 +34,38 @@ int cube_loop(t_cub *cub)
 {
 	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
-    update_camera_plane(&cub->player);
+	update_camera_plane(&cub->player);
 	render_dimension_3d(cub);
 	render_2d_map(cub, cub->map, cub->win, cub->player);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
 	return (0);
 }
 
-bool initialization(t_window **win, t_map **map);
+bool initialization(t_cub *cub);
 
 int main(int argc, char **argv)
 {
-    t_window        *win = NULL;
-    t_map           *map = NULL;
-    t_cub           *cub;
-    t_controller    *ctrl;
+	static t_cub	*cub;
 
-    if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], win, map))
-        return (2);
-    cub = (t_cub *)malloc(sizeof(t_cub));
-    if (!cub)
-    {
-        ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
-        return (2);
-    }
-    cub->win = win;
-    cub->map = map;
-    cub->ctrl = NULL;
-    cub->ctrl = init_controller(cub);
+	cub = (t_cub *)malloc(sizeof(t_cub));
+	if (!cub)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
+		return (2);
+	}
+	if (!guard(argc, argv) || !initialization(cub) || !parser(argv[1], cub->win, cub->map))
+		return (2);
+	cub->ctrl = init_controller(cub);
 	if (!cub->ctrl)
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize controller.\n");
 		free(cub);
 		return (2);
 	}
-	init_player(&cub->player, map);
+	init_player(&cub->player, cub->map);
 
 	print_menu();
-    mlx_loop_hook(win->mlx, &cube_loop, cub);
-    mlx_loop(win->mlx);
-
-    ft_free_array(map->map);
-    free(map);
-    free(win);
-    free(cub->ctrl);
-    free(cub);
-    return (0);
+	mlx_loop_hook(cub->win->mlx, &cube_loop, cub);
+	mlx_loop(cub->win->mlx);
+	return (0);
 }

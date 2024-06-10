@@ -5,15 +5,27 @@ bool	parse_configs(int map_fd, t_window *win, t_map *map);
 bool	is_line_empty(char *line);
 bool	check_borders(char **map, int i, int j);
 
+
+bool	check_file_format(char *file, char *format)
+{
+	char	*str;
+
+	str = ft_strrchr(file, '.');
+	if (str && !ft_strncmp(str, format, ft_strlen(file)))
+		return (true);
+	return (false);
+}
+
 /*
 	@brief Tries to open the file to check if it can be read
 	@param path The path to the file
 	@return true if the file can be read, false otherwise
 */
-bool	can_read_file(char *path)
+bool	can_read_file(char *path, char *format)
 {
 	int	fd;
 
+	if (check_file_format(path, format))
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (false);
@@ -32,7 +44,7 @@ bool	parser(char *path, t_window *win, t_map *map)
 {
 	int	map_fd;
 
-	if (!can_read_file(path))
+	if (!can_read_file(path, ".cub"))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to read map file: %s\n", path);
 		return (false);

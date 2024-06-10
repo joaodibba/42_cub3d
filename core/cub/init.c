@@ -1,63 +1,75 @@
 #include "../../includes/main.h"
 
-bool initialization(t_window **win, t_map **map)
+bool initialization(t_cub *cub)
 {
-	*win = (t_window *)malloc(sizeof(t_window));
-	if (!*win)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for window.\n");
-		return (false);
-	}
-	(*win)->mlx = mlx_init();
-	if (!(*win)->mlx)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize mlx.\n");
-		free(*win);
-		return (false);
-	}
-	(*win)->win = mlx_new_window((*win)->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
-	if (!(*win)->win)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to create window.\n");
-		free(*win);
-		return (false);
-	}
+    cub->win = (t_window *)malloc(sizeof(t_window));
+    if (!cub->win)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for window.\n");
+        return (false);
+    }
+    
+    cub->win->mlx = mlx_init();
+    if (!cub->win->mlx)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to initialize mlx.\n");
+        free(cub->win);
+        return (false);
+    }
 
-	*map = (t_map *)malloc(sizeof(t_map));
-	if (!*map)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for map.\n");
-		free(*win);
-		return (false);
-	}
-	**map = (t_map){ .map = NULL, .floor = 0, .ceiling = 0, .no = NULL, .so = NULL, .we = NULL, .ea = NULL };
-	(*win)->img = (t_image *)malloc(sizeof(t_image));
-	if (!(*win)->img)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for image.\n");
-		free(*win);
-		free(*map);
-		return (false);
-	}
-	(*win)->img->img = mlx_new_image((*win)->mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (!(*win)->img->img)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to create image.\n");
-		free(*win);
-		free(*map);
-		free((*win)->img);
-		return (false);
-	}
-	(*win)->img->addr = mlx_get_data_addr((*win)->img->img, &(*win)->img->bpp, &(*win)->img->line_len, &(*win)->img->endian);
-	if (!(*win)->img->addr)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to get image address.\n");
-		free(*win);
-		free(*map);
-		free((*win)->img);
-		return (false);
-	}
-	(*win)->img->width = WIN_WIDTH;
-	(*win)->img->height = WIN_HEIGHT;
-	return (true);
+    cub->win->win = mlx_new_window(cub->win->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
+    if (!cub->win->win)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to create window.\n");
+        free(cub->win);
+        return (false);
+    }
+
+    cub->map = (t_map *)malloc(sizeof(t_map));
+    if (!cub->map)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for map.\n");
+        free(cub->win->win);
+        free(cub->win);
+        return (false);
+    }
+    *cub->map = (t_map){ .map = NULL, .floor = 0, .ceiling = 0, .no = NULL, .so = NULL, .we = NULL, .ea = NULL };
+
+    cub->win->img = (t_image *)malloc(sizeof(t_image));
+    if (!cub->win->img)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for image.\n");
+        free(cub->map);
+        free(cub->win->win);
+        free(cub->win);
+        return (false);
+    }
+
+    cub->win->img->img = mlx_new_image(cub->win->mlx, WIN_WIDTH, WIN_HEIGHT);
+    if (!cub->win->img->img)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to create image.\n");
+        free(cub->win->img);
+        free(cub->map);
+        free(cub->win->win);
+        free(cub->win);
+        return (false);
+    }
+
+    cub->win->img->addr = mlx_get_data_addr(cub->win->img->img, &cub->win->img->bpp, &cub->win->img->line_len, &cub->win->img->endian);
+    if (!cub->win->img->addr)
+    {
+        ft_fprintf(STDERR_FILENO, "Error: Failed to get image address.\n");
+        mlx_destroy_image(cub->win->mlx, cub->win->img->img);
+        free(cub->win->img);
+        free(cub->map);
+        free(cub->win->win);
+        free(cub->win);
+        return (false);
+    }
+
+    cub->win->img->width = WIN_WIDTH;
+    cub->win->img->height = WIN_HEIGHT;
+
+    return (true);
 }

@@ -1,9 +1,48 @@
 #include "../../includes/main.h"
 
+void	destroy_map(t_cub	*cub)
+{
+	mlx_destroy_image(cub->win->mlx, cub->map->no->img);
+	mlx_destroy_image(cub->win->mlx, cub->map->so->img);
+	mlx_destroy_image(cub->win->mlx, cub->map->ea->img);
+	mlx_destroy_image(cub->win->mlx, cub->map->we->img);
+	if (cub->map->no)
+		free(cub->map->no);
+	if (cub->map->so)
+		free(cub->map->so);
+	if (cub->map->we)
+		free(cub->map->we);
+	if (cub->map->ea)
+		free(cub->map->ea);
+	if (cub->map->map)
+		ft_free_array(cub->map->map);
+	if (cub->map)
+		free(cub->map);
+}
+
+void	destroy_window(t_cub *cub)
+{
+	mlx_destroy_image(cub->win->mlx, cub->win->img->img);
+	if (cub->win->img)
+		free(cub->win->img);
+	mlx_destroy_window(cub->win->mlx, cub->win->win);
+	// mlx_destroy_display(cub->win->mlx);
+	if (cub->win->mlx)
+		free(cub->win->mlx);
+	if (cub->win)
+		free(cub->win);
+
+}
+
 int	exit_cub(t_cub *cub)
 {
 	ft_fprintf(STDOUT_FILENO, "You exited Cub3D\n");
-	mlx_destroy_window(cub->win->mlx, cub->win->win);
+	destroy_map(cub);
+	destroy_window(cub);
+	if (cub->ctrl)
+		free(cub->ctrl);
+	if (cub)
+		free(cub);
 	exit(0);
 }
 

@@ -1,6 +1,6 @@
 #include "../../includes/main.h"
 
-bool	can_read_file(char *path);
+bool	can_read_file(char *path, char *format);
 
 /*
 	@brief Assigns the value to the texture structure
@@ -12,7 +12,7 @@ t_image	*assign_texture(void *mlx, char *path)
 {
 	t_image	*img;
 
-	if (!can_read_file(path))
+	if (!can_read_file(path, ".xpm"))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file:'%s'\n",
 				path);
@@ -35,7 +35,6 @@ t_image	*assign_texture(void *mlx, char *path)
 	}
 	img->addr = mlx_get_data_addr(img->img, &(img->bpp), &(img->line_len),
 			&(img->endian));
-	img->path = ft_strdup(path);
 	return (img);
 }
 
@@ -46,7 +45,7 @@ bool	select_texture(char *key, char *value, t_window *win, t_map *map)
 		ft_fprintf(STDERR_FILENO, "Error: Invalid map or window structure\n");
 		return (false);
 	}
-	if (!can_read_file(value))
+	if (!can_read_file(value, ".xpm"))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file: %s\n", \
 		value);

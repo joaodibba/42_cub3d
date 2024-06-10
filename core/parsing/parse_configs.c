@@ -15,14 +15,26 @@ bool	select_color(char key, char *value, t_map *map);
 	@param map The map structure
 	@return true if the line was parsed successfully, false otherwise
 */
+
+
+void remove_trailing_newline(char *str)
+{
+    size_t len = ft_strlen(str);
+
+    if (len > 0 && str[len - 1] == '\n')
+    {
+        str[len - 1] = '\0';
+    }
+}
+
 static bool	parse_line(char *line, t_window *win, t_map *map)
 {
 	char	**key_value;
 	char	*key;
 	char	*value;
 
-	key_value = ft_split(line, '\n');
-	key_value = ft_split(*key_value, ' ');
+	remove_trailing_newline(line);
+	key_value = ft_split(line, ' ');
 	if (!key_value)
 		return (false);
 	if (ft_array_len(key_value) != 2)
@@ -69,7 +81,10 @@ bool	parse_configs(int map_fd, t_window *win, t_map *map)
 		if (!line)
 			break ;
 		if (is_line_empty(line))
+		{
+			free(line);
 			continue ;
+		}
 		if (!parse_line(line, win, map))
 		{
 			ft_fprintf(STDERR_FILENO, "Error: Failed to parse line: %s\n",
