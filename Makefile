@@ -14,9 +14,9 @@ OS := $(shell uname)
 # Project Name
 CUB = cub3D
 
-WIN_WIDTH = 800
-WIN_HEIGHT = 600
-SQUARE_SIZE = 10
+WIN_WIDTH = 1400
+WIN_HEIGHT = 1200
+SQUARE_SIZE = 20
 
 # Compiler and Flags
 CC      = 	cc
@@ -25,7 +25,7 @@ CFLAGS	=	-g \
 			-DWIN_HEIGHT=$(WIN_HEIGHT) \
 			-DSQUARE_SIZE=$(SQUARE_SIZE) \
 			-Wall -Wextra -Werror \
-			-fsanitize=address
+			#-fsanitize=address
 
 # Source directories and files
 LFT = libft
@@ -51,6 +51,7 @@ SRC	 =	core/cub/exit.c \
 		raycasting/helpers.c \
 		raycasting/loggers.c \
 		raycasting/raycast.c
+
 
 OBJ  = $(SRC:.c=.o)
 
@@ -94,3 +95,6 @@ fclean: clean
 re: fclean all
 
 bonus: all
+
+norm: 
+	norminette core dimension-2d dimension-3d entities raycasting includes $(LFT)

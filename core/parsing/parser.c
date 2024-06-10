@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:02:43 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:19:31 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 21:39:30 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	can_read_file(char *path, char *format)
 	return (true);
 }
 
-bool	free_close_print_error(t_cub *cub, int map_fd, char *path)
+bool	do_stuff(t_cub *cub, int map_fd, char *path)
 {
 	free_cub(cub);
 	ft_fprintf(STDERR_FILENO, "Error: %s\n", path);
@@ -69,12 +69,12 @@ bool	parser(t_cub *cub, char *path, t_window *win, t_map *map)
 	map_fd = -1;
 	null_map_confs(map);
 	if (!can_read_file(path, ".cub"))
-		return (free_close_print_error(cub, map_fd, "Failed to read map file"));
+		return (do_stuff(cub, map_fd, "Failed to read map file"));
 	map_fd = open(path, O_RDONLY);
 	if (map_fd == -1 || !parse_configs(map_fd, win, map))
-		return (free_close_print_error(cub, map_fd, "Failed to parse configs"));
+		return (do_stuff(cub, map_fd, "Failed to parse configs"));
 	if (!parse_map(map_fd, &map))
-		return (free_close_print_error(cub, map_fd, "Failed to parse map"));
+		return (do_stuff(cub, map_fd, "Failed to parse map"));
 	close(map_fd);
 	return (true);
 }

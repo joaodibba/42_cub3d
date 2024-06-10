@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:54:17 by rphuyal           #+#    #+#             */
+/*   Updated: 2024/06/10 21:54:18 by rphuyal          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
@@ -28,21 +40,21 @@ typedef struct s_player
 
 // @brief The computes structure for raycasting
 typedef struct s_computes {
-    bool            hit;
-    char            dir;
-    int             side;
-    int		        end_wall;
-    int         	start_wall;
-    int         	wall_height;
-    double          dist_to_wall;
-    double          wall_x;
-    t_vec_double    hit_pos;
+	bool			hit;
+	char			dir;
+	int				side;
+	int				end_wall;
+	int				start_wall;
+	int				wall_height;
+	double			dist_to_wall;
+	double			wall_x;
+	t_vec_double	hit_pos;
 	t_vec_double	ray;
-	t_cordinates    map;
-    t_cordinates    step;
+	t_cordinates	map;
+	t_cordinates	step;
 	t_vec_double	delta;
 	t_vec_double	step_size;
-} t_computes;
+}					t_computes;
 
 // @brief The controller structure for player movement and game state
 typedef struct s_controller

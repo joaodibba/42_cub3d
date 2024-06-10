@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_movement.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:50:17 by rphuyal           #+#    #+#             */
+/*   Updated: 2024/06/10 21:50:18 by rphuyal          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/main.h"
 
 void	_check_for_colision(t_player *player, char **map, t_vec_double dir)

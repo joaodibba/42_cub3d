@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_configs_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:03:08 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:03:49 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 21:41:21 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ void	remove_trailing_newline(char *str)
 		str[len - 1] = '\0';
 }
 
-bool	handle_texture(char *key, char *value, t_window *win, \
-		t_map *map, char **key_value)
-{
-	if (!select_texture(key, value, win, map))
-	{
-		ft_free_array(key_value);
-		return (false);
-	}
-	ft_free_array(key_value);
-	return (true);
-}
-
 bool	handle_color(char *key, char *value, t_map *map, char **key_value)
 {
 	if (!select_color(key[0], value, map))
@@ -63,6 +51,12 @@ bool	handle_unexpected_line(char *line, char **key_value)
 	return (false);
 }
 
+bool	free_arr_and_return(char **val, bool ret)
+{
+	ft_free_array(val);
+	return (ret);
+}
+
 bool	parse_line(char *line, t_window *win, t_map *map)
 {
 	char	**key_value;
@@ -78,8 +72,12 @@ bool	parse_line(char *line, t_window *win, t_map *map)
 	}
 	key = *key_value;
 	value = *(key_value + 1);
-	if (is_texture(key))
-		return (handle_texture(key, value, win, map, key_value));
+	if (is_texture(key)) 
+	{
+		if (!select_texture(key, value, win, map))
+			return (free_arr_and_return(key_value, false));
+		return (free_arr_and_return(key_value, true));
+	}
 	else if (is_color(key))
 		return (handle_color(key, value, map, key_value));
 	else

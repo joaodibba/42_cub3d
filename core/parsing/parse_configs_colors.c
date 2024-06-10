@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_configs_colors.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:03:11 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:26:51 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 21:45:12 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ static bool	ft_isdigit_str(char *str)
 		str++;
 	}
 	return (true);
-}
-
-unsigned int	rgb_to_hex(int r, int g, int b)
-{
-	return ((r << 16) | (g << 8) | b);
 }
 
 /*
