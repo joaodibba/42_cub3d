@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 00:43:44 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/09 18:55:25 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 05:25:16 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	__dda(t_computes *computes, char **map)
 	computes->hit = false;
 	while (true)
 	{
-		// jump to the nearest side
 		if (computes->step_size.x < computes->step_size.y)
 		{
 			computes->step_size.x += computes->delta.x;
@@ -38,7 +37,8 @@ static void	__dda(t_computes *computes, char **map)
 		}
 		if (computes->map.x < 0 || computes->map.y < 0)
 			break ;
-		if (map[computes->map.y] && map[computes->map.y][computes->map.x] == '1')
+		if (map[computes->map.y]
+			&& map[computes->map.y][computes->map.x] == '1')
 		{
 			computes->hit = true;
 			break ;
@@ -76,28 +76,22 @@ static void	__sides(t_computes *computes, t_player *player)
 
 static void	__deltas(t_computes *computes)
 {
-	// compute the deltas for the ray
 	computes->delta.x = fabs(1 / computes->ray.x);
 	computes->delta.y = fabs(1 / computes->ray.y);
 }
 
 static void	__helper_vecs(t_computes *computes, t_player *player, double camera)
 {
-	// ray starts at the player's position, not the camera
-	// so we need to get the player's position in the map, which is a square
 	computes->map.x = (int)player->pos.x;
 	computes->map.y = (int)player->pos.y;
-
-	// get the camera plane pos straight from the eye of the player
 	computes->ray.x = player->dir.x + (player->plane.x * camera);
 	computes->ray.y = player->dir.y + (player->plane.y * camera);
 }
 
 void	raycast(int column, t_map *map, t_player *player, t_computes *computes)
 {
-	double camera;
+	double	camera;
 
-	// get where the in the x-cordinate the camera plane is
 	camera = ((2 * column / (double)WIN_WIDTH) - 1);
 	__helper_vecs(computes, player, camera);
 	__deltas(computes);

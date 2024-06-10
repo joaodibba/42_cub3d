@@ -6,13 +6,14 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:07:50 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/09 14:58:03 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 05:26:58 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-void __log_computes(t_computes *computes) {
+void	__log_computes(t_computes *computes)
+{
 	printf("-------COMPUTES-------\n");
 	printf("ray.x: %f\n", computes->ray.x);
 	printf("ray.y: %f\n", computes->ray.y);
@@ -25,8 +26,9 @@ void __log_computes(t_computes *computes) {
 	printf("-------------------------\n\n");
 }
 
-void __log_results(t_computes *computes) {
-    printf("------- RESULTS -------\n");
+void	__log_results(t_computes *computes)
+{
+	printf("------- RESULTS -------\n");
 	printf("dir: %c\n", computes->dir);
 	printf("side: %d\n", computes->side);
 	printf("map.x: %d\n", computes->map.x);
