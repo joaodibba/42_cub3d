@@ -7,10 +7,10 @@ void	print_menu(void)
 {
 	printf("---------- CONTROLS ----------\n");
 	printf(GREEN BOLD "Movements:\n" RESET_COLOR);
-	printf("FORWARD     : [UP (W | ⬆)]\n");
-	printf("BACK        : [DOWN (S | ⬇)]\n");
-	printf("LEFT        : [A]\n");
-	printf("RIGHT       : [D]\n\n");
+    printf("FORWARD     : [UP (W | ⬆)]\n");
+    printf("BACK        : [DOWN (S | ⬇)]\n");
+    printf("LEFT        : [LEFT (A)]\n");
+    printf("RIGHT       : [RIGHT (D)]\n\n");
 	printf(GREEN BOLD "Rotatations :\n" RESET_COLOR);
 	printf("LEFT        : [LEFT (Q | ⬅)]\n");
 	printf("RIGHT       : [RIGHT (E | →)]\n\n");

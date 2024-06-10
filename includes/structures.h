@@ -31,9 +31,9 @@ typedef struct s_computes {
     bool            hit;
     char            dir;
     int             side;
-    int             end_wall;
-    int             start_wall;
-    int             wall_height;
+    int		        end_wall;
+    int         	start_wall;
+    int         	wall_height;
     double          dist_to_wall;
     double          wall_x;
     t_vec_double    hit_pos;
