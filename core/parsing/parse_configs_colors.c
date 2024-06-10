@@ -15,6 +15,7 @@ static bool	is_valid_color(char *color)
 		return (false);
 	return (true);
 }
+
 /*
 	@brief Checks if the string is a digit
 	@param str The string to check
@@ -31,10 +32,9 @@ static bool	ft_isdigit_str(char *str)
 	return (true);
 }
 
-
-unsigned int rgb_to_hex(int r, int g, int b)
+unsigned int	rgb_to_hex(int r, int g, int b)
 {
-    return (r << 16) | (g << 8) | b;
+	return ((r << 16) | (g << 8) | b);
 }
 
 /*
@@ -54,19 +54,22 @@ static bool	assign_color(char *value, unsigned int *color)
 		return (false);
 	if (ft_array_len(rgb) != 3)
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Color must be in the format {RRR,GGG,BBB}\n");
+		ft_fprintf(STDERR_FILENO, \
+			"Error: Color must be in the format {RRR,GGG,BBB}\n");
 		ft_free_array(rgb);
 		return (false);
 	}
-	if (!ft_isdigit_str(*rgb) || !is_valid_color(*rgb) ||
-		!ft_isdigit_str(*(rgb + 1)) || !is_valid_color(*(rgb + 1)) ||
+	if (!ft_isdigit_str(*rgb) || !is_valid_color(*rgb) || \
+		!ft_isdigit_str(*(rgb + 1)) || !is_valid_color(*(rgb + 1)) || \
 		!ft_isdigit_str(*(rgb + 2)) || !is_valid_color(*(rgb + 2)))
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Invalid color, values should be between 0 and 255\n");
+		ft_fprintf(STDERR_FILENO, \
+			"Error: Invalid color, values should be between 0 and 255\n");
 		ft_free_array(rgb);
 		return (false);
 	}
-	*color = rgb_to_hex(ft_atoi(*rgb), ft_atoi(*(rgb + 1)), ft_atoi(*(rgb + 2)));
+	*color = rgb_to_hex(ft_atoi(*rgb), ft_atoi(*(rgb + 1)), \
+		ft_atoi(*(rgb + 2)));
 	ft_free_array(rgb);
 	return (true);
 }
@@ -85,7 +88,7 @@ bool	select_color(char key, char *value, t_map *map)
 		if (map->floor != 0)
 		{
 			ft_fprintf(STDERR_FILENO,
-					"Error: Floor color code specified more than once.\n");
+				"Error: Floor color code specified more than once.\n");
 			return (false);
 		}
 		else if (!assign_color(value, &map->floor))
@@ -99,7 +102,7 @@ bool	select_color(char key, char *value, t_map *map)
 		if (map->ceiling != 0)
 		{
 			ft_fprintf(STDERR_FILENO,
-					"Error: Ceiling color code specified more than once.\n");
+				"Error: Ceiling color code specified more than once.\n");
 			return (false);
 		}
 		if (!assign_color(value, &map->ceiling))

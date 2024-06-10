@@ -63,28 +63,6 @@ static bool	validate_player(char *str)
 	return (found);
 }
 
-// /*
-// 	@brief Removes empty lines from the array
-// 	@param array The array to remove empty lines from
-// 	! FIXME Not using this shit but should ?
-// */
-// static void remove_empty_lines_in_array(char ***array) {
-//     int i = 0;
-//     int j;
-
-//     while ((*array)[i])
-// 	{
-//         if (!is_line_empty((*array)[0]))
-// 			return ;
-//         free((*array)[i]);
-//         j = i;
-//         while ((*array)[j])
-// 		{
-//             (*array)[j] = (*array)[j + 1];
-//             j++;
-//         }
-//     }
-// }
 /*
 	@brief Reads the map from the file descriptor
 	@param fd The file descriptor to read the map from
@@ -95,8 +73,9 @@ static char	*read_map(int fd)
 	char	*line;
 	char	*text;
 	char	*temp;
-	bool	found = false;
+	bool	found;
 
+	found = false;
 	text = ft_strdup("");
 	line = get_next_line(fd);
 	while (line)
@@ -108,13 +87,12 @@ static char	*read_map(int fd)
 			return (NULL);
 		}
 		if (*line != '\n')
-				found = true;
+			found = true;
 		temp = ft_strjoin(text, line);
 		free(text);
 		free(line);
 		text = temp;
 		line = get_next_line(fd);
-
 	}
 	return (text);
 }
@@ -142,7 +120,7 @@ bool	parse_map(int map_fd, t_map **map)
 	free(map_line);
 	if (!(*map)->map)
 		return (false);
-	// remove_empty_lines_in_array(map);
+	// ! FIXME: REMOVE THIS
 	printf(GREEN BOLD"Map: \n"RESET_COLOR);
 	for (int i = 0; (*map)->map[i]; i++)
 	{

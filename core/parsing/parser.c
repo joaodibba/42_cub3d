@@ -5,7 +5,6 @@ bool	parse_configs(int map_fd, t_window *win, t_map *map);
 bool	is_line_empty(char *line);
 bool	check_borders(char **map, int i, int j);
 
-
 bool	check_file_format(char *file, char *format)
 {
 	char	*str;
@@ -26,7 +25,8 @@ bool	can_read_file(char *path, char *format)
 	int	fd;
 
 	fd = -1;
-	if (check_file_format(path, format))
+	if (!check_file_format(path, format))
+		return (false);
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (false);
@@ -54,13 +54,13 @@ bool	parser(char *path, t_window *win, t_map *map)
 	map_fd = open(path, O_RDONLY);
 	if (map_fd == -1 || !parse_configs(map_fd, win, map))
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to parse configs. Please check the map file.\n");
+		ft_fprintf(STDERR_FILENO, \
+			"Error: Failed to parse configs. Please check the map file.\n");
 		close(map_fd);
 		return (false);
 	}
 	if (!parse_map(map_fd, &map))
 	{
-
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
 		close(map_fd);
 		return (false);

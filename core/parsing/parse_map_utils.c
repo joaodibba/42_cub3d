@@ -8,12 +8,13 @@
 */
 bool	check_borders(char **map, int i, int j)
 {
-	if (j == 0 || i == 0 || !map[i + 1] || !map[i][j + 1] || !map[i][j - 1] \
-		|| !map[i - 1][j] || !map[i + 1][j] \
-		|| (map[i][j - 1] && map[i][j- 1] == ' ') \
-		|| (map[i][j + 1] && map[i][j + 1] == ' ') \
-		|| (map[i- 1][j] && map[i - 1][j] == ' ') \
-		|| (map[i + 1][j] && map[i+ 1][j] == ' '))
+	if (j == 0 || i == 0 || !map[i + 1] || \
+		!map[i][j + 1] || !map[i][j - 1] || \
+		!map[i - 1][j] || !map[i + 1][j] || \
+		(map[i][j - 1] && map[i][j - 1] == ' ') || \
+		(map[i][j + 1] && map[i][j + 1] == ' ') || \
+		(map[i - 1][j] && map[i - 1][j] == ' ') || \
+		(map[i + 1][j] && map[i + 1][j] == ' '))
 	{
 		return (false);
 	}

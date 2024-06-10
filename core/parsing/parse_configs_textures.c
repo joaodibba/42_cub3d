@@ -14,22 +14,21 @@ t_image	*assign_texture(void *mlx, char *path)
 
 	if (!can_read_file(path, ".xpm"))
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to read texture file:'%s'\n",
-				path);
+		ft_fprintf(STDERR_FILENO, "Error: Failed to read file:'%s'\n", path);
 		return (NULL);
 	}
 	img = (t_image *)malloc(sizeof(t_image));
 	if (!img)
 	{
-		ft_fprintf(STDERR_FILENO,
+		ft_fprintf(STDERR_FILENO, \
 				"Error: Failed to allocate memory for texture.\n");
 		return (NULL);
 	}
 	img->img = mlx_xpm_file_to_image(mlx, path, &(img->width), &(img->height));
 	if (img->width > TEXTURE_SIZE || img->height > TEXTURE_SIZE)
 	{
-		ft_fprintf(STDERR_FILENO,
-				"Error: '%s' image width and height should be %d", path, TEXTURE_SIZE);
+		ft_fprintf(STDERR_FILENO, \
+			"Error: '%s' image size should be %d", path, TEXTURE_SIZE);
 		free(img);
 		return (NULL);
 	}

@@ -15,16 +15,13 @@ bool	select_color(char key, char *value, t_map *map);
 	@param map The map structure
 	@return true if the line was parsed successfully, false otherwise
 */
-
-
-void remove_trailing_newline(char *str)
+void	remove_trailing_newline(char *str)
 {
-    size_t len = ft_strlen(str);
+	size_t	len;
 
-    if (len > 0 && str[len - 1] == '\n')
-    {
-        str[len - 1] = '\0';
-    }
+	len = ft_strlen(str);
+	if (len > 0 && str[len - 1] == '\n')
+		str[len - 1] = '\0';
 }
 
 static bool	parse_line(char *line, t_window *win, t_map *map)
@@ -57,7 +54,6 @@ static bool	parse_line(char *line, t_window *win, t_map *map)
 	else if (!is_texture(key) && !is_color(key))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Found unexpected line: %s\n", line);
-		ft_fprintf(STDERR_FILENO, "Hint: The cause of this might be a configuration missing, please check the map file\n");
 		ft_free_array(key_value);
 		return (false);
 	}
@@ -87,7 +83,7 @@ bool	parse_configs(int map_fd, t_window *win, t_map *map)
 		}
 		if (!parse_line(line, win, map))
 		{
-			ft_fprintf(STDERR_FILENO, "Error: Failed to parse line: %s\n",
+			ft_fprintf(STDERR_FILENO, "Error: Failed to parse line: %s\n", \
 					line);
 			ft_fprintf(STDERR_FILENO, "Error: Missing configurations\n");
 			free(line);
