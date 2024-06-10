@@ -2,7 +2,19 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-void    choose_texture(t_image **texture, t_computes *computes, t_map *map)
+void    __color(unsigned int *color, t_computes *computes)
+{
+    if (computes->dir == 'N')
+        *color = 0x00DF0F0F;
+    else if (computes->dir == 'S')
+        *color = 0x0000FF00;
+    else if (computes->dir == 'W')
+        *color = 0x000FF0FF;
+    else if (computes->dir == 'E')
+        *color = 0x00FF00FF;
+}
+
+void    __get_texture(t_image **texture, t_computes *computes, t_map *map)
 {
     if (computes->dir == 'N')
         *texture = map->no;
@@ -19,6 +31,19 @@ unsigned int    get_pixel(t_image *texture, int x, int y)
     return (*(unsigned int *)(texture->addr + (y * texture->line_len + x * (texture->bpp / 8))));
 }
 
+
+// Calculate the texture position and step for drawing the wall
+static void calculate_close_to_wall(t_vec_double *texture_pos, double *delta, int columnHeight, int textureHeight)
+{
+    // Calculate the texture position along the y-axis
+    texture_pos->y = (((columnHeight - WIN_HEIGHT) / 2) / columnHeight) * textureHeight;
+
+    // Calculate the delta size for incrementing the texture position
+    *delta = 1 - ((columnHeight - WIN_HEIGHT) / columnHeight);
+    *delta *= textureHeight;
+    *delta /= WIN_HEIGHT;
+}
+
 /*
 given the map and the player and the computes
 draw the wall for each pixel column. with color or texture
@@ -28,36 +53,38 @@ void    create_wall(t_cub *cub, t_image *image, t_computes *computes, t_map *map
     unsigned int    i;
     unsigned int    j;
     unsigned int    color;
+    t_computes		*computed;
     t_image         *texture;
 
     i = -1;
-    color = 0x0000FF00;
     while (++i < WIN_WIDTH)
     {
-        // printf("computes[%d].wall_x: %f\n", i, computes[i].wall_x);
-        if (computes[i].wall_x == 0)
-            color = 0x00FF0000;
-        else if (computes[i].dir == 'N')
-            color = 0x00000000;
-        else if (computes[i].dir == 'S')
-            color = 0x0000FF00;
-        else if (computes[i].dir == 'W')
-            color = 0x000000FF;
-        else if (computes[i].dir == 'E')
-            color = 0x00FF00FF;
+		computed = &computes[i];
+        __get_texture(&texture, computed, map);
+        t_vec_double window_vec = (t_vec_double){i, computed->start_wall};
+        t_vec_double texture_pos = (t_vec_double){0, 0};
 
-        j = -1;
-        while (++j < WIN_HEIGHT)
+        if (computed->dir == 'N' || computed->dir == 'E')
+            texture_pos.x = (double)texture->width * computed->wall_x;
+        else
+            texture_pos.x = ((double)texture->width * (1.0 - computed->wall_x));
+
+        double delta = 1.0 * texture->height / computed->wall_height;
+
+        if (computed->wall_height < WIN_HEIGHT)
+            texture_pos.y = 0.0;
+        else
+            calculate_close_to_wall(&texture_pos, &delta, computed->wall_height, texture->height);
+
+        j = computed->start_wall - 1;
+        while (++j < computed->end_wall)
         {
-			if (j < computes[i].start_wall || j > computes[i].end_wall)
-                continue ;
-            choose_texture(&texture, &computes[i], map);
-            // int x_tex = (int)(computes[i].wall_x * (double)texture->width);
-            // int y_tex = (int)(j * (double)texture->height / computes[i].wall_height);
-            // char *dst =  (cub->win->img)->addr + (j * (cub->win->img)->line_len + i * ((cub->win->img)->bpp / 8));
-            // printf("what is this: %d\n", *(unsigned int *)(texture->addr + (y_tex * texture->line_len + x_tex * (texture->bpp / 8))));
-            // *(unsigned int *)dst = *(unsigned int *)(texture->addr + (y_tex * texture->line_len + x_tex * (texture->bpp / 8)));
-            put_pixel(image, i, j, color);
+			char *text_pxl = texture->addr + ((int)(texture_pos.y) * texture->line_len
+					+ (int)(texture_pos.x) * (texture->bpp / 8));
+			char *win_pxl = image->addr + (j * image->line_len
+					+ (int)(i) * (image->bpp / 8));
+			*(unsigned int *)win_pxl = *(unsigned int *)text_pxl;
+			texture_pos.y += delta;
         }
     }
 }

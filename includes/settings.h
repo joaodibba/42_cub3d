@@ -10,13 +10,9 @@
 # endif
 
 # ifndef SQUARE_SIZE
-#  define SQUARE_SIZE 10
+#  define SQUARE_SIZE 20
 # endif
 
-# ifndef PLAYER_SIZE
-#  define PLAYER_SIZE 2
-# endif
-
-# define MOVE_SPEED 0.055
+# define MOVE_SPEED 0.025
 
 #endif

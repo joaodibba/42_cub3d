@@ -26,6 +26,7 @@
 # define SIDE_Y 1
 # define WALLSCALE 10
 # define TEXTURE_SIZE 128
+# define WALL_SCALER 0.6
 
 # ifdef __APPLE__
 #  define ESC 53

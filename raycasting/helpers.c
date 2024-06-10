@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 01:50:46 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/09 19:05:23 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 02:53:42 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ void	__render_computes(t_computes *computes, t_player *player)
 	// find the hit infos
 	__hit_infos(computes);
 	// calculate height of line to draw on screen
-	computes->wall_height = (int)((double)WIN_HEIGHT / computes->dist_to_wall) * 0.6;
-	// computes->wall_height = (int)((1 / computes->dist_to_wall) * (double)10);
+	computes->wall_height = (int)((double)WIN_HEIGHT / computes->dist_to_wall) * WALL_SCALER;
+
 	// calculate lowest and highest pixel to fill in current stripe
 	computes->start_wall = fmax(0, (WIN_HEIGHT / 2) - (computes->wall_height / 2));
 	computes->end_wall = fmin(WIN_HEIGHT, (WIN_HEIGHT / 2) + (int)(computes->wall_height / 2));
-
 
 	computes->hit_pos.x = player->pos.x + computes->dist_to_wall * computes->ray.x;
 	computes->hit_pos.y = player->pos.y + computes->dist_to_wall * computes->ray.y;

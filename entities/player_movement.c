@@ -76,7 +76,6 @@ void player_move(t_player *player, t_controller *controller, char **map) {
 		rotate_vector_by_angle(&player->dir, degree_to_radian(-1));
 	if (controller->rt_rt)
     	rotate_vector_by_angle(&player->dir, degree_to_radian(1));
-	normalize_vector_dbl(&player->dir);
 
 	if (move_dir.x != 0 || move_dir.y != 0)
 	{
@@ -85,6 +84,6 @@ void player_move(t_player *player, t_controller *controller, char **map) {
         move_dir.x *= MOVE_SPEED;
         move_dir.y *= MOVE_SPEED;
         move_if_valid(player, map, move_dir);
-		normalize_vector_dbl(&player->dir);
     }
+	normalize_vector_dbl(&player->dir);
 }
