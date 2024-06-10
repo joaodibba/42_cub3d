@@ -12,7 +12,6 @@ void	null_map_confs(t_map *map)
 	map->we = NULL;
 	map->ea = NULL;
 	map->map = NULL;
-
 }
 
 bool	check_file_format(char *file, char *format)
@@ -67,7 +66,8 @@ bool	parser(t_cub *cub, char *path, t_window *win, t_map *map)
 	if (map_fd == -1 || !parse_configs(map_fd, win, map))
 	{
 		free_cub(cub);
-		ft_fprintf(STDERR_FILENO, "Error: Failed to parse configs. Please check the map file.\n");
+		ft_fprintf(STDERR_FILENO, \
+			"Error: Failed to parse configs. Please check the map file.\n");
 		close(map_fd);
 		return (false);
 	}

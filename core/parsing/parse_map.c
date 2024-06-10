@@ -120,18 +120,6 @@ bool	parse_map(int map_fd, t_map **map)
 	free(map_line);
 	if (!(*map)->map)
 		return (false);
-	// ! FIXME: REMOVE THIS
-	printf(GREEN BOLD"Map: \n"RESET_COLOR);
-	for (int i = 0; (*map)->map[i]; i++)
-	{
-		for (int j = 0; (*map)->map[i][j]; j++) {
-			if ((*map)->map[i][j] != '1' && (*map)->map[i][j] != '0')
-				printf(RED UNDERLINE"%c"RESET_COLOR, (*map)->map[i][j]);
-			else
-				printf("%c", (*map)->map[i][j]);
-		}
-		printf("\n");
-	}
 	if (!handle_map((*map)->map))
 		return (false);
 	return (true);
