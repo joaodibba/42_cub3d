@@ -5,6 +5,15 @@ bool	parse_configs(int map_fd, t_window *win, t_map *map);
 bool	is_line_empty(char *line);
 bool	check_borders(char **map, int i, int j);
 
+void	null_map_confs(t_map *map)
+{
+	map->no = NULL;
+	map->so = NULL;
+	map->we = NULL;
+	map->ea = NULL;
+	map->map = NULL;
+
+}
 
 bool	check_file_format(char *file, char *format)
 {
