@@ -1,65 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_configs.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:02:30 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/06/10 21:02:32 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/main.h"
 
-bool	is_texture(char *key);
-bool	is_color(char *key);
 bool	is_line_empty(char *line);
 bool	all_configs_set(t_map *map);
 bool	gnl(int fd, char **line);
-bool	select_texture(char *key, char *value, t_window *win, t_map *map);
-bool	select_color(char key, char *value, t_map *map);
-
-/*
-	@brief Parses the line and assigns the value to the key in the map structure
-	@param line The line to parse
-	@param win The window structure
-	@param map The map structure
-	@return true if the line was parsed successfully, false otherwise
-*/
-void	remove_trailing_newline(char *str)
-{
-	size_t	len;
-
-	len = ft_strlen(str);
-	if (len > 0 && str[len - 1] == '\n')
-		str[len - 1] = '\0';
-}
-
-static bool	parse_line(char *line, t_window *win, t_map *map)
-{
-	char	**key_value;
-	char	*key;
-	char	*value;
-
-	remove_trailing_newline(line);
-	key_value = ft_split(line, ' ');
-	if (!key_value)
-		return (false);
-	if (ft_array_len(key_value) != 2)
-	{
-		ft_free_array(key_value);
-		return (false);
-	}
-	key = *key_value;
-	value = *(key_value + 1);
-	if (is_texture(key) && !select_texture(key, value, win, map))
-	{
-		ft_free_array(key_value);
-		return (false);
-	}
-	else if (is_color(key) && !select_color(key[0], value, map))
-	{
-		ft_free_array(key_value);
-		return (false);
-	}
-	else if (!is_texture(key) && !is_color(key))
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Found unexpected line: %s\n", line);
-		ft_free_array(key_value);
-		return (false);
-	}
-	ft_free_array(key_value);
-	return (true);
-}
+bool	parse_line(char *line, t_window *win, t_map *map);
 
 /*
 	@brief Parses the configurations from the map file

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_configs_colors.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:03:11 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/06/10 21:12:52 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/main.h"
 
 /*
@@ -74,6 +86,22 @@ static bool	assign_color(char *value, unsigned int *color)
 	return (true);
 }
 
+static bool	check_and_assign_color(char *value, unsigned int *color_field, \
+	const char *error_message)
+{
+	if (*color_field != 0)
+	{
+		ft_fprintf(STDERR_FILENO, error_message);
+		return (false);
+	}
+	else if (!assign_color(value, color_field))
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Invalid color key\n");
+		return (false);
+	}
+	return (true);
+}
+
 /*
 	@brief Parses the color configuration
 	@param key The key of the configuration
@@ -84,37 +112,14 @@ static bool	assign_color(char *value, unsigned int *color)
 bool	select_color(char key, char *value, t_map *map)
 {
 	if (key == 'F')
-	{
-		if (map->floor != 0)
-		{
-			ft_fprintf(STDERR_FILENO,
-				"Error: Floor color code specified more than once.\n");
-			return (false);
-		}
-		else if (!assign_color(value, &map->floor))
-		{
-			ft_fprintf(STDERR_FILENO, "Error: Failed to assign color\n");
-			return (false);
-		}
-	}
+		return (check_and_assign_color(value, &map->floor, \
+			"Error: Floor color code specified more than once.\n"));
 	else if (key == 'C')
-	{
-		if (map->ceiling != 0)
-		{
-			ft_fprintf(STDERR_FILENO,
-				"Error: Ceiling color code specified more than once.\n");
-			return (false);
-		}
-		if (!assign_color(value, &map->ceiling))
-		{
-			ft_fprintf(STDERR_FILENO, "Error: Failed to assign color");
-			return (false);
-		}
-	}
+		return (check_and_assign_color(value, &map->ceiling, \
+			"Error: Ceiling color code specified more than once.\n"));
 	else
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Invalid color key\n");
 		return (false);
 	}
-	return (true);
 }

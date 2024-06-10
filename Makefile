@@ -37,6 +37,7 @@ SRC	 =	core/cub/exit.c \
 		core/view/mlx_helper.c \
 		core/controller/controller.c \
 		core/parsing/parse_configs.c \
+		core/parsing/parse_configs_line.c \
 		core/parsing/parse_configs_colors.c \
 		core/parsing/parse_configs_textures.c \
 		core/parsing/parse_configs_utils.c \
