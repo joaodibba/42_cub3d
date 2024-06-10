@@ -1,16 +1,13 @@
 #include "../../includes/main.h"
 
-// TODO: later change all printf to ft_printf
-// ! No need to change printf to ft_printf because printf is allowed in the project
-
 void	print_menu(void)
 {
 	printf("---------- CONTROLS ----------\n");
 	printf(GREEN BOLD "Movements:\n" RESET_COLOR);
-    printf("FORWARD     : [UP (W | ⬆)]\n");
-    printf("BACK        : [DOWN (S | ⬇)]\n");
-    printf("LEFT        : [LEFT (A)]\n");
-    printf("RIGHT       : [RIGHT (D)]\n\n");
+	printf("FORWARD     : [UP (W | ⬆)]\n");
+	printf("BACK        : [DOWN (S | ⬇)]\n");
+	printf("LEFT        : [LEFT (A)]\n");
+	printf("RIGHT       : [RIGHT (D)]\n\n");
 	printf(GREEN BOLD "Rotatations :\n" RESET_COLOR);
 	printf("LEFT        : [LEFT (Q | ⬅)]\n");
 	printf("RIGHT       : [RIGHT (E | →)]\n\n");
@@ -29,26 +26,28 @@ static bool	guard(int ac, char **av, t_cub *cub)
 	return (false);
 }
 
-void    update_camera_plane(t_player *player);
+void		update_camera_plane(t_player *player);
 
-int cube_loop(t_cub *cub)
+int	cube_loop(t_cub *cub)
 {
 	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
 	update_camera_plane(&cub->player);
 	render_dimension_3d(cub);
 	render_2d_map(cub, cub->map, cub->win, cub->player);
-	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
+	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0,
+		0);
 	return (0);
 }
 
-void null_cub_configs(t_cub *cub) {
+void	null_cub_configs(t_cub *cub)
+{
 	cub->win = NULL;
 	cub->map = NULL;
 	cub->ctrl = NULL;
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_cub	*cub;
 
@@ -56,10 +55,12 @@ int main(int argc, char **argv)
 	null_cub_configs(cub);
 	if (!cub)
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
+		ft_fprintf(STDERR_FILENO,
+			"Error: Failed to allocate memory for cub.\n");
 		return (2);
 	}
-	if (!guard(argc, argv, cub) || !initialization(cub) || !parser(cub, argv[1], cub->win, cub->map))
+	if (!guard(argc, argv, cub) || !initialization(cub) || !parser(cub, argv[1],
+			cub->win, cub->map))
 		return (2);
 	cub->ctrl = init_controller(cub);
 	if (!cub->ctrl)

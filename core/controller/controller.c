@@ -43,7 +43,7 @@ t_controller	*init_controller(t_cub *cub)
 	ctrl = (t_controller *)malloc(sizeof(t_controller));
 	if (!ctrl)
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for controller.\n");
+		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate controller.\n");
 		return (NULL);
 	}
 	*ctrl = (t_controller){.mv_fw = false, .mv_bw = false, .mv_lf = false,

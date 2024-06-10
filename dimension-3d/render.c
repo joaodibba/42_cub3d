@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:28:01 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 18:21:05 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:24:22 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	create_wall(t_cub *cub, t_image *image, t_computes *computes,
 	t_vec_double	texture_pos;
 
 	cords = (t_cordinates){-1, -1};
-	texture_pos = (t_vec_double){0, 0};
 	while (++cords.x < WIN_WIDTH)
 	{
 		computed = &computes[cords.x];

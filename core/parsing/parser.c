@@ -66,13 +66,14 @@ bool	parser(t_cub *cub, char *path, t_window *win, t_map *map)
 	map_fd = open(path, O_RDONLY);
 	if (map_fd == -1 || !parse_configs(map_fd, win, map))
 	{
+		free_cub(cub);
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse configs. Please check the map file.\n");
 		close(map_fd);
 		return (false);
 	}
 	if (!parse_map(map_fd, &map))
 	{
-
+		free_cub(cub);
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
 		close(map_fd);
 		return (false);
