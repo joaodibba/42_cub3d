@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_configs_colors.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:03:11 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:45:12 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 23:14:36 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	ft_isdigit_str(char *str)
 	color The color structure to assign the value to
 	@return true if the value was assigned successfully, false otherwise
 */
-static bool	assign_color(char *value, unsigned int *color)
+static bool	assign_color(char *value, int *color)
 {
 	char	**rgb;
 
@@ -81,12 +81,11 @@ static bool	assign_color(char *value, unsigned int *color)
 	return (true);
 }
 
-static bool	check_and_assign_color(char *value, unsigned int *color_field, \
-	const char *error_message)
+static bool	check_and_assign_color(char *value, int *color_field)
 {
-	if (*color_field != 0)
+	if (*color_field != -1)
 	{
-		ft_fprintf(STDERR_FILENO, error_message);
+		ft_fprintf(STDERR_FILENO, "Error: Color specified more than once.\n");
 		return (false);
 	}
 	else if (!assign_color(value, color_field))
@@ -107,11 +106,9 @@ static bool	check_and_assign_color(char *value, unsigned int *color_field, \
 bool	select_color(char key, char *value, t_map *map)
 {
 	if (key == 'F')
-		return (check_and_assign_color(value, &map->floor, \
-			"Error: Floor color code specified more than once.\n"));
+		return (check_and_assign_color(value, &map->floor));
 	else if (key == 'C')
-		return (check_and_assign_color(value, &map->ceiling, \
-			"Error: Ceiling color code specified more than once.\n"));
+		return (check_and_assign_color(value, &map->ceiling));
 	else
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Invalid color key\n");

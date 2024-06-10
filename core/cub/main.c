@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:48:54 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 21:48:55 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 23:14:03 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	print_menu(void)
 {
-	printf("---------- CONTROLS ----------\n");
-	printf(GREEN BOLD "Movements:\n" RESET_COLOR);
-	printf("FORWARD     : [UP (W | ⬆)]\n");
-	printf("BACK        : [DOWN (S | ⬇)]\n");
-	printf("LEFT        : [LEFT (A)]\n");
-	printf("RIGHT       : [RIGHT (D)]\n\n");
-	printf(GREEN BOLD "Rotatations :\n" RESET_COLOR);
-	printf("LEFT        : [LEFT (Q | ⬅)]\n");
-	printf("RIGHT       : [RIGHT (E | →)]\n\n");
-	printf(GREEN BOLD "Others:\n" RESET_COLOR);
-	printf("Exit        : [CLOSE (ESC)]\n");
-	printf("------------------------------\n");
+	ft_printf("---------- CONTROLS ----------\n");
+	ft_printf(GREEN BOLD "Movements:\n" RESET_COLOR);
+	ft_printf("FORWARD     : [UP (W | ⬆)]\n");
+	ft_printf("BACK        : [DOWN (S | ⬇)]\n");
+	ft_printf("LEFT        : [LEFT (A)]\n");
+	ft_printf("RIGHT       : [RIGHT (D)]\n\n");
+	ft_printf(GREEN BOLD "Rotatations :\n" RESET_COLOR);
+	ft_printf("LEFT        : [LEFT (Q | ⬅)]\n");
+	ft_printf("RIGHT       : [RIGHT (E | →)]\n\n");
+	ft_printf(GREEN BOLD "Others:\n" RESET_COLOR);
+	ft_printf("Exit        : [CLOSE (ESC)]\n");
+	ft_printf("------------------------------\n");
 }
 
 static bool	guard(int ac, char **av, t_cub *cub)

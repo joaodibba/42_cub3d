@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:48:58 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 21:48:59 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 22:57:33 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	init_map(t_cub *cub)
 		free(cub->win);
 		return (false);
 	}
-	*cub->map = (t_map){.map = NULL, .floor = 0, .ceiling = 0, .no = NULL,
+	*cub->map = (t_map){.map = NULL, .floor = -1, .ceiling = -1, .no = NULL,
 		.so = NULL, .we = NULL, .ea = NULL};
 	return (true);
 }

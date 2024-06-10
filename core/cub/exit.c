@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:48:30 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 21:48:31 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 22:56:06 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	destroy_window(t_window *win)
 {
 	destroy_image(win->mlx, win->img);
 	mlx_destroy_window(win->mlx, win->win);
-	mlx_destroy_display(win->mlx);
+	// mlx_destroy_display(win->mlx);
 	if (win->mlx)
 		free(win->mlx);
 	if (win)

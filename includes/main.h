@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:54:27 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 21:54:28 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 22:59:56 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			player_move(t_player *player, \
 
 // ------------------ Rendering ------------------
 
-unsigned int	rgb_to_hex(int r, int g, int b);
+int				rgb_to_hex(int r, int g, int b);
 void			paint_window(t_window *win, int ceiling_color, \
 				int floor_color);
 void			render_2d_map(t_cub *cub, t_map *map, \

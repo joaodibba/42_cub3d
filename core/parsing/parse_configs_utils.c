@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:03:00 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:03:01 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:13:40 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	is_line_empty(char *line)
 */
 bool	all_configs_set(t_map *map)
 {
-	if (!map->floor || !map->ceiling || \
+	if (map->floor == -1 || map->ceiling == -1 || \
 		!map->no || !map->so || \
 		!map->ea || !map->we)
 		return (false);

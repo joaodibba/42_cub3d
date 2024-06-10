@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:54:17 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 21:54:18 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 22:56:42 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ typedef struct s_window
 typedef struct s_map
 {
 	char			**map;
-	unsigned int	floor;
-	unsigned int	ceiling;
+	int				floor;
+	int				ceiling;
 	t_image			*no;
 	t_image			*so;
 	t_image			*we;

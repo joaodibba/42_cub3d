@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:02:49 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:02:51 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:14:16 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static bool	handle_map(char **map)
 		{
 			if (!is_valid_map_char(map[i][j]))
 			{
-				printf("Invalid map char: %c\n", map[i][j]);
+				ft_printf("Invalid map char: %c\n", map[i][j]);
 				ft_fprintf(STDERR_FILENO, "Error: Invalid map.\n");
 				return (false);
 			}
