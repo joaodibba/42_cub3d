@@ -13,10 +13,6 @@
 #  define SQUARE_SIZE 10
 # endif
 
-# ifndef PLAYER_SIZE
-#  define PLAYER_SIZE 2
-# endif
-
 # define MOVE_SPEED 0.055
 
 #endif

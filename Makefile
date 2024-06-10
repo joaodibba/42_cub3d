@@ -14,18 +14,16 @@ OS := $(shell uname)
 # Project Name
 CUB = cub3D
 
-WIN_WIDTH = 800
-WIN_HEIGHT = 600
-SQUARE_SIZE = 8
-PLAYER_SIZE = 3
+WIN_WIDTH = 1920
+WIN_HEIGHT = 1080
+SQUARE_SIZE = 20
 
 # Compiler and Flags
 CC      = cc
 CFLAGS	=	-g \
 			-DWIN_WIDTH=$(WIN_WIDTH) \
 			-DWIN_HEIGHT=$(WIN_HEIGHT)\
-			-DSQUARE_SIZE=$(SQUARE_SIZE) \
-			-DPLAYER_SIZE=$(PLAYER_SIZE) \
+			-DSQUARE_SIZE=$(SQUARE_SIZE)
 			-fsanitize=address \
 			# -Wall -Wextra -Werror
 

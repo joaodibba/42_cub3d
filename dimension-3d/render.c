@@ -35,9 +35,9 @@ void    create_wall(t_cub *cub, t_image *image, t_computes *computes, t_map *map
     while (++i < WIN_WIDTH)
     {
         // printf("computes[%d].wall_x: %f\n", i, computes[i].wall_x);
-        if (computes[i].wall_x == 0)
-            color = 0x00FF0000;
-        else if (computes[i].dir == 'N')
+        // if (computes[i].wall_x == 0)
+        //     color = 0x00FF0000;
+        if (computes[i].dir == 'N')
             color = 0x00000000;
         else if (computes[i].dir == 'S')
             color = 0x0000FF00;

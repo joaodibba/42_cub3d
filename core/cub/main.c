@@ -39,27 +39,27 @@ int main(int argc, char **argv)
 {
     t_window        *win = NULL;
     t_map           *map = NULL;
-    t_controller    *ctrl = NULL;
     t_cub           *cub;
+    t_controller    *ctrl;
 
     if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], win, map))
         return (2);
-    ctrl = init_controller(win);
     cub = (t_cub *)malloc(sizeof(t_cub));
     if (!cub)
     {
         ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
         return (2);
     }
-    ctrl = init_controller(win);
-	if (!ctrl)
-	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize controller.\n");
-		return (2);
-	}
     cub->win = win;
     cub->map = map;
-    cub->ctrl = ctrl;
+    cub->ctrl = NULL;
+    cub->ctrl = init_controller(cub);
+	if (!cub->ctrl)
+	{
+		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize controller.\n");
+		free(cub);
+		return (2);
+	}
 	init_player(&cub->player, map);
 
 	print_menu();
@@ -69,7 +69,7 @@ int main(int argc, char **argv)
     ft_free_array(map->map);
     free(map);
     free(win);
+    free(cub->ctrl);
     free(cub);
     return (0);
 }
-
