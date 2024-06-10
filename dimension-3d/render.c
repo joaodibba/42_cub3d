@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:28:01 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 20:24:22 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 20:36:49 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void	set_wall_texture(t_image *image, t_cordinates image_cords, \
 given the map and the player and the computes
 draw the wall for each pixel column with texture
 */
-void	create_wall(t_cub *cub, t_image *image, t_computes *computes,
-		t_map *map)
+void	create_wall(t_image *image, t_computes *computes, t_map *map)
 {
 	double			delta;
 	t_image			*texture;
@@ -101,5 +100,5 @@ void	render_dimension_3d(t_cub *cub)
 	i = -1;
 	while (++i < WIN_WIDTH)
 		raycast(i, cub->map, &cub->player, &cub->cols[i]);
-	create_wall(cub, cub->win->img, cub->cols, cub->map);
+	create_wall(cub->win->img, cub->cols, cub->map);
 }
