@@ -41,11 +41,9 @@ int cube_loop(t_cub *cub)
 	return (0);
 }
 
-bool initialization(t_cub *cub);
-
 int main(int argc, char **argv)
 {
-	static t_cub	*cub;
+	t_cub	*cub;
 
 	cub = (t_cub *)malloc(sizeof(t_cub));
 	if (!cub)
@@ -59,11 +57,10 @@ int main(int argc, char **argv)
 	if (!cub->ctrl)
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize controller.\n");
-		free(cub);
+		exit_cub(cub);
 		return (2);
 	}
 	init_player(&cub->player, cub->map);
-
 	print_menu();
 	mlx_loop_hook(cub->win->mlx, &cube_loop, cub);
 	mlx_loop(cub->win->mlx);

@@ -60,6 +60,9 @@
 
 bool	parser(char *path, t_window *win, t_map *map);
 
+int		exit_cub(t_cub *cub);
+bool	initialization(t_cub *cub);
+
 t_controller	*init_controller(t_cub *cub);
 void			init_player(t_player *player, t_map *map);
 void			player_move(t_player *player, t_controller *controller, char **map);

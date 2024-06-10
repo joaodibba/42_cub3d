@@ -63,28 +63,28 @@ static bool	validate_player(char *str)
 	return (found);
 }
 
-/*
-	@brief Removes empty lines from the array
-	@param array The array to remove empty lines from
-	! FIXME Not using this shit but should ?
-*/
-static void remove_empty_lines_in_array(char ***array) {
-    int i = 0;
-    int j;
+// /*
+// 	@brief Removes empty lines from the array
+// 	@param array The array to remove empty lines from
+// 	! FIXME Not using this shit but should ?
+// */
+// static void remove_empty_lines_in_array(char ***array) {
+//     int i = 0;
+//     int j;
 
-    while ((*array)[i])
-	{
-        if (!is_line_empty((*array)[0]))
-			return ;
-        free((*array)[i]);
-        j = i;
-        while ((*array)[j])
-		{
-            (*array)[j] = (*array)[j + 1];
-            j++;
-        }
-    }
-}
+//     while ((*array)[i])
+// 	{
+//         if (!is_line_empty((*array)[0]))
+// 			return ;
+//         free((*array)[i]);
+//         j = i;
+//         while ((*array)[j])
+// 		{
+//             (*array)[j] = (*array)[j + 1];
+//             j++;
+//         }
+//     }
+// }
 /*
 	@brief Reads the map from the file descriptor
 	@param fd The file descriptor to read the map from

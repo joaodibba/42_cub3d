@@ -16,16 +16,16 @@ CUB = cub3D
 
 WIN_WIDTH = 1920
 WIN_HEIGHT = 1080
-SQUARE_SIZE = 20
+SQUARE_SIZE = 16
 
 # Compiler and Flags
 CC      = cc
 CFLAGS	=	-g \
 			-DWIN_WIDTH=$(WIN_WIDTH) \
-			-DWIN_HEIGHT=$(WIN_HEIGHT)\
-			-DSQUARE_SIZE=$(SQUARE_SIZE)
-			# -fsanitize=address \
-			#-Wall -Wextra -Werror
+			-DWIN_HEIGHT=$(WIN_HEIGHT) \
+			-DSQUARE_SIZE=$(SQUARE_SIZE) \
+			# -Wall -Wextra -Werror \
+			# -fsanitize=address
 
 #-Wall -Wextra -Werror
 

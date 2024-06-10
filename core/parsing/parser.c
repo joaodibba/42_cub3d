@@ -25,6 +25,7 @@ bool	can_read_file(char *path, char *format)
 {
 	int	fd;
 
+	fd = -1;
 	if (check_file_format(path, format))
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -44,13 +45,14 @@ bool	parser(char *path, t_window *win, t_map *map)
 {
 	int	map_fd;
 
+	map_fd = -1;
 	if (!can_read_file(path, ".cub"))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to read map file: %s\n", path);
 		return (false);
 	}
 	map_fd = open(path, O_RDONLY);
-	if (!parse_configs(map_fd, win, map))
+	if (map_fd == -1 || !parse_configs(map_fd, win, map))
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse configs. Please check the map file.\n");
 		close(map_fd);

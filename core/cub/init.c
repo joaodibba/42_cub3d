@@ -67,9 +67,7 @@ bool initialization(t_cub *cub)
         free(cub->win);
         return (false);
     }
-
     cub->win->img->width = WIN_WIDTH;
     cub->win->img->height = WIN_HEIGHT;
-
     return (true);
 }
