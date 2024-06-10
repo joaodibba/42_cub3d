@@ -1,12 +1,12 @@
-NO textures/no.xpm
+NO textures/N.xpm
 
-WE textures/we.xpm
-
-
-EA textures/ea.xpm
+WE textures/W.xpm
 
 
-SO textures/so.xpm
+EA textures/E.xpm
+
+
+SO textures/S.xpm
 
 
 F 255,255,255
