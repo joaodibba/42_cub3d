@@ -27,7 +27,7 @@ void	destroy_window(t_window *win)
 {
 	// destroy_image(win->mlx, win->img->img);
 	mlx_destroy_window(win->mlx, win->win);
-	mlx_destroy_display(win->mlx);
+	// mlx_destroy_display(win->mlx);
 	if (win->mlx)
 		free(win->mlx);
 	if (win)

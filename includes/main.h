@@ -71,7 +71,7 @@ void			player_move(t_player *player, t_controller *controller, char **map);
 
 void			paint_window(t_window *win, int ceiling_color, int floor_color);
 void			render_2d_map(t_cub *cub, t_map *map, t_window *win, t_player player);
-void			draw_square(t_image *img, int x, int y, int size, int color);
+void			draw_square(t_image *img, t_cordinates coord, int size, int color);
 void			put_pixel(t_image *img, int x, int y, int color);
 void			render_dimension_3d(t_cub *cub);
 

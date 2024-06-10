@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:28:01 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 18:11:33 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:21:05 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static double	get_delta_pos(t_image *texture, t_vec_double *pos,
 		pos->y = 0.0;
 		return (delta);
 	}
-	pos->y = (((double)(wall_height - WIN_HEIGHT) / 2) / wall_height) * texture->height;
+	pos->y = (((double)(wall_height - WIN_HEIGHT) / 2) / wall_height)
+		* texture->height;
 	delta = 1 - ((double)(wall_height - WIN_HEIGHT) / wall_height);
 	delta *= texture->height;
 	delta /= WIN_HEIGHT;
@@ -46,16 +47,16 @@ static double	get_delta_pos(t_image *texture, t_vec_double *pos,
 }
 
 // Set the pixel color of the wall texture to the image
-void	set_wall_texture(t_image *image, t_cordinates image_cords,
+void	set_wall_texture(t_image *image, t_cordinates image_cords, \
 		t_image *texture, t_vec_double texture_pos)
 {
 	char	*src;
 	char	*dest;
 
-	src = texture->addr + ((int)(texture_pos.y) * \
-			texture->line_len + (int)(texture_pos.x) * (texture->bpp / 8));
-	dest = image->addr + ((int)image_cords.y * \
-			image->line_len + (int)(image_cords.x) * (image->bpp / 8));
+	src = texture->addr + ((int)(texture_pos.y) *(texture->line_len) \
+	+ (int)(texture_pos.x) *(texture->bpp / 8));
+	dest = image->addr +((int)(image_cords.y) *(image->line_len) \
+	+ (int)(image_cords.x) *(image->bpp / 8));
 	*(unsigned int *)dest = *(unsigned int *)src;
 }
 
@@ -64,7 +65,7 @@ given the map and the player and the computes
 draw the wall for each pixel column with texture
 */
 void	create_wall(t_cub *cub, t_image *image, t_computes *computes,
-	t_map *map)
+		t_map *map)
 {
 	double			delta;
 	t_image			*texture;
