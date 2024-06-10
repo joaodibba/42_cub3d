@@ -6,22 +6,11 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 01:50:46 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 02:53:42 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 03:50:16 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
-
-void	rotate_vector(t_vec_double *vec, double angle)
-{
-	double		rad;
-	t_vec_double tmp;
-
-    rad = angle * M_PI / 180;
-	tmp = (t_vec_double){.x = vec->x, .y = vec->y};
-	vec->x = tmp.x * cos(rad) - tmp.y * sin(rad);
-	vec->y = tmp.x * sin(rad) + tmp.y * cos(rad);
-}
 
 static void	__wall_info(t_computes *computes, t_player *player)
 {

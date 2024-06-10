@@ -1,5 +1,7 @@
 #include "../includes/main.h"
 
+void	rotate_vector(t_vec_double *vec, double angle);
+
 bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,
 		unsigned int y)
 {

@@ -1,6 +1,6 @@
 #include "../includes/main.h"
 
-void	move_if_valid(t_player *player, char **map, t_vec_double dir)
+void	_check_for_colision(t_player *player, char **map, t_vec_double dir)
 {
 	t_vec_double	collision;
 
@@ -21,69 +21,46 @@ void	move_if_valid(t_player *player, char **map, t_vec_double dir)
 		player->pos.y += dir.y;
 }
 
-void	rotate_vector_by_angle(t_vec_double *vector, double angle)
+void	rotate_vector(t_vec_double *vec, double angle)
 {
-	double	new_x;
-	double	new_y;
+	double		rad;
+	t_vec_double tmp;
 
-	new_x = vector->x * cos(angle) - vector->y * sin(angle);
-	new_y = vector->x * sin(angle) + vector->y * cos(angle);
-	*vector = (t_vec_double) {new_x, new_y};
+    rad = angle * M_PI / 180;
+	tmp = (t_vec_double){.x = vec->x, .y = vec->y};
+	vec->x = tmp.x * cos(rad) - tmp.y * sin(rad);
+	vec->y = tmp.x * sin(rad) + tmp.y * cos(rad);
 }
 
-void	normalize_vector_dbl(t_vec_double *vector)
-{
-	double	gcd;
-
-	gcd = sqrt(vector->x * vector->x + vector->y * vector->y);
-	if (gcd != 0)
-		*vector = (t_vec_double){vector->x / gcd, vector->y / gcd};
-	else
-		*vector = (t_vec_double){0, 0};
-}
-
-double	degree_to_radian(double degree)
-{
-	return (degree * M_PI / 180);
-}
-
-void	rotate_vector_by_vector(t_vec_double *vector, t_vec_double *rotate)
+void	rotate_player_dir(t_vec_double *vector, t_vec_double *rotate)
 {
 	double	theta;
-	double	new_x;
-	double	new_y;
+	t_vec_double tmp;
 
 	theta = atan2(rotate->y, rotate->x) + M_PI / 2;
-	new_x = vector->x * cos(theta) + vector->y * -sin(theta);
-	new_y = -vector->x * -sin(theta) + vector->y * cos(theta);
-	vector->x = new_x;
-	vector->y = new_y;
+	tmp = (t_vec_double){.x = vector->x, .y = vector->y};
+	vector->x = tmp.x * cos(theta) + tmp.y * -sin(theta);
+	vector->y = -tmp.x * -sin(theta) + tmp.y * cos(theta);
 }
 
-void player_move(t_player *player, t_controller *controller, char **map) {
-    t_vec_double move_dir = {0, 0};
+void player_move(t_player *player, t_controller *controller, char **map)
+{
+    t_vec_double move_dir;
 
-    if (controller->mv_fw)
-        move_dir.y -= 1;
-    if (controller->mv_bw)
-        move_dir.y += 1;
-    if (controller->mv_lf)
-        move_dir.x -= 1;
-    if (controller->mv_rt)
-        move_dir.x += 1;
+	move_dir = (t_vec_double){0, 0};
+	move_dir.y -= (controller->mv_fw) * MOVE_SPEED;
+	move_dir.y += (controller->mv_bw) * MOVE_SPEED;
+	move_dir.x -= (controller->mv_lf) * MOVE_SPEED;
+	move_dir.x += (controller->mv_rt) * MOVE_SPEED;
 
     if (controller->rt_lf)
-		rotate_vector_by_angle(&player->dir, degree_to_radian(-1));
+		rotate_vector(&player->dir, -ROT_SPEED);
 	if (controller->rt_rt)
-    	rotate_vector_by_angle(&player->dir, degree_to_radian(1));
+    	rotate_vector(&player->dir, ROT_SPEED);
 
-	if (move_dir.x != 0 || move_dir.y != 0)
-	{
-        rotate_vector_by_vector(&move_dir, &player->dir);
-        normalize_vector_dbl(&move_dir);
-        move_dir.x *= MOVE_SPEED;
-        move_dir.y *= MOVE_SPEED;
-        move_if_valid(player, map, move_dir);
-    }
-	normalize_vector_dbl(&player->dir);
+	if (move_dir.x == 0 && move_dir.y == 0)
+		return ;
+
+	rotate_player_dir(&move_dir, &player->dir);
+	_check_for_colision(player, map, move_dir);
 }

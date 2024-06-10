@@ -74,14 +74,6 @@ void			render_dimension_3d(t_cub *cub);
 
 // ------------------ Raycasting ------------------
 
-void			raycast(int column, t_map *map, \
-						t_player *player, t_computes *computes);
-void			__render_computes(t_computes *computes, t_player *player);
-void			__rotate_vector(t_vec_double *vec, double angle);
-void			__log_computes(t_computes *computes);
-void			__log_results(t_computes *computes);
-
-void 			rotate_vector_by_angle(t_vec_double *vector, double angle);
-void			rotate_vector(t_vec_double *vec, double angle);
+void			raycast(int column, t_map *map, t_player *player, t_computes *computes);
 
 #endif

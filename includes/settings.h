@@ -14,5 +14,5 @@
 # endif
 
 # define MOVE_SPEED 0.025
-
+# define ROT_SPEED 0.8
 #endif
