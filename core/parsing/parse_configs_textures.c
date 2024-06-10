@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:03:04 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:03:05 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 21:25:42 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ t_image	*assign_texture(void *mlx, char *path)
 	return (img);
 }
 
+bool	try_assign_color(void *mlx, char *value, t_image **img)
+{
+	*img = assign_texture(mlx, value);
+	if (!*img)
+		return (false);
+	return (true);
+}
+
 bool	select_texture(char *key, char *value, t_window *win, t_map *map)
 {
 	if (!map || !win)
@@ -63,29 +71,13 @@ bool	select_texture(char *key, char *value, t_window *win, t_map *map)
 		return (false);
 	}
 	if (!ft_strncmp(key, "NO", 3) && !map->no)
-	{
-		map->no = assign_texture(win->mlx, value);
-		if (!map->no)
-			return (false);
-	}
+		return (try_assign_color(win->mlx, value, &map->no));
 	else if (!ft_strncmp(key, "SO", 3) && !map->so)
-	{
-		map->so = assign_texture(win->mlx, value);
-		if (!map->so)
-			return (false);
-	}
+		return (try_assign_color(win->mlx, value, &map->so));
 	else if (!ft_strncmp(key, "WE", 3) && !map->we)
-	{
-		map->we = assign_texture(win->mlx, value);
-		if (!map->we)
-			return (false);
-	}
+		return (try_assign_color(win->mlx, value, &map->we));
 	else if (!ft_strncmp(key, "EA", 3) && !map->ea)
-	{
-		map->ea = assign_texture(win->mlx, value);
-		if (!map->ea)
-			return (false);
-	}
+		return (try_assign_color(win->mlx, value, &map->ea));
 	else
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to assign texture\n");

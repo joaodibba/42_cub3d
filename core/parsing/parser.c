@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:02:43 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:02:46 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 21:19:31 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,7 @@ bool	parse_map(int map_fd, t_map **map);
 bool	parse_configs(int map_fd, t_window *win, t_map *map);
 bool	is_line_empty(char *line);
 bool	check_borders(char **map, int i, int j);
-
-void	null_map_confs(t_map *map)
-{
-	map->no = NULL;
-	map->so = NULL;
-	map->we = NULL;
-	map->ea = NULL;
-	map->map = NULL;
-}
+void	null_map_confs(t_map *map);
 
 bool	check_file_format(char *file, char *format)
 {
@@ -55,6 +47,14 @@ bool	can_read_file(char *path, char *format)
 	return (true);
 }
 
+bool	free_close_print_error(t_cub *cub, int map_fd, char *path)
+{
+	free_cub(cub);
+	ft_fprintf(STDERR_FILENO, "Error: %s\n", path);
+	close(map_fd);
+	return (false);
+}
+
 /*
 	@brief Parses the map file
 	@param path The path to the map file
@@ -69,27 +69,12 @@ bool	parser(t_cub *cub, char *path, t_window *win, t_map *map)
 	map_fd = -1;
 	null_map_confs(map);
 	if (!can_read_file(path, ".cub"))
-	{
-		free_cub(cub);
-		ft_fprintf(STDERR_FILENO, "Error: Failed to read map file: %s\n", path);
-		return (false);
-	}
+		return (free_close_print_error(cub, map_fd, "Failed to read map file"));
 	map_fd = open(path, O_RDONLY);
 	if (map_fd == -1 || !parse_configs(map_fd, win, map))
-	{
-		free_cub(cub);
-		ft_fprintf(STDERR_FILENO, \
-			"Error: Failed to parse configs. Please check the map file.\n");
-		close(map_fd);
-		return (false);
-	}
+		return (free_close_print_error(cub, map_fd, "Failed to parse configs"));
 	if (!parse_map(map_fd, &map))
-	{
-		free_cub(cub);
-		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
-		close(map_fd);
-		return (false);
-	}
+		return (free_close_print_error(cub, map_fd, "Failed to parse map"));
 	close(map_fd);
 	return (true);
 }
