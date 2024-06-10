@@ -13,6 +13,6 @@
 #  define SQUARE_SIZE 20
 # endif
 
-# define MOVE_SPEED 0.045
-# define ROT_SPEED 2
+# define MOVE_SPEED 0.025
+# define ROT_SPEED 1.5
 #endif
