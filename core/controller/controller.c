@@ -6,13 +6,13 @@ static int	key_press(int key, t_controller *ctrl)
 		ctrl->mv_fw = true;
 	if (key == DOWN || key == S)
 		ctrl->mv_bw = true;
-	if (key == LEFT || key == A)
+	if (key == A)
 		ctrl->mv_lf = true;
-	if (key == RIGHT || key == D)
+	if (key == D)
 		ctrl->mv_rt = true;
-	if (key == Q)
+	if (key == Q || key == LEFT)
 		ctrl->rt_lf = true;
-	if (key == E)
+	if (key == E || key == RIGHT)
 		ctrl->rt_rt = true;
 	return (0);
 }
@@ -23,13 +23,13 @@ static int	key_release(int key, t_controller *ctrl)
 		ctrl->mv_fw = false;
 	if (key == DOWN || key == S)
 		ctrl->mv_bw = false;
-	if (key == LEFT || key == A)
+	if (key == A)
 		ctrl->mv_lf = false;
-	if (key == RIGHT || key == D)
+	if (key == D)
 		ctrl->mv_rt = false;
-	if (key == Q)
+	if (key == Q || key == LEFT)
 		ctrl->rt_lf = false;
-	if (key == E)
+	if (key == E || key == RIGHT)
 		ctrl->rt_rt = false;
 	return (0);
 }

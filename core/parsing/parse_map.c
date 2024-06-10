@@ -72,13 +72,13 @@ static void remove_empty_lines_in_array(char ***array) {
     int i = 0;
     int j;
 
-    while ((*array)[i]) 
+    while ((*array)[i])
 	{
         if (!is_line_empty((*array)[0]))
 			return ;
         free((*array)[i]);
         j = i;
-        while ((*array)[j]) 
+        while ((*array)[j])
 		{
             (*array)[j] = (*array)[j + 1];
             j++;
@@ -143,9 +143,16 @@ bool	parse_map(int map_fd, t_map **map)
 	if (!(*map)->map)
 		return (false);
 	// remove_empty_lines_in_array(map);
+	printf(GREEN BOLD"Map: \n"RESET_COLOR);
 	for (int i = 0; (*map)->map[i]; i++)
 	{
-		printf("%s\n", (*map)->map[i]);
+		for (int j = 0; (*map)->map[i][j]; j++) {
+			if ((*map)->map[i][j] != '1' && (*map)->map[i][j] != '0')
+				printf(RED UNDERLINE"%c"RESET_COLOR, (*map)->map[i][j]);
+			else
+				printf("%c", (*map)->map[i][j]);
+		}
+		printf("\n");
 	}
 	if (!handle_map((*map)->map))
 	{
