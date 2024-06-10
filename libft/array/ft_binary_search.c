@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:29:59 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 20:26:08 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 20:29:44 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // binary search with recursion
 int	ft_binary_search(int *array, int left, int right, int find)
 {
-	int middle;
+	int	middle;
 
 	if (right >= left)
 	{

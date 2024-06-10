@@ -31,7 +31,10 @@ CFLAGS	=	-g \
 LFT = libft
 MLX = mlx_linux
 
-SRC	 =	core/view/mlx_helper.c \
+SRC	 =	core/cub/exit.c \
+		core/cub/init.c \
+		core/cub/main.c \
+		core/view/mlx_helper.c \
 		core/controller/controller.c \
 		core/parsing/parse_configs.c \
 		core/parsing/parse_configs_colors.c \
