@@ -19,7 +19,7 @@ WIN_HEIGHT = 1080
 SQUARE_SIZE = 16
 
 # Compiler and Flags
-CC      = cc
+CC      = 	cc
 CFLAGS	=	-g \
 			-DWIN_WIDTH=$(WIN_WIDTH) \
 			-DWIN_HEIGHT=$(WIN_HEIGHT) \
@@ -47,17 +47,16 @@ SRC	 =	core/view/mlx_helper.c \
 		raycasting/helpers.c \
 		raycasting/loggers.c \
 		raycasting/raycast.c
-		
+
 OBJ  = $(SRC:.c=.o)
 
 # MLX Library Configuration
 MLX_FLAGS = -L./$(MLX) -lmlx_Linux -L/usr/lib  -I$(MLX) -lXext -lX11 -lm -lz
+
 ifeq ($(OS), Darwin)
 	MLX = mlx_macos
 	MLX_FLAGS = -L./$(MLX) -lmlx -framework OpenGL -framework AppKit
 endif
-
-# Include directories
 
 # Main Build Rule
 all: $(CUB)
@@ -66,7 +65,6 @@ $(CUB): $(OBJ)
 	@printf "$(BL)Compiling $(LFT)$(RC)\n"
 	@make -sC $(LFT) > /dev/null
 	@printf "$(BL)Compiling $(MLX)$(RC)\n"
-#	> /dev/null
 	@make -sC $(MLX) 2> /dev/null
 	@printf "$(BL)Compiling $(CUB)$(RC)\n"
 	@$(CC) $(CFLAGS) -I$(MLX) $^ -o $@ $(LFT)/libft.a $(MLX_FLAGS)
@@ -92,6 +90,3 @@ fclean: clean
 re: fclean all
 
 bonus: all
-
-v: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(CUB) # Map argument still needed
