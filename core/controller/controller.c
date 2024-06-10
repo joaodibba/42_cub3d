@@ -34,27 +34,6 @@ static int	key_release(int key, t_controller *ctrl)
 	return (0);
 }
 
-static int	mouse_move(int x, int y, t_controller *ctrl)
-{
-	// (void)y; // Unused parameter rotation is only on the x axis
-	// if (x > 2 * (WIN_WIDTH / 3))
-	// {
-	// 	ctrl->rt_rt = true;
-	// 	ctrl->rt_lf = false;
-	// }
-	// else if (x < WIN_WIDTH / 3)
-	// {
-	// 	ctrl->rt_lf = true;
-	// 	ctrl->rt_rt = false;
-	// }
-	// else
-	// {
-	// 	ctrl->rt_rt = false;
-	// 	ctrl->rt_lf = false;
-	// }
-	return (0);
-}
-
 int	exit_cub(t_window *win)
 {
 	ft_fprintf(STDOUT_FILENO, "You exited Cub3D\n");
@@ -77,6 +56,5 @@ t_controller	*init_controller(t_window *win)
 	mlx_hook(win->win, 2, (1L << 0), &key_press, ctrl);   // Key press event
 	mlx_hook(win->win, 3, (1L << 1), &key_release, ctrl); // Key release event
 	mlx_hook(win->win, 17, (1L << 0), &exit_cub, win);     // Close button event
-	// mlx_hook(win->win, 6, (1L << 6), &mouse_move, ctrl);  // Mouse move event
 	return (ctrl);
 }

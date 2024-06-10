@@ -2,88 +2,85 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-void    __color(unsigned int *color, t_computes *computes)
+// Calculate the texture to use for the wall based on the direction
+t_image    *get_texture(t_image **texture, t_computes *computes, t_map *map)
 {
     if (computes->dir == 'N')
-        *color = 0x00DF0F0F;
+        return (map->no);
     else if (computes->dir == 'S')
-        *color = 0x0000FF00;
+        return (map->so);
     else if (computes->dir == 'W')
-        *color = 0x000FF0FF;
+        return (map->we);
     else if (computes->dir == 'E')
-        *color = 0x00FF00FF;
+        return (map->ea);
+
+    return (NULL);
 }
 
-void    __get_texture(t_image **texture, t_computes *computes, t_map *map)
+// Calculate the texture position and delta for a pixel on the wall
+static double get_delta_pos(t_image *texture, t_vec_double *pos, int wall_height)
 {
-    if (computes->dir == 'N')
-        *texture = map->no;
-    else if (computes->dir == 'S')
-        *texture = map->so;
-    else if (computes->dir == 'W')
-        *texture = map->we;
-    else if (computes->dir == 'E')
-        *texture = map->ea;
-}
+    double delta;
 
-unsigned int    get_pixel(t_image *texture, int x, int y)
-{
-    return (*(unsigned int *)(texture->addr + (y * texture->line_len + x * (texture->bpp / 8))));
-}
+    delta = 1.0 * texture->height / wall_height;
+    if (wall_height < WIN_HEIGHT)
+    {
+        pos->y = 0.0;
+        return (delta);
+    }
 
-
-// Calculate the texture position and step for drawing the wall
-static void calculate_close_to_wall(t_vec_double *texture_pos, double *delta, int columnHeight, int textureHeight)
-{
     // Calculate the texture position along the y-axis
-    texture_pos->y = (((columnHeight - WIN_HEIGHT) / 2) / columnHeight) * textureHeight;
+    pos->y = (((wall_height - WIN_HEIGHT) / 2) / wall_height) * texture->height;
 
     // Calculate the delta size for incrementing the texture position
-    *delta = 1 - ((columnHeight - WIN_HEIGHT) / columnHeight);
-    *delta *= textureHeight;
-    *delta /= WIN_HEIGHT;
+    delta = 1 - ((wall_height - WIN_HEIGHT) / wall_height);
+    delta *= texture->height;
+    delta /= WIN_HEIGHT;
+    return (delta);
+}
+
+// Set the pixel color of the wall texture to the image
+void    set_wall_texture(t_image *image, t_cordinates image_cords, t_image *texture, t_vec_double texture_pos)
+{
+    char    *pixel_from_texture;
+    char    *pixel_in_image;
+
+    pixel_from_texture = texture->addr + ((int)(texture_pos.y) \
+            * texture->line_len + (int)(texture_pos.x) * (texture->bpp / 8));
+    pixel_in_image = image->addr + (image_cords.y * image->line_len \
+            + (int)(image_cords.x) * (image->bpp / 8));
+    *(unsigned int *)pixel_in_image = *(unsigned int *)pixel_from_texture;
 }
 
 /*
 given the map and the player and the computes
-draw the wall for each pixel column. with color or texture
+draw the wall for each pixel column with texture
 */
 void    create_wall(t_cub *cub, t_image *image, t_computes *computes, t_map *map, t_player *player)
 {
-    unsigned int    i;
-    unsigned int    j;
-    unsigned int    color;
-    t_computes		*computed;
+    double          delta;
     t_image         *texture;
+    t_computes		*computed;
+    t_cordinates    cords;
+    t_vec_double    texture_pos;
 
-    i = -1;
-    while (++i < WIN_WIDTH)
+    cords = (t_cordinates){-1, -1};
+    texture_pos = (t_vec_double){0, 0};
+    while (++cords.x < WIN_WIDTH)
     {
-		computed = &computes[i];
-        __get_texture(&texture, computed, map);
-        t_vec_double window_vec = (t_vec_double){i, computed->start_wall};
-        t_vec_double texture_pos = (t_vec_double){0, 0};
+		computed = &computes[cords.x];
+        texture = get_texture(&texture, computed, map);
 
         if (computed->dir == 'N' || computed->dir == 'E')
             texture_pos.x = (double)texture->width * computed->wall_x;
         else
             texture_pos.x = ((double)texture->width * (1.0 - computed->wall_x));
 
-        double delta = 1.0 * texture->height / computed->wall_height;
-
-        if (computed->wall_height < WIN_HEIGHT)
-            texture_pos.y = 0.0;
-        else
-            calculate_close_to_wall(&texture_pos, &delta, computed->wall_height, texture->height);
-
-        j = computed->start_wall - 1;
-        while (++j < computed->end_wall)
+        delta = get_delta_pos(texture, &texture_pos, computed->wall_height);
+        cords.y = computed->start_wall - 1;
+        while (++cords.y < computed->end_wall)
         {
-			char *text_pxl = texture->addr + ((int)(texture_pos.y) * texture->line_len
-					+ (int)(texture_pos.x) * (texture->bpp / 8));
-			char *win_pxl = image->addr + (j * image->line_len
-					+ (int)(i) * (image->bpp / 8));
-			*(unsigned int *)win_pxl = *(unsigned int *)text_pxl;
+            set_wall_texture(image, cords, texture, texture_pos);
 			texture_pos.y += delta;
         }
     }

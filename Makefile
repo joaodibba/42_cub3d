@@ -27,7 +27,7 @@ CFLAGS	=	-g \
 			-DSQUARE_SIZE=$(SQUARE_SIZE) \
 			-DPLAYER_SIZE=$(PLAYER_SIZE) \
 			-fsanitize=address \
-			# -Wall -Wextra -Werror
+			#-Wall -Wextra -Werror
 
 #-Wall -Wextra -Werror
 
