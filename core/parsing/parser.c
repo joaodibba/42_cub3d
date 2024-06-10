@@ -5,6 +5,7 @@ bool	parse_configs(int map_fd, t_window *win, t_map *map);
 bool	is_line_empty(char *line);
 bool	check_borders(char **map, int i, int j);
 
+
 bool	check_file_format(char *file, char *format)
 {
 	char	*str;
@@ -41,26 +42,28 @@ bool	can_read_file(char *path, char *format)
 	@param map The map struct
 	@return true if the map file was parsed successfully, false otherwise
 */
-bool	parser(char *path, t_window *win, t_map *map)
+bool	parser(t_cub *cub, char *path, t_window *win, t_map *map)
 {
 	int	map_fd;
 
 	map_fd = -1;
+	null_map_confs(map);
 	if (!can_read_file(path, ".cub"))
 	{
+		free_cub(cub);
 		ft_fprintf(STDERR_FILENO, "Error: Failed to read map file: %s\n", path);
 		return (false);
 	}
 	map_fd = open(path, O_RDONLY);
 	if (map_fd == -1 || !parse_configs(map_fd, win, map))
 	{
-		ft_fprintf(STDERR_FILENO, \
-			"Error: Failed to parse configs. Please check the map file.\n");
+		ft_fprintf(STDERR_FILENO, "Error: Failed to parse configs. Please check the map file.\n");
 		close(map_fd);
 		return (false);
 	}
 	if (!parse_map(map_fd, &map))
 	{
+
 		ft_fprintf(STDERR_FILENO, "Error: Failed to parse map: %s\n", path);
 		close(map_fd);
 		return (false);

@@ -11,6 +11,7 @@ void    destroy_image(void *mlx, t_image *img)
 
 void	destroy_map(void *mlx, t_map	*map)
 {
+
     if (!mlx || !map)
         return;
     destroy_image(mlx, map->no);
@@ -25,7 +26,7 @@ void	destroy_map(void *mlx, t_map	*map)
 
 void	destroy_window(t_window *win)
 {
-	// destroy_image(win->mlx, win->img->img);
+	destroy_image(win->mlx, win->img);
 	mlx_destroy_window(win->mlx, win->win);
 	// mlx_destroy_display(win->mlx);
 	if (win->mlx)
@@ -34,9 +35,8 @@ void	destroy_window(t_window *win)
 		free(win);
 }
 
-int	exit_cub(t_cub *cub)
+void	free_cub(t_cub *cub)
 {
-	ft_fprintf(STDOUT_FILENO, "You exited Cub3D\n");
     if (cub->map)
 	    destroy_map(cub->win->mlx, cub->map);
     if (cub->win)
@@ -45,5 +45,11 @@ int	exit_cub(t_cub *cub)
 		free(cub->ctrl);
 	if (cub)
 		free(cub);
+}
+
+int	exit_cub(t_cub *cub)
+{
+	ft_fprintf(STDOUT_FILENO, "You exited Cub3D\n");
+	free_cub(cub);
 	exit(0);
 }

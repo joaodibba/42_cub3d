@@ -58,9 +58,10 @@
 
 // ------------------ Functions ------------------
 
-bool	parser(char *path, t_window *win, t_map *map);
+bool	parser(t_cub *cub, char *path, t_window *win, t_map *map);
 
 int		exit_cub(t_cub *cub);
+void	free_cub(t_cub *cub);
 bool	initialization(t_cub *cub);
 
 t_controller	*init_controller(t_cub *cub);

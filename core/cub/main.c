@@ -19,10 +19,11 @@ void	print_menu(void)
 	printf("------------------------------\n");
 }
 
-static bool	guard(int ac, char **av)
+static bool	guard(int ac, char **av, t_cub *cub)
 {
 	if (ac == 2 && av[0] && av[1])
 		return (true);
+	free_cub(cub);
 	ft_fprintf(STDERR_FILENO, "Error: Invalid use.\n");
 	ft_fprintf(STDERR_FILENO, "Usage: ./cub3D [path/to/map.ber]\n");
 	return (false);
@@ -41,17 +42,24 @@ int cube_loop(t_cub *cub)
 	return (0);
 }
 
+void null_cub_configs(t_cub *cub) {
+	cub->win = NULL;
+	cub->map = NULL;
+	cub->ctrl = NULL;
+}
+
 int main(int argc, char **argv)
 {
 	t_cub	*cub;
 
 	cub = (t_cub *)malloc(sizeof(t_cub));
+	null_cub_configs(cub);
 	if (!cub)
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
 		return (2);
 	}
-	if (!guard(argc, argv) || !initialization(cub) || !parser(argv[1], cub->win, cub->map))
+	if (!guard(argc, argv, cub) || !initialization(cub) || !parser(cub, argv[1], cub->win, cub->map))
 		return (2);
 	cub->ctrl = init_controller(cub);
 	if (!cub->ctrl)
