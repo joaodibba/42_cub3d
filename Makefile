@@ -14,9 +14,9 @@ OS := $(shell uname)
 # Project Name
 CUB = cub3D
 
-WIN_WIDTH = 1400
-WIN_HEIGHT = 1200
-SQUARE_SIZE = 20
+WIN_WIDTH = 800
+WIN_HEIGHT = 600
+SQUARE_SIZE = 14
 
 # Compiler and Flags
 CC      = 	cc
@@ -95,5 +95,5 @@ re: fclean all
 
 bonus: all
 
-norm: 
+norm:
 	norminette core dimension-2d dimension-3d entities raycasting includes $(LFT)
