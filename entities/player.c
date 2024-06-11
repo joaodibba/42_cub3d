@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:50:12 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 23:14:26 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:36:22 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	rotate_vector(t_vec_double *vec, double angle);
 
 void	__display_player_info(t_player *player, char dir)
 {
-	ft_printf("------------------------------\n");
-	ft_printf(GREEN BOLD "Player: \n" RESET_COLOR);
-	ft_printf(CYAN "Found at: (%d, %d)\n" RESET_COLOR, (int)player->pos.x, \
+	printf("------------------------------\n");
+	printf(GREEN BOLD "Player: \n" RESET_COLOR);
+	printf(CYAN "Found at: (%d, %d)\n" RESET_COLOR, (int)player->pos.x, \
 		(int)player->pos.y);
-	ft_printf(CYAN "Direction: (%c)\n" RESET_COLOR, dir);
+	printf(CYAN "Direction: (%c)\n" RESET_COLOR, dir);
 }
 
 bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,

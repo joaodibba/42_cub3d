@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:02:43 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/06/10 21:39:30 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:34:01 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ bool	do_stuff(t_cub *cub, int map_fd, char *path)
 {
 	free_cub(cub);
 	ft_fprintf(STDERR_FILENO, "Error: %s\n", path);
-	close(map_fd);
+	if (map_fd != -1)
+		close(map_fd);
 	return (false);
 }
 
