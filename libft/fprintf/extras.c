@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extras.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 23:50:16 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/05/16 23:51:50 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:30:30 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_fputcharprintf(int fd, char c)
 	return (1);
 }
 
-int		ft_fputstr(int fd, char *str)
+int	ft_fputstr(int fd, char *str)
 {
 	int	len;
 

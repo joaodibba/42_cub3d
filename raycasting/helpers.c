@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 01:50:46 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 05:26:48 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/10 12:18:12 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	__render_computes(t_computes *computes, t_player *player)
 	computes->start_wall = fmax(0, (WIN_HEIGHT / 2) - (computes->wall_height
 				/ 2));
 	computes->end_wall = fmin(WIN_HEIGHT, (WIN_HEIGHT / 2)
-			+ (int)(computes->wall_height / 2));
+			+ (int)ceil(computes->wall_height / 2));
 	computes->hit_pos.x = player->pos.x + computes->dist_to_wall
 		* computes->ray.x;
 	computes->hit_pos.y = player->pos.y + computes->dist_to_wall

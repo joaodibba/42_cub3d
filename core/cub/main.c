@@ -1,83 +1,89 @@
-#include "../../includes/main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:48:54 by rphuyal           #+#    #+#             */
+/*   Updated: 2024/06/10 23:14:03 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// TODO: later change all printf to ft_printf
-// ! No need to change printf to ft_printf because printf is allowed in the project
+#include "../../includes/main.h"
 
 void	print_menu(void)
 {
-    printf("---------- CONTROLS ----------\n");
-	printf(GREEN BOLD "Movements:\n" RESET_COLOR);
-    printf("FORWARD     : [UP (W | ⬆)]\n");
-    printf("BACK        : [DOWN (S | ⬇)]\n");
-    printf("LEFT        : [A]\n");
-    printf("RIGHT       : [D]\n\n");
-	printf(GREEN BOLD "Rotatations :\n" RESET_COLOR);
-    printf("LEFT        : [LEFT (Q | ⬅)]\n");
-    printf("RIGHT       : [RIGHT (E | →)]\n\n");
-    printf(GREEN BOLD "Others:\n" RESET_COLOR);
-	printf("Exit        : [CLOSE (ESC)]\n");
-    printf("------------------------------\n");
+	ft_printf("---------- CONTROLS ----------\n");
+	ft_printf(GREEN BOLD "Movements:\n" RESET_COLOR);
+	ft_printf("FORWARD     : [UP (W | ⬆)]\n");
+	ft_printf("BACK        : [DOWN (S | ⬇)]\n");
+	ft_printf("LEFT        : [LEFT (A)]\n");
+	ft_printf("RIGHT       : [RIGHT (D)]\n\n");
+	ft_printf(GREEN BOLD "Rotatations :\n" RESET_COLOR);
+	ft_printf("LEFT        : [LEFT (Q | ⬅)]\n");
+	ft_printf("RIGHT       : [RIGHT (E | →)]\n\n");
+	ft_printf(GREEN BOLD "Others:\n" RESET_COLOR);
+	ft_printf("Exit        : [CLOSE (ESC)]\n");
+	ft_printf("------------------------------\n");
 }
 
-static bool	guard(int ac, char **av)
+static bool	guard(int ac, char **av, t_cub *cub)
 {
 	if (ac == 2 && av[0] && av[1])
 		return (true);
+	free_cub(cub);
 	ft_fprintf(STDERR_FILENO, "Error: Invalid use.\n");
 	ft_fprintf(STDERR_FILENO, "Usage: ./cub3D [path/to/map.ber]\n");
 	return (false);
 }
 
-void    update_camera_plane(t_player *player);
+void		update_camera_plane(t_player *player);
 
-int cube_loop(t_cub *cub)
+int	cube_loop(t_cub *cub)
 {
 	player_move(&cub->player, cub->ctrl, cub->map->map);
 	paint_window(cub->win, cub->map->ceiling, cub->map->floor);
-    update_camera_plane(&cub->player);
+	update_camera_plane(&cub->player);
 	render_dimension_3d(cub);
 	render_2d_map(cub, cub->map, cub->win, cub->player);
-	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0, 0);
+	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img->img, 0,
+		0);
 	return (0);
 }
 
-bool initialization(t_window **win, t_map **map);
-
-int main(int argc, char **argv)
+void	null_cub_configs(t_cub *cub)
 {
-    t_window        *win = NULL;
-    t_map           *map = NULL;
-    t_cub           *cub;
-    t_controller    *ctrl;
+	cub->win = NULL;
+	cub->map = NULL;
+	cub->ctrl = NULL;
+}
 
-    if (!guard(argc, argv) || !initialization(&win, &map) || !parser(argv[1], win, map))
-        return (2);
-    cub = (t_cub *)malloc(sizeof(t_cub));
-    if (!cub)
-    {
-        ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for cub.\n");
-        return (2);
-    }
-    cub->win = win;
-    cub->map = map;
-    cub->ctrl = NULL;
-    cub->ctrl = init_controller(cub);
+int	main(int argc, char **argv)
+{
+	t_cub	*cub;
+
+	cub = (t_cub *)malloc(sizeof(t_cub));
+	null_cub_configs(cub);
+	if (!cub)
+	{
+		ft_fprintf(STDERR_FILENO,
+			"Error: Failed to allocate memory for cub.\n");
+		return (2);
+	}
+	if (!guard(argc, argv, cub) || !initialization(cub) || !parser(cub, argv[1],
+			cub->win, cub->map))
+		return (2);
+	cub->ctrl = init_controller(cub);
 	if (!cub->ctrl)
 	{
 		ft_fprintf(STDERR_FILENO, "Error: Failed to initialize controller.\n");
-		free(cub);
+		exit_cub(cub);
 		return (2);
 	}
-	init_player(&cub->player, map);
-
+	init_player(&cub->player, cub->map);
 	print_menu();
-    mlx_loop_hook(win->mlx, &cube_loop, cub);
-    mlx_loop(win->mlx);
-
-    ft_free_array(map->map);
-    free(map);
-    free(win);
-    free(cub->ctrl);
-    free(cub);
-    return (0);
+	mlx_loop_hook(cub->win->mlx, &cube_loop, cub);
+	mlx_loop(cub->win->mlx);
+	return (0);
 }

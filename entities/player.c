@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:50:12 by rphuyal           #+#    #+#             */
+/*   Updated: 2024/06/10 23:14:26 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/main.h"
 
 void	rotate_vector(t_vec_double *vec, double angle);
 
-void    __display_player_info(t_player *player, char dir)
+void	__display_player_info(t_player *player, char dir)
 {
-	printf("------------------------------\n");
-	printf(GREEN BOLD"Player: \n"RESET_COLOR);
-	printf(CYAN"Found at: (%d, %d)\n"RESET_COLOR, (int)player->pos.x, (int)player->pos.y);
-	printf(CYAN"Start: (%f, %f)\n"RESET_COLOR, player->pos.x, player->pos.y);
-	printf(CYAN"Direction: (%c)\n"RESET_COLOR, dir);
+	ft_printf("------------------------------\n");
+	ft_printf(GREEN BOLD "Player: \n" RESET_COLOR);
+	ft_printf(CYAN "Found at: (%d, %d)\n" RESET_COLOR, (int)player->pos.x, \
+		(int)player->pos.y);
+	ft_printf(CYAN "Direction: (%c)\n" RESET_COLOR, dir);
 }
 
 bool	__player_exists_here(t_map *map, t_player *player, unsigned int x,
@@ -47,7 +59,7 @@ void	_player_start_pos(t_map *map, t_player *player)
 		}
 		y++;
 	}
-	return;
+	return ;
 }
 
 void	update_camera_plane(t_player *player)

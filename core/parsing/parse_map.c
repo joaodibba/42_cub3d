@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:02:49 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/06/10 23:14:16 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/main.h"
 
@@ -24,7 +35,7 @@ static bool	handle_map(char **map)
 		{
 			if (!is_valid_map_char(map[i][j]))
 			{
-				printf("Invalid map char: %c\n", map[i][j]);
+				ft_printf("Invalid map char: %c\n", map[i][j]);
 				ft_fprintf(STDERR_FILENO, "Error: Invalid map.\n");
 				return (false);
 			}
@@ -64,28 +75,6 @@ static bool	validate_player(char *str)
 }
 
 /*
-	@brief Removes empty lines from the array
-	@param array The array to remove empty lines from
-	! FIXME Not using this shit but should ?
-*/
-static void remove_empty_lines_in_array(char ***array) {
-    int i = 0;
-    int j;
-
-    while ((*array)[i])
-	{
-        if (!is_line_empty((*array)[0]))
-			return ;
-        free((*array)[i]);
-        j = i;
-        while ((*array)[j])
-		{
-            (*array)[j] = (*array)[j + 1];
-            j++;
-        }
-    }
-}
-/*
 	@brief Reads the map from the file descriptor
 	@param fd The file descriptor to read the map from
 	@return The map read from the file descriptor
@@ -95,8 +84,9 @@ static char	*read_map(int fd)
 	char	*line;
 	char	*text;
 	char	*temp;
-	bool	found = false;
+	bool	found;
 
+	found = false;
 	text = ft_strdup("");
 	line = get_next_line(fd);
 	while (line)
@@ -108,13 +98,12 @@ static char	*read_map(int fd)
 			return (NULL);
 		}
 		if (*line != '\n')
-				found = true;
+			found = true;
 		temp = ft_strjoin(text, line);
 		free(text);
 		free(line);
 		text = temp;
 		line = get_next_line(fd);
-
 	}
 	return (text);
 }
@@ -142,22 +131,7 @@ bool	parse_map(int map_fd, t_map **map)
 	free(map_line);
 	if (!(*map)->map)
 		return (false);
-	// remove_empty_lines_in_array(map);
-	printf(GREEN BOLD"Map: \n"RESET_COLOR);
-	for (int i = 0; (*map)->map[i]; i++)
-	{
-		for (int j = 0; (*map)->map[i][j]; j++) {
-			if ((*map)->map[i][j] != '1' && (*map)->map[i][j] != '0')
-				printf(RED UNDERLINE"%c"RESET_COLOR, (*map)->map[i][j]);
-			else
-				printf("%c", (*map)->map[i][j]);
-		}
-		printf("\n");
-	}
 	if (!handle_map((*map)->map))
-	{
-		ft_free_array((*map)->map);
 		return (false);
-	}
 	return (true);
 }

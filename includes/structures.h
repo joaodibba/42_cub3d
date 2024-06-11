@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:54:17 by rphuyal           #+#    #+#             */
+/*   Updated: 2024/06/10 23:18:06 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
@@ -27,22 +39,23 @@ typedef struct s_player
 }					t_player;
 
 // @brief The computes structure for raycasting
-typedef struct s_computes {
-    bool            hit;
-    char            dir;
-    int             side;
-    int             end_wall;
-    int             start_wall;
-    int             wall_height;
-    double          dist_to_wall;
-    double          wall_x;
-    t_vec_double    hit_pos;
+typedef struct s_computes
+{
+	bool			hit;
+	char			dir;
+	int				side;
+	int				end_wall;
+	int				start_wall;
+	int				wall_height;
+	double			dist_to_wall;
+	double			wall_x;
+	t_vec_double	hit_pos;
 	t_vec_double	ray;
-	t_cordinates    map;
-    t_cordinates    step;
+	t_cordinates	map;
+	t_cordinates	step;
 	t_vec_double	delta;
 	t_vec_double	step_size;
-} t_computes;
+}					t_computes;
 
 // @brief The controller structure for player movement and game state
 typedef struct s_controller
@@ -61,7 +74,6 @@ typedef struct s_image
 {
 	void			*img;
 	char			*addr;
-	char			*path;
 	int				bpp;
 	int				line_len;
 	int				width;
@@ -83,8 +95,8 @@ typedef struct s_window
 typedef struct s_map
 {
 	char			**map;
-	unsigned int	floor;
-	unsigned int	ceiling;
+	int				floor;
+	int				ceiling;
 	t_image			*no;
 	t_image			*so;
 	t_image			*we;

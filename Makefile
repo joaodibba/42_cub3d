@@ -14,48 +14,53 @@ OS := $(shell uname)
 # Project Name
 CUB = cub3D
 
-WIN_WIDTH = 1920
-WIN_HEIGHT = 1080
+WIN_WIDTH = 1400
+WIN_HEIGHT = 1200
 SQUARE_SIZE = 20
 
 # Compiler and Flags
-CC      = cc
+CC      = 	cc
 CFLAGS	=	-g \
 			-DWIN_WIDTH=$(WIN_WIDTH) \
-			-DWIN_HEIGHT=$(WIN_HEIGHT)\
-			-DSQUARE_SIZE=$(SQUARE_SIZE)
-			-fsanitize=address \
-			#-Wall -Wextra -Werror
-
-#-Wall -Wextra -Werror
+			-DWIN_HEIGHT=$(WIN_HEIGHT) \
+			-DSQUARE_SIZE=$(SQUARE_SIZE) \
+			-Wall -Wextra -Werror \
+			#-fsanitize=address
 
 # Source directories and files
 LFT = libft
 MLX = mlx_linux
 
-DIRS =	core/cub \
-		core/model \
-		core/view \
-		core/controller \
-		core/parsing \
-		dimension-2d \
-		dimension-3d \
-		entities \
-		raycasting
+SRC	 =	core/cub/exit.c \
+		core/cub/init.c \
+		core/cub/main.c \
+		core/view/mlx_helper.c \
+		core/controller/controller.c \
+		core/parsing/parse_configs.c \
+		core/parsing/parse_configs_line.c \
+		core/parsing/parse_configs_colors.c \
+		core/parsing/parse_configs_textures.c \
+		core/parsing/parse_configs_utils.c \
+		core/parsing/parse_map.c \
+		core/parsing/parse_map_utils.c \
+		core/parsing/parser.c \
+		dimension-2d/render.c \
+		dimension-3d/render.c \
+		entities/player.c \
+		entities/player_movement.c \
+		raycasting/helpers.c \
+		raycasting/raycast.c
 
-SRC = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
+
 OBJ  = $(SRC:.c=.o)
 
 # MLX Library Configuration
 MLX_FLAGS = -L./$(MLX) -lmlx_Linux -L/usr/lib  -I$(MLX) -lXext -lX11 -lm -lz
+
 ifeq ($(OS), Darwin)
 	MLX = mlx_macos
 	MLX_FLAGS = -L./$(MLX) -lmlx -framework OpenGL -framework AppKit
 endif
-
-# Include directories
-INCLUDES = $(foreach dir, $(DIRS), $(wildcard $(dir)/inc))
-INC = $(addprefix -I, $(INCLUDES))
 
 # Main Build Rule
 all: $(CUB)
@@ -64,15 +69,14 @@ $(CUB): $(OBJ)
 	@printf "$(BL)Compiling $(LFT)$(RC)\n"
 	@make -sC $(LFT) > /dev/null
 	@printf "$(BL)Compiling $(MLX)$(RC)\n"
-#	> /dev/null
 	@make -sC $(MLX) 2> /dev/null
 	@printf "$(BL)Compiling $(CUB)$(RC)\n"
-	@$(CC) $(CFLAGS) -I$(MLX) $(INC) $^ -o $@ $(LFT)/libft.a $(MLX_FLAGS)
-	@printf  "$(GR)$(CUB) Compiled!$(RC)\n"
+	@$(CC) $(CFLAGS) -I$(MLX) $^ -o $@ $(LFT)/libft.a $(MLX_FLAGS)
+	@printf  "$(GR) $(CUB) Compiled!$(RC)\n"
 
 %.o: %.c
 	@printf "$(BL)Compiling $< into $@$(RC)\n"
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@printf "$(BL)Cleaning .o files$(RC)\n"
@@ -91,5 +95,5 @@ re: fclean all
 
 bonus: all
 
-v: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(CUB) # Map argument still needed
+norm: 
+	norminette core dimension-2d dimension-3d entities raycasting includes $(LFT)

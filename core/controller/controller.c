@@ -1,11 +1,16 @@
-#include "../../includes/main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   controller.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:49:14 by rphuyal           #+#    #+#             */
+/*   Updated: 2024/06/10 21:49:15 by rphuyal          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	exit_cub(t_cub *cub)
-{
-	ft_fprintf(STDOUT_FILENO, "You exited Cub3D\n");
-	mlx_destroy_window(cub->win->mlx, cub->win->win);
-	exit(0);
-}
+#include "../../includes/main.h"
 
 static int	key_press(int key, t_cub *cub)
 {
@@ -13,13 +18,13 @@ static int	key_press(int key, t_cub *cub)
 		cub->ctrl->mv_fw = true;
 	if (key == DOWN || key == S)
 		cub->ctrl->mv_bw = true;
-	if (key == LEFT || key == A)
+	if (key == A)
 		cub->ctrl->mv_lf = true;
-	if (key == RIGHT || key == D)
+	if (key == D)
 		cub->ctrl->mv_rt = true;
-	if (key == Q)
+	if (key == Q || key == LEFT)
 		cub->ctrl->rt_lf = true;
-	if (key == E)
+	if (key == E || key == RIGHT)
 		cub->ctrl->rt_rt = true;
 	if (key == ESC)
 		exit_cub(cub);
@@ -32,13 +37,13 @@ static int	key_release(int key, t_cub *cub)
 		cub->ctrl->mv_fw = false;
 	if (key == DOWN || key == S)
 		cub->ctrl->mv_bw = false;
-	if (key == LEFT || key == A)
+	if (key == A)
 		cub->ctrl->mv_lf = false;
-	if (key == RIGHT || key == D)
+	if (key == D)
 		cub->ctrl->mv_rt = false;
-	if (key == Q)
+	if (key == Q || key == LEFT)
 		cub->ctrl->rt_lf = false;
-	if (key == E)
+	if (key == E || key == RIGHT)
 		cub->ctrl->rt_rt = false;
 	return (0);
 }
@@ -50,7 +55,7 @@ t_controller	*init_controller(t_cub *cub)
 	ctrl = (t_controller *)malloc(sizeof(t_controller));
 	if (!ctrl)
 	{
-		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate memory for controller.\n");
+		ft_fprintf(STDERR_FILENO, "Error: Failed to allocate controller.\n");
 		return (NULL);
 	}
 	*ctrl = (t_controller){.mv_fw = false, .mv_bw = false, .mv_lf = false,

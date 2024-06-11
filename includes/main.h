@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:54:27 by rphuyal           #+#    #+#             */
+/*   Updated: 2024/06/10 22:59:56 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAIN_H
 # define MAIN_H
 
@@ -58,22 +70,33 @@
 
 // ------------------ Functions ------------------
 
-bool	parser(char *path, t_window *win, t_map *map);
+bool			parser(t_cub *cub, char *path, \
+				t_window *win, t_map *map);
+
+int				exit_cub(t_cub *cub);
+void			free_cub(t_cub *cub);
+bool			initialization(t_cub *cub);
 
 t_controller	*init_controller(t_cub *cub);
 void			init_player(t_player *player, t_map *map);
-void			player_move(t_player *player, t_controller *controller, char **map);
+void			player_move(t_player *player, \
+				t_controller *controller, char **map);
 
 // ------------------ Rendering ------------------
 
-void			paint_window(t_window *win, int ceiling_color, int floor_color);
-void			render_2d_map(t_cub *cub, t_map *map, t_window *win, t_player player);
-void			draw_square(t_image *img, int x, int y, int size, int color);
+int				rgb_to_hex(int r, int g, int b);
+void			paint_window(t_window *win, int ceiling_color, \
+				int floor_color);
+void			render_2d_map(t_cub *cub, t_map *map, \
+				t_window *win, t_player player);
+void			draw_square(t_image *img, t_cordinates coord, \
+				int size, int color);
 void			put_pixel(t_image *img, int x, int y, int color);
 void			render_dimension_3d(t_cub *cub);
 
 // ------------------ Raycasting ------------------
 
-void			raycast(int column, t_map *map, t_player *player, t_computes *computes);
+void			raycast(int column, t_map *map, \
+				t_player *player, t_computes *computes);
 
 #endif

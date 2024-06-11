@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_configs_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:03:00 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/06/10 23:13:40 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/main.h"
 
 bool	is_space(char c);
@@ -7,9 +19,9 @@ bool	is_space(char c);
 	@param key The key to check
 	@return true if the key is a texture, false otherwise
 */
- bool	is_texture(char *key)
+bool	is_texture(char *key)
 {
-	return (!ft_strncmp(key, "NO", 3) || !ft_strncmp(key, "SO", 3)
+	return (!ft_strncmp(key, "NO", 3) || !ft_strncmp(key, "SO", 3) \
 		|| !ft_strncmp(key, "WE", 3) || !ft_strncmp(key, "EA", 3));
 }
 
@@ -18,7 +30,7 @@ bool	is_space(char c);
 	@param key The key to check
 	@return true if the key is a color, false otherwise
 */
- bool	is_color(char *key)
+bool	is_color(char *key)
 {
 	return (!ft_strncmp(key, "F", 2) || !ft_strncmp(key, "C", 2));
 }
@@ -44,10 +56,10 @@ bool	is_line_empty(char *line)
 	@param map The map structure
 	@return true if all the configurations are set, false otherwise
 */
- bool	all_configs_set(t_map *map)
+bool	all_configs_set(t_map *map)
 {
-	if (!map->floor || !map->ceiling ||
-		!map->no || !map->so ||
+	if (map->floor == -1 || map->ceiling == -1 || \
+		!map->no || !map->so || \
 		!map->ea || !map->we)
 		return (false);
 	return (true);
@@ -63,6 +75,5 @@ bool	gnl(int fd, char **line)
 	*line = get_next_line(fd);
 	if (!*line)
 		return (false);
-
 	return (true);
 }

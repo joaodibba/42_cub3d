@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 21:02:54 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/06/10 21:19:39 by jalves-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/main.h"
 
@@ -8,12 +19,13 @@
 */
 bool	check_borders(char **map, int i, int j)
 {
-	if (j == 0 || i == 0 || !map[i + 1] || !map[i][j + 1] || !map[i][j - 1] \
-		|| !map[i - 1][j] || !map[i + 1][j] \
-		|| (map[i][j - 1] && map[i][j- 1] == ' ') \
-		|| (map[i][j + 1] && map[i][j + 1] == ' ') \
-		|| (map[i- 1][j] && map[i - 1][j] == ' ') \
-		|| (map[i + 1][j] && map[i+ 1][j] == ' '))
+	if (j == 0 || i == 0 || !map[i + 1] || \
+		!map[i][j + 1] || !map[i][j - 1] || \
+		!map[i - 1][j] || !map[i + 1][j] || \
+		(map[i][j - 1] && map[i][j - 1] == ' ') || \
+		(map[i][j + 1] && map[i][j + 1] == ' ') || \
+		(map[i - 1][j] && map[i - 1][j] == ' ') || \
+		(map[i + 1][j] && map[i + 1][j] == ' '))
 	{
 		return (false);
 	}
@@ -51,4 +63,13 @@ bool	is_space(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
 		|| c == '\r');
+}
+
+void	null_map_confs(t_map *map)
+{
+	map->no = NULL;
+	map->so = NULL;
+	map->we = NULL;
+	map->ea = NULL;
+	map->map = NULL;
 }
