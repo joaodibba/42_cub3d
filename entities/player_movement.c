@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:50:17 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 21:50:18 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/11 12:14:13 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	rotate_player_dir(t_vec_double *vector, t_vec_double *rotate)
 	vector->y = -tmp.x * -sin(theta) + tmp.y * cos(theta);
 }
 
-void	_normalizer(t_vec_double *vector)
+void	_get_vec_magnitude(t_vec_double *vector)
 {
 	double	length;
 
@@ -83,5 +83,5 @@ void	player_move(t_player *player, t_controller *controller, char **map)
 	move_dir.x *= MOVE_SPEED;
 	move_dir.y *= MOVE_SPEED;
 	_check_for_colision(player, map, move_dir);
-	_normalizer(&player->dir);
+	_get_vec_magnitude(&player->dir);
 }

@@ -16,7 +16,7 @@ CUB = cub3D
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 600
-SQUARE_SIZE = 14
+SQUARE_SIZE = 10
 
 # Compiler and Flags
 CC      = 	cc
