@@ -16,7 +16,7 @@ CUB = cub3D
 
 WIN_WIDTH = 1000
 WIN_HEIGHT = 800
-SQUARE_SIZE = 12
+SQUARE_SIZE = 10
 
 # Compiler and Flags
 CC      = 	cc
@@ -24,7 +24,7 @@ CFLAGS	=	-g \
 			-DWIN_WIDTH=$(WIN_WIDTH) \
 			-DWIN_HEIGHT=$(WIN_HEIGHT) \
 			-DSQUARE_SIZE=$(SQUARE_SIZE) \
-			-Wall -Wextra -Werror -O3 \
+			-Wall -Wextra -Werror \
 			#-fsanitize=address
 
 # Source directories and files

@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:50:03 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 21:50:04 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/11 19:10:29 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	draw_rays(t_cub *cub)
 	{
 		hit_cord.x = cub->cols[i].hit_pos.x * SQUARE_SIZE - player_cord.x;
 		hit_cord.y = cub->cols[i].hit_pos.y * SQUARE_SIZE - player_cord.y;
-		draw_line(cub->win->img, &player_cord, &hit_cord, 0x00F5F1D3);
+		draw_line(cub->win->img, &player_cord, &hit_cord, 0x00FFFF66);
 	}
 }
 

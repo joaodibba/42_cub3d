@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:54:21 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 21:54:22 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/11 18:33:29 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #  define SQUARE_SIZE 20
 # endif
 
-# define MOVE_SPEED 0.045
-# define ROT_SPEED 1.5
+# define MOVE_SPEED 0.025
+# define ROT_SPEED 1
 
 #endif

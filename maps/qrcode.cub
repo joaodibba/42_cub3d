@@ -1,13 +1,7 @@
-NO textures/N.xpm
-
-WE textures/W.xpm
-
-
-EA textures/E.xpm
-
-
-SO textures/S.xpm
-
+NO textures/poolN.xpm
+WE textures/poolW.xpm
+EA textures/poolE.xpm
+SO textures/poolS.xpm
 
 F 255,255,255
 
