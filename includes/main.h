@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:54:27 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 22:59:56 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/13 05:08:48 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stddef.h>
+# include <time.h>
 
 // ------------------ Local Headers ------------------
 

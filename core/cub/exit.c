@@ -6,7 +6,7 @@
 /*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:48:30 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/11 15:49:51 by rphuyal          ###   ########.fr       */
+/*   Updated: 2024/06/12 14:12:57 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	destroy_window(t_window *win)
 {
 	destroy_image(win->mlx, win->img);
 	mlx_destroy_window(win->mlx, win->win);
-	mlx_destroy_display(win->mlx);
+	// apple doesn't suppor this function, for now just ignore it
+	// mlx_destroy_display(win->mlx);
 	if (win->mlx)
 		free(win->mlx);
 	if (win)

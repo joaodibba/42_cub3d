@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: rphuyal <rphuyal@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 21:54:17 by rphuyal           #+#    #+#             */
-/*   Updated: 2024/06/10 23:18:06 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/06/13 05:08:34 by rphuyal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ typedef struct s_cub
 	t_window		*win;
 	t_map			*map;
 	t_controller	*ctrl;
+	time_t			start;
+	time_t			current;
 	t_player		player;
 	t_computes		cols[WIN_WIDTH];
 }					t_cub;
